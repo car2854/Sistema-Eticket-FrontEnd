@@ -1,0 +1,169 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Nueva area</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Datos de la area</h3>
+          </div>
+
+          <form>
+            <div class="card-body">
+
+
+              <div class="row">
+                
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label >Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre">
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label >Capacidad</label>
+                    <input type="number" class="form-control" placeholder="Capacidad">
+                  </div>
+                </div>
+
+              </div>
+              
+              <div class="row">
+                
+                <div class="col-12 col-sm-12">
+                  <div class="form-group">
+                    <label >Referencia</label>
+                    <input type="text" class="form-control" placeholder="Referencia">
+                  </div>
+                </div>
+
+              </div>
+              
+            </div>
+            
+          </form>
+        </div>
+
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title">
+              <h3 class="card-title mr-3">Espacios asignados para esta area</h3>
+              <div>
+                <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-espacio">Crear nuevo espacio</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Numero</th>
+                  <th>Descripcion</th>
+                  <th>Capacidad</th>
+                  <th style="width: 150px">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Descripcion 1</td>
+                  <td>50</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="#">Editar</a>
+                        <a class="dropdown-item" href="#">Eliminar</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="modal-espacio">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo espacio</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+                
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label >Numero</label>
+              <input type="text" class="form-control" placeholder="Numero">
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label >Capacidad</label>
+              <input type="number" class="form-control" placeholder="Capacidad">
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <label >Descripcion</label>
+            <textarea class="form-control" placeholder="descripcion"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,222 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Crear ubicacion</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Datos de la ubicacion</h3>
+          </div>
+
+          <form>
+            <div class="card-body">
+
+
+              <div class="row">
+                
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label >Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre">
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label >Capacidad</label>
+                    <input type="number" class="form-control" placeholder="Capacidad">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                
+                <div class="col-12 col-sm-12">
+                  <div class="form-group">
+                    <label >Ubicacion</label>
+                    <input type="text" class="form-control" placeholder="Ubicacion">
+                  </div>
+                </div>
+
+              </div>
+              
+              <div class="row">
+                
+                <div class="col-12 col-sm-12">
+                  <div class="form-group">
+                    <label >Direccion</label>
+                    <input type="text" class="form-control" placeholder="Direccion">
+                  </div>
+                </div>
+
+              </div>
+              
+              
+
+              
+              
+            </div>
+            
+          </form>
+        </div>
+
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title">
+              <h3 class="card-title mr-3">Fechas asignadas para esta ubicacion</h3>
+              <div>
+                <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-fecha">Nueva fecha</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Fin</th>
+                  <th style="width: 150px">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10/10/10</td>
+                  <td>11/11/11</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="#">Editar</a>
+                        <a class="dropdown-item" href="#">Eliminar</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="title">
+              <h3 class="card-title mr-3">Areas asignadas para esta ubicacion</h3>
+              <div>
+                <button type="button" class="btn btn-block bg-gradient-primary" routerLink="/dashboard/area">Crear nueva area</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Nombre de la area</th>
+                  <th>Capacidad</th>
+                  <th style="width: 150px">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Area 1</td>
+                  <td>50</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="#">Editar</a>
+                        <a class="dropdown-item" href="#">Eliminar</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<div class="modal fade" id="modal-fecha">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Fecha</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row">
+                
+          <div class="col-12 col-sm-12">
+            <div class="form-group">
+              <label>Fecha del evento</label>
+                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime">
+                  <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
