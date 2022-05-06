@@ -15,7 +15,7 @@
             <div class="title">
               <h3 class="card-title mr-3">Eventos creados</h3>
               <div>
-                <button type="button" class="btn btn-block bg-gradient-primary" routerLink="/dashboard/nuevo-evento">Crear nuevo evento</button>
+                <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo evento</button>
               </div>
             </div>
           </div>
@@ -65,3 +65,47 @@
     </div>
   </div>
 </section>
+
+
+
+<div class="modal fade" id="modal-create-event">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo evento</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+                
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label >Nombre del evento</label>
+              <input type="text" class="form-control" placeholder="Nombre del evento">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Categoria</label>
+              <select class="form-control">
+                <option>Categoria 1</option>
+                <option>Categoria 2</option>
+                <option>Categoria 3</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" routerLink="/dashboard/nuevo-evento" data-dismiss="modal">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
