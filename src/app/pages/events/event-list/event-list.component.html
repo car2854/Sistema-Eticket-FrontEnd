@@ -33,6 +33,7 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Categoria</th>
+                    <th>Estado</th>
                     <th style="width: 150px">Opciones</th>
                   </tr>
                 </thead>
@@ -40,6 +41,7 @@
                   <tr *ngFor="let event of events">
                     <td>{{event.nombre}}</td>
                     <td>{{event.categoria_evento.nombre}}</td>
+                    <td>{{event.estado}}</td>
                     <td>
                       <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
@@ -56,8 +58,9 @@
                 </tbody>
               </table>
             </div>
+            
             <!-- /.card-body -->
-            <div class="card-footer clearfix">
+            <!-- <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
                 <li class="page-item"><a class="page-link" href="#">«</a></li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -65,7 +68,8 @@
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">»</a></li>
               </ul>
-            </div>
+            </div> -->
+
           </div>
         </div>
         
