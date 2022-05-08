@@ -7,18 +7,14 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class EventService {
+export class CategoryService {
 
   constructor(
-    private http: HttpClient
+    private httpClient: HttpClient
   ) { }
 
-  public getEvents = () => {
-    return this.http.get(`${base_url}/v1.0.0/eventosDatos`);
-  }
-  
-  public createEvent = (data:any) => {
-    return this.http.post(`${base_url}/v1.0.0/eventos`, data);
+  public getCategories = () => {
+    return this.httpClient.get(`${base_url}/v1.0.0/categorias/`);
   }
 
 }

@@ -12,7 +12,7 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: 'lista-eventos', component: EventListComponent },
-      { path: 'nuevo-evento', component: CreateEventComponent },
+      { path: 'evento/:id', component: CreateEventComponent },
       { path: 'ubicacion', component: LocationsComponent },
       { path: 'area', component: AreasComponent },
     ]

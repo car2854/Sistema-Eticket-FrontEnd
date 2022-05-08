@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LocationsComponent } from './locations/locations.component';
 import { AreasComponent } from './areas/areas.component';
 import { ComponentsModule } from '../components/components.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     PagesRoutingModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }
