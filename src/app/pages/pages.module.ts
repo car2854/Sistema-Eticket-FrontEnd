@@ -8,6 +8,7 @@ import { EventListComponent } from './events/event-list/event-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { LocationsComponent } from './locations/locations.component';
 import { AreasComponent } from './areas/areas.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AreasComponent } from './areas/areas.component';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }

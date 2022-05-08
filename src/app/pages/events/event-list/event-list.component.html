@@ -1,70 +1,80 @@
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="col-sm-6">
-      <h1>Eventos</h1>
-    </div>
-  </div>
-</section>
+<ng-container *ngIf="isLoading; else elseLoading">
+  
+  <app-loading></app-loading>
 
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="title">
-              <h3 class="card-title mr-3">Eventos creados</h3>
-              <div>
-                <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo evento</button>
+</ng-container>
+<ng-template #elseLoading>
+  
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="col-sm-6">
+        <h1>Eventos</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="title">
+                <h3 class="card-title mr-3">Eventos creados</h3>
+                <div>
+                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo evento</button>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Categoria</th>
-                  <th style="width: 150px">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Evento 1</td>
-                  <td>Categoria 1</td>
-                  <td>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="#">Editar</a>
-                        <a class="dropdown-item" href="#">Cambiar estado</a>
-                        <a class="dropdown-item" href="#">Eliminar</a>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th style="width: 150px">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let event of events">
+                    <td>{{event.nombre}}</td>
+                    <td>{{event.categoria_evento.nombre}}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                          <a class="dropdown-item" href="#">Editar</a>
+                          <a class="dropdown-item" href="#">Cambiar estado</a>
+                          <a class="dropdown-item" href="#">Eliminar</a>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-              <li class="page-item"><a class="page-link" href="#">«</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">»</a></li>
-            </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">«</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">»</a></li>
+              </ul>
+            </div>
           </div>
         </div>
+        
       </div>
-      
     </div>
-  </div>
-</section>
+  </section>
+
+</ng-template>  
+
 
 
 
