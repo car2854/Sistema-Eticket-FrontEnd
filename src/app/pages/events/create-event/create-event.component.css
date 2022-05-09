@@ -1,0 +1,48 @@
+.image-border{
+  border: 1px solid black;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image{
+  margin: 5px;
+  width: 250px;
+  height: 250px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  position: relative;
+  
+}
+
+.image:hover button{
+  transition: 0.4s;
+  visibility: visible;
+}
+
+.image:hover img{
+  transition: 0.4s;
+  opacity: 0.5;
+}
+
+.image button{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: hidden;
+}
+
+
+.fa-plus{
+  font-size: 180px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.new-image{
+  cursor: pointer;
+}

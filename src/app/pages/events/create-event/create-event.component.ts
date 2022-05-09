@@ -3,9 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryModel } from 'src/app/models/category';
 import { EventModel } from 'src/app/models/event';
+import { ImageModel } from 'src/app/models/image';
 import { LocationModel } from 'src/app/models/location';
 import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/event.service';
+import { ImageService } from 'src/app/services/image.service';
 import { LocationService } from 'src/app/services/location.service';
 
 @Component({
@@ -37,6 +39,7 @@ export class CreateEventComponent implements OnInit {
 
   public locations: LocationModel[] = [];
   public categories: CategoryModel[] = [];
+  public imageEvent: ImageModel[] = [];
 
   public loading: boolean[] = [true,true];
 
@@ -46,7 +49,8 @@ export class CreateEventComponent implements OnInit {
     private eventService: EventService,
     private categoryService: CategoryService,
     private locationService: LocationService,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +65,8 @@ export class CreateEventComponent implements OnInit {
         },
         next: (resp:any) => {
 
+          this.imageEvent = resp.imagenes_eventos;
+          
           this.locations = resp.ubicacions;
           
 
@@ -127,6 +133,46 @@ export class CreateEventComponent implements OnInit {
           this.router.navigateByUrl(`/dashboard/ubicacion/${resp.idubicacion}`);
         }
       })
+  }
+
+  public newImagen = () => {
+    document.getElementById('refNewImage')?.click();
+  }
+
+  public deleteImg = (image: ImageModel) => {
+    
+    this.imageService.deleteImg(image.idimagenevento)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.imageEvent.splice(this.imageEvent.indexOf(image), 1);
+        }
+      })
+    
+  }
+
+  public changeImage = (event:Event) => {
+    const target = event.target as HTMLInputElement
+    let file: File = (target.files as FileList)[0];
+    
+    if (file){
+      const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+      this.imageService.saveImage(file, id)
+        .then(resp => {
+          
+          if (resp){
+            this.imageEvent.push(resp[0]);          
+          }
+          
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+
+    target.value = '';
+    
   }
 
 }

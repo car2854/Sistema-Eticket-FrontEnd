@@ -125,7 +125,9 @@
         </div>
       </div>
     </section>
-  
+    
+    <input type="file" hidden id="refNewImage" (change)="changeImage($event)">
+
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -142,10 +144,24 @@
                   <div class="row">
                     
                     <div class="col-12 col-sm-12">
-                      <div class="form-group">
-                        <label >Imagenes</label>
-                        <input type="text" class="form-control" placeholder="Imagenes">
+                      <label >Imagenes</label>
+
+                      <div class="col-md-12 image-border">
+
+                        <ng-container *ngFor="let imgEvent of imageEvent">
+                          <div class="image">
+                            <img [src]="imgEvent.url" alt="">
+                            <button class="btn btn-danger" type="button" (click)="deleteImg(imgEvent)">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </div>
+                        </ng-container>
+
+                        <div class="image new-image" (click)="newImagen()">
+                          <i class="fa fa-plus"></i>
+                        </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
