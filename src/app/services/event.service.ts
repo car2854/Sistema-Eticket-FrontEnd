@@ -25,4 +25,8 @@ export class EventService {
     return this.http.get(`${base_url}/v1.0.0/eventosDatos/${id}`);
   }
 
+  public deleteEvent = (id:number) => {
+    return this.http.delete(`${base_url}/v1.0.0/eventos/${id}`);
+  }
+
 }

@@ -16,4 +16,20 @@ export class LocationService {
   public createLocation = (data:any) => {
     return this.httpClient.post(`${base_url}/v1.0.0/ubicaciones`,data);
   }
+  
+  public getLocation = (id:number) => {
+    return this.httpClient.get(`${base_url}/v1.0.0/ubicaciones/${id}`);
+  }
+  
+  public deleteLocation = (id:number) => {
+    return this.httpClient.delete(`${base_url}/v1.0.0/ubicaciones/${id}`);
+  }
+  
+  public addDate = (data:any) => {
+    return this.httpClient.post(`${base_url}/v1.0.0/horarios`,data);
+  }
+  
+  public deleteDate = (id:number) => {
+    return this.httpClient.delete(`${base_url}/v1.0.0/horarios/${id}`);
+  }
 }

@@ -58,6 +58,18 @@ export class EventListComponent implements OnInit {
       })
   }
 
+  public deleteLocation = (event : EventModel) => {
+    this.eventService.deleteEvent(event.idevento)
+    .subscribe({
+      error: (err:any) => {
+        console.log(err);
+      },
+        complete: () => {
+          this.events.splice(this.events.indexOf(event), 1);
+        }
+      });
+  }
+
   public create = () => {
     
     if (this.eventForm.invalid || this.eventForm.get('idcategoria')?.value === 0) return;

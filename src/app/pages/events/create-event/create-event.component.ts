@@ -100,6 +100,18 @@ export class CreateEventComponent implements OnInit {
     
   }
 
+  public deleteLocation = (location: LocationModel) => {
+    this.locationService.deleteLocation(location.idubicacion)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.locations.splice(this.locations.indexOf(location), 1);
+        }
+      })
+  }
+
   public createLocation = () => {
 
     if (this.locationForm.invalid) return;

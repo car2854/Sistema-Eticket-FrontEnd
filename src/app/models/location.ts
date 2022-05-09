@@ -1,3 +1,5 @@
+import { DateModel } from "./date";
+
 export class LocationModel{
   constructor(
     public cantidad_de_personas: number,
@@ -7,5 +9,6 @@ export class LocationModel{
     public latitud: number,
     public longitud: number,
     public nombre: string,
+    public horarios: DateModel[]
   ){}
 }

@@ -111,7 +111,7 @@
                           </button>
                           <div class="dropdown-menu" role="menu">
                             <a class="dropdown-item" [routerLink]="[ '/dashboard/ubicacion/', location.idubicacion ]">Editar</a>
-                            <a class="dropdown-item" href="#">Eliminar</a>
+                            <a class="dropdown-item" (click)="deleteLocation(location)">Eliminar</a>
                           </div>
                         </div>
                       </td>

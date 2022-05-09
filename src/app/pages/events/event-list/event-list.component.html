@@ -50,7 +50,7 @@
                         <div class="dropdown-menu" role="menu">
                           <a class="dropdown-item" [routerLink]="[ '/dashboard/evento/', event.idevento ]">Editar</a>
                           <a class="dropdown-item" href="#">Cambiar estado</a>
-                          <a class="dropdown-item" href="#">Eliminar</a>
+                          <a class="dropdown-item" (click)="deleteLocation(event)">Eliminar</a>
                         </div>
                       </div>
                     </td>
