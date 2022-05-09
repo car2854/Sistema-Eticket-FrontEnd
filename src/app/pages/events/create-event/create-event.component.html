@@ -1,159 +1,217 @@
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1>Crear un evento</h1>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-
-      <div class="col-md-12">
-
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Datos del evento</h3>
-          </div>
-
-          <form>
-            <div class="card-body">
-
-              <div class="row">
-                
-                <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                    <label >Nombre del evento</label>
-                    <input type="text" class="form-control" placeholder="Nombre del evento">
-                  </div>
-                </div>
-
-                <div class="col-12 col-sm-6">
-                  <div class="form-group">
-                    <label>Categoria</label>
-                    <select class="form-control">
-                      <option>Categoria 1</option>
-                      <option>Categoria 2</option>
-                      <option>Categoria 3</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="form-group">
-                    <label >Descripcion</label>
-                    <textarea rows="6" class="form-control" placeholder="Descripcion"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12 col-sm-12">
-                  <div class="form-group">
-                    <label >Contacto</label>
-                    <input type="text" class="form-control" placeholder="Contacto">
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-            
-          </form>
+<ng-container *ngIf="isLoading(); else elseLoading">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #elseLoading>
+  
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Plafinicar evento</h1>
         </div>
-
-        
       </div>
-      
     </div>
-  </div>
-</section>
+  </section>
+  
+  <form [formGroup]="eventForm" (submit)="updateEvent()" autocomplete="off">
 
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="title">
-              <h3 class="card-title mr-3">Lista de ubicaciones</h3>
-              <div>
-                <button type="button" class="btn btn-block bg-gradient-primary" routerLink="/dashboard/ubicacion">Crear nueva ubicacion</button>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+    
+          <div class="col-md-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Datos del evento</h3>
               </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Nombre de la ubicacion</th>
-                  <th style="width: 150px">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Ubicacion 1</td>
-                  <td>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="#">Editar</a>
-                        <a class="dropdown-item" href="#">Eliminar</a>
+    
+              <form>
+                <div class="card-body">
+    
+                  <div class="row">
+                    
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label >Nombre del evento</label>
+                        <input type="text" class="form-control" placeholder="Nombre del evento" formControlName="nombre">
                       </div>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+    
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control">
+                          <option *ngFor="let category of categories" [value]="category.idcategoria">{{category.nombre}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Descripcion</label>
+                        <textarea rows="6" class="form-control" placeholder="Descripcion" formControlName="descripcion"></textarea>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Contacto</label>
+                        <input type="number" class="form-control" placeholder="Contacto" formControlName="contacto">
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+              </form>
+            </div>
+    
+            
           </div>
+          
         </div>
       </div>
-      
-    </div>
-  </div>
-</section>
-
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-
-      <div class="col-md-12">
-
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Imagenes</h3>
-          </div>
-
-            <div class="card-body">
-
-              <div class="row">
-                
-                <div class="col-12 col-sm-12">
-                  <div class="form-group">
-                    <label >Imagenes</label>
-                    <input type="text" class="form-control" placeholder="Imagenes">
+    </section>
+  
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="title">
+                  <h3 class="card-title mr-3">Lista de ubicaciones</h3>
+                  <div>
+                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-location">Crear nueva ubicacion</button>
                   </div>
                 </div>
               </div>
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Nombre de la ubicacion</th>
+                      <th>Cantidad de personas</th>
+                      <th style="width: 150px">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let location of locations">
+                      <td>{{location.nombre}}</td>
+                      <td>{{location.cantidad_de_personas}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="#">Editar</a>
+                            <a class="dropdown-item" href="#">Eliminar</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Crear</button>
-            </div>
+          </div>
+          
         </div>
-
-        
       </div>
-      
+    </section>
+  
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+    
+          <div class="col-md-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Imagenes</h3>
+              </div>
+    
+                <div class="card-body">
+    
+                  <div class="row">
+                    
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Imagenes</label>
+                        <input type="text" class="form-control" placeholder="Imagenes">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Crear</button>
+                </div>
+            </div>
+    
+            
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+  </form>
+
+
+</ng-template>
+
+
+
+
+<form [formGroup]="locationForm" autocomplete="off" (ngSubmit)="createLocation()">
+  <div class="modal fade" id="modal-create-location">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Nueva ubicacion</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refClose>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+                  
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Nombre de la ubicacion</label>
+                <input type="text" class="form-control" placeholder="Nombre de la ubicacion" formControlName="nombre">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Direccion de la ubicacion</label>
+                <input type="text" class="form-control" placeholder="Direccion de la ubicacion" formControlName="direccion">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Cantidad de personas</label>
+                <input type="number" class="form-control" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+              </div>
+            </div>
+          </div>
+          
+  
+  
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-
+</form>

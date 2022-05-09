@@ -20,5 +20,9 @@ export class EventService {
   public createEvent = (data:any) => {
     return this.http.post(`${base_url}/v1.0.0/eventos`, data);
   }
+  
+  public getEvent = (id:number) => {
+    return this.http.get(`${base_url}/v1.0.0/eventosDatos/${id}`);
+  }
 
 }
