@@ -79,7 +79,8 @@
                 <div class="title">
                   <h3 class="card-title mr-3">Espacios asignados para esta area</h3>
                   <div>
-                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-espacio" id="refNewSpace">Crear nuevo espacio</button>
+                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-espacio" hidden id="refNewSpace">Crear nuevo espacio</button>
+                    <button type="button" class="btn btn-block bg-gradient-primary" id="refNewSpace" (click)="clickCreateSpace()">Crear nuevo espacio</button>
                   </div>
                 </div>
               </div>

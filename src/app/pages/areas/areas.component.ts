@@ -114,9 +114,6 @@ export class AreasComponent implements OnInit {
                 space.identificador = this.spaceForm.get('identificador')?.value;
                 space.tipo_de_espacio = this.spaceForm.get('tipo_de_espacio')?.value;
                 space.cantidad_de_personas = this.spaceForm.get('cantidad_de_personas')?.value;
-                this.spaceForm.reset();
-                const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
-                this.spaceForm.get('idsector')?.setValue(id);
                 this.refCreateSpaceModal.nativeElement.click();
               }
             });
@@ -126,6 +123,13 @@ export class AreasComponent implements OnInit {
     }
 
     
+  }
+
+  public clickCreateSpace = () => {
+    this.spaceForm.reset();
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+    this.spaceForm.get('idsector')?.setValue(id);
+    document.getElementById('refNewSpace')?.click();
   }
 
   public updateArea = () => {
