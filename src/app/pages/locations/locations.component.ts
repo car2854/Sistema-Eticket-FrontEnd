@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateModel } from 'src/app/models/date';
 import { SectorModel } from 'src/app/models/sector';
 import { LocationService } from 'src/app/services/location.service';
@@ -14,6 +14,7 @@ import { SectorService } from 'src/app/services/sector.service';
 export class LocationsComponent implements OnInit {
 
   @ViewChild('refDateModal') refDateModal!: ElementRef;
+  @ViewChild('refSectorModal') refSectorModal!: ElementRef;
 
   public locationForm = this.fb.group({
     cantidad_de_personas: [,[Validators.required]],
@@ -43,7 +44,8 @@ export class LocationsComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private locationService: LocationService,
-    private sectorService: SectorService
+    private sectorService: SectorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -130,8 +132,10 @@ export class LocationsComponent implements OnInit {
           console.log(err);
         },
         next: (resp:any) => {
-          console.log(resp);
+          this.sectors.push(resp);
+          this.refSectorModal.nativeElement.click();
+          this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
         }
-      })
+      });
   }
 }

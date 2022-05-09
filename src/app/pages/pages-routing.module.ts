@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'lista-eventos', component: EventListComponent },
       { path: 'evento/:id', component: CreateEventComponent },
       { path: 'ubicacion/:id', component: LocationsComponent },
-      { path: 'area', component: AreasComponent },
+      { path: 'area/:id', component: AreasComponent },
     ]
   }
 ];
