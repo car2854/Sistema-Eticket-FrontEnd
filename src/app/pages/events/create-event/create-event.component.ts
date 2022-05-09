@@ -102,7 +102,17 @@ export class CreateEventComponent implements OnInit {
   }
 
   public updateEvent = () => {
-    console.log(this.eventForm.value);
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.eventService.updateEvent(id, this.eventForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl('/dashboard/lista-eventos');
+        }
+      })
     
   }
 
@@ -120,7 +130,18 @@ export class CreateEventComponent implements OnInit {
 
   public createLocation = () => {
 
-    if (this.locationForm.invalid) return;
+    if (this.locationForm.invalid || this.eventForm.invalid) return;
+    
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.eventService.updateEvent(id, this.eventForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {}
+      });
+
     
     this.locationService.createLocation(this.locationForm.value)
       .subscribe({
@@ -173,6 +194,25 @@ export class CreateEventComponent implements OnInit {
 
     target.value = '';
     
+  }
+
+  public updateLocation = (location: LocationModel) => {
+    
+    if (this.eventForm.invalid) return;
+
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.eventService.updateEvent(id, this.eventForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl(`/dashboard/ubicacion/${location.idubicacion}`);
+        }
+      });
+
+
   }
 
 }

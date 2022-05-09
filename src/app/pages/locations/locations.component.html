@@ -6,205 +6,208 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Crear ubicacion</h1>
+          <h1>Configurar ubicacion</h1>
         </div>
       </div>
     </div>
   </section>
   
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-  
-        <div class="col-md-12">
-  
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Datos de la ubicacion</h3>
-            </div>
-  
-            <form>
-              <div class="card-body">
-  
-  
-                <div class="row">
-                  
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label >Nombre</label>
-                      <input type="text" class="form-control" placeholder="Nombre">
-                    </div>
-                  </div>
-  
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label >Capacidad</label>
-                      <input type="number" class="form-control" placeholder="Capacidad">
-                    </div>
-                  </div>
-  
-                </div>
-  
-                <div class="row">
-                  
-                  <div class="col-12 col-sm-12">
-                    <div class="form-group">
-                      <label >Ubicacion</label>
-                      <input type="text" class="form-control" placeholder="Ubicacion">
-                    </div>
-                  </div>
-  
-                </div>
-                
-                <div class="row">
-                  
-                  <div class="col-12 col-sm-12">
-                    <div class="form-group">
-                      <label >Direccion</label>
-                      <input type="text" class="form-control" placeholder="Direccion">
-                    </div>
-                  </div>
-  
-                </div>
-                
-                
-  
-                
-                
+  <form [formGroup]="locationForm" autocomplete="off" (submit)="updateLocation()">
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+    
+          <div class="col-md-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Datos de la ubicacion</h3>
               </div>
-              
-            </form>
+    
+              <form>
+                <div class="card-body">
+    
+    
+                  <div class="row">
+                    
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label >Nombre</label>
+                        <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                      </div>
+                    </div>
+    
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label >Capacidad</label>
+                        <input type="number" class="form-control" placeholder="Capacidad" formControlName="cantidad_de_personas">
+                      </div>
+                    </div>
+    
+                  </div>
+    
+                  <div class="row">
+                    
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Direccion</label>
+                        <input type="text" class="form-control" placeholder="Direccion" formControlName="direccion">
+                      </div>
+                    </div>
+    
+                  </div>
+                  
+                  <div class="row">
+                    
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Direccion</label>
+                        <input type="text" class="form-control" placeholder="Direccion">
+                      </div>
+                    </div>
+    
+                  </div>
+                  
+                  
+    
+                  
+                  
+                </div>
+                
+              </form>
+            </div>
+    
+            
           </div>
-  
           
         </div>
-        
       </div>
-    </div>
-  </section>
-
-
-
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="title">
-                <h3 class="card-title mr-3">Fechas asignadas para esta ubicacion</h3>
-                <div>
-                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-fecha">Nueva fecha</button>
+    </section>
+  
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="title">
+                  <h3 class="card-title mr-3">Fechas asignadas para esta ubicacion</h3>
+                  <div>
+                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-fecha">Nueva fecha</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-
-              <ng-container *ngIf="dates.length > 0; else emptyDate">
-                
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Fecha Inicio</th>
-                      <th>Hora</th>
-                      <th style="width: 150px">Opciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let date of dates">
-                      <td>{{date.fecha_hora | date:'yyyy/MM/dd'}}</td>
-                      <td>{{date.fecha_hora | date:'hh:mm'}}</td>
-                      <td>
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <!-- <a class="dropdown-item" [routerLink]="[ '/dashboard/area', date.idubicacion]">Editar</a> -->
-                            <a class="dropdown-item" (click)="deleteDate(date)">Eliminar</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </ng-container>
-              <ng-template #emptyDate>
-                
-                <app-empty title="No tiene fecha registrado"></app-empty>
-
-              </ng-template>
-              
-
-            </div>
+              <div class="card-body">
   
+                <ng-container *ngIf="dates.length > 0; else emptyDate">
+                  
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Fecha Inicio</th>
+                        <th>Hora</th>
+                        <th style="width: 150px">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let date of dates">
+                        <td>{{date.fecha_hora | date:'yyyy/MM/dd'}}</td>
+                        <td>{{date.fecha_hora | date:'hh:mm'}}</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <!-- <a class="dropdown-item" [routerLink]="[ '/dashboard/area', date.idubicacion]">Editar</a> -->
+                              <a class="dropdown-item" (click)="deleteDate(date)">Eliminar</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                </ng-container>
+                <ng-template #emptyDate>
+                  
+                  <app-empty title="No tiene fecha registrado"></app-empty>
+  
+                </ng-template>
+                
+  
+              </div>
+    
+            </div>
           </div>
+          
         </div>
-        
       </div>
-    </div>
-  </section>
-
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="title">
-                <h3 class="card-title mr-3">Areas asignadas para esta ubicacion</h3>
-                <div>
-                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-sector">Crear nueva area</button>
+    </section>
+  
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="title">
+                  <h3 class="card-title mr-3">Areas asignadas para esta ubicacion</h3>
+                  <div>
+                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-sector">Crear nueva area</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-
-              <ng-container *ngIf="sectors.length > 0; else elseEmptySector">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Nombre de la area</th>
-                      <th>Capacidad</th>
-                      <th style="width: 150px">Opciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let sector of sectors">
-                      <td>{{sector.nombre}}</td>
-                      <td>{{sector.capacidad}}</td>
-                      <td>
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" [routerLink]="[ '/dashboard/area', sector.idubicacion]">Editar</a>
-                            <a class="dropdown-item" (click)="deleteSector(sector)">Eliminar</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                
-              </ng-container>
-              <ng-template #elseEmptySector>
-                <app-empty title="no tiene sectores registrados"></app-empty>
-              </ng-template>
-              
-
-            </div>
+              <div class="card-body">
   
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Crear</button>
+                <ng-container *ngIf="sectors.length > 0; else elseEmptySector">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Nombre de la area</th>
+                        <th>Capacidad</th>
+                        <th style="width: 150px">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let sector of sectors">
+                        <td>{{sector.nombre}}</td>
+                        <td>{{sector.capacidad}}</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" (click)="updateSector(sector)">Editar</a>
+                              <a class="dropdown-item" (click)="deleteSector(sector)">Eliminar</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </ng-container>
+                <ng-template #elseEmptySector>
+                  <app-empty title="no tiene sectores registrados"></app-empty>
+                </ng-template>
+                
+  
+              </div>
+    
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
             </div>
           </div>
+          
         </div>
-        
       </div>
-    </div>
-  </section>
+    </section>
+
+  </form>
+
 
   
 </ng-template>

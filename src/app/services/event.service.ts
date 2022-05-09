@@ -29,4 +29,8 @@ export class EventService {
     return this.http.delete(`${base_url}/v1.0.0/eventos/${id}`);
   }
 
+  public updateEvent = (id:number, data:any) => {
+    return this.http.put(`${base_url}/v1.0.0/eventos/${id}`, data);
+  }
+
 }

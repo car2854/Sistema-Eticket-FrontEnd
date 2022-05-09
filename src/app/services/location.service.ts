@@ -24,6 +24,10 @@ export class LocationService {
   public deleteLocation = (id:number) => {
     return this.httpClient.delete(`${base_url}/v1.0.0/ubicaciones/${id}`);
   }
+
+  public updateLocation = (id:number, data:any) => {
+    return this.httpClient.put(`${base_url}/v1.0.0/ubicaciones/${id}`, data);
+  }
   
   public addDate = (data:any) => {
     return this.httpClient.post(`${base_url}/v1.0.0/horarios`,data);

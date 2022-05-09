@@ -16,4 +16,9 @@ export class AreaService {
   public getArea = (id:number) => {
     return this.httpClient.get(`${base_url}/v1.0.0/sectores/${id}`);
   }
+
+  public updateArea = (id:number, data:any) => {
+    return this.httpClient.put(`${base_url}/v1.0.0/sectores/${id}`, data);
+  }
+
 }

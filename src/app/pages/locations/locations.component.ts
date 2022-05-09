@@ -16,7 +16,10 @@ export class LocationsComponent implements OnInit {
   @ViewChild('refDateModal') refDateModal!: ElementRef;
   @ViewChild('refSectorModal') refSectorModal!: ElementRef;
 
+  private idEvent: number = 0;
+
   public locationForm = this.fb.group({
+    nombre: [,[Validators.required]],
     cantidad_de_personas: [,[Validators.required]],
     direccion: [,[Validators.required]], 
     latitud: [0,[Validators.required]], 
@@ -45,7 +48,7 @@ export class LocationsComponent implements OnInit {
     private route: ActivatedRoute,
     private locationService: LocationService,
     private sectorService: SectorService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -63,10 +66,14 @@ export class LocationsComponent implements OnInit {
           this.loading[0] = false;
         },
         next: (resp:any) => {
+
+          this.idEvent = resp.idevento;
+          
           this.dates = resp.horarios;
           this.sectors = resp.sectors;
           
-          this.locationForm.get('cantidad_de_personas')?.setValue(resp.cantidad_de_personas);``
+          this.locationForm.get('nombre')?.setValue(resp.nombre);
+          this.locationForm.get('cantidad_de_personas')?.setValue(resp.cantidad_de_personas);
           this.locationForm.get('direccion')?.setValue(resp.direccion);
           this.locationForm.get('latitud')?.setValue(resp.latitud);
           this.locationForm.get('longitud')?.setValue(resp.longitud);
@@ -124,7 +131,19 @@ export class LocationsComponent implements OnInit {
   }
 
   public createSector = () => {
-    if (this.sectorForm.invalid) return;
+    if (this.sectorForm.invalid || this.locationForm.invalid) return;
+
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.locationService.updateLocation(id, this.locationForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl(`/dashboard/evento/${this.idEvent}`);
+        }
+      });
 
     this.sectorService.createSector(this.sectorForm.value)
       .subscribe({
@@ -135,6 +154,40 @@ export class LocationsComponent implements OnInit {
           this.sectors.push(resp);
           this.refSectorModal.nativeElement.click();
           this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
+        }
+      });
+  }
+
+  public updateSector = (sector: SectorModel) => {
+
+    if (this.locationForm.invalid) return;
+
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.locationService.updateLocation(id, this.locationForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl(`/dashboard/area/${sector.idsector}`);
+        }
+      });
+
+  }
+
+  public updateLocation = () => {
+    if (this.locationForm.invalid) return;
+
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.locationService.updateLocation(id, this.locationForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl(`/dashboard/evento/${this.idEvent}`);
         }
       });
   }

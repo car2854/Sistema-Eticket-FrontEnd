@@ -91,34 +91,44 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Nombre de la ubicacion</th>
-                      <th>Cantidad de personas</th>
-                      <th style="width: 150px">Opciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let location of locations">
-                      <td>{{location.nombre}}</td>
-                      <td>{{location.cantidad_de_personas}}</td>
-                      <td>
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" [routerLink]="[ '/dashboard/ubicacion/', location.idubicacion ]">Editar</a>
-                            <a class="dropdown-item" (click)="deleteLocation(location)">Eliminar</a>
+
+              <ng-container *ngIf="locations.length > 0; else elseEmpty">
+                <div class="card-body">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Nombre de la ubicacion</th>
+                        <th>Cantidad de personas</th>
+                        <th style="width: 150px">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let location of locations">
+                        <td>{{location.nombre}}</td>
+                        <td>{{location.cantidad_de_personas}}</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" (click)="updateLocation(location)">Editar</a>
+                              <a class="dropdown-item" (click)="deleteLocation(location)">Eliminar</a>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+              <ng-template #elseEmpty>
+                <div class="my-5">
+                  <app-empty title="No tiene ubicaciones para este evento"></app-empty>
+                </div>
+              </ng-template>
+              
+
             </div>
           </div>
           
@@ -167,7 +177,7 @@
                 </div>
     
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Crear</button>
+                  <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
     

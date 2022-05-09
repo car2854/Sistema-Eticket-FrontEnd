@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpaceModel } from 'src/app/models/space';
 import { AreaService } from 'src/app/services/area.service';
 import { SpaceService } from 'src/app/services/space.service';
@@ -13,6 +13,8 @@ import { SpaceService } from 'src/app/services/space.service';
 export class AreasComponent implements OnInit {
 
   @ViewChild('refCreateSpaceModal') refCreateSpaceModal!: ElementRef;
+
+  private idLocation: number = 0;
 
   private idUpdate: number = 0;
 
@@ -38,7 +40,8 @@ export class AreasComponent implements OnInit {
     private route: ActivatedRoute,
     private areaService: AreaService,
     private fb: FormBuilder,
-    private spaceService: SpaceService
+    private spaceService: SpaceService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +58,9 @@ export class AreasComponent implements OnInit {
           this.isLoading = false;
         },
         next: (resp:any) => {
+
+          this.idLocation = resp.idubicacion;
+
           this.areaForm.get('nombre')?.setValue(resp.nombre);
           this.areaForm.get('capacidad')?.setValue(resp.capacidad);
           this.areaForm.get('referencia')?.setValue(resp.referencia);
@@ -134,7 +140,19 @@ export class AreasComponent implements OnInit {
 
   public updateArea = () => {
 
-    
+    if (this.areaForm.invalid) return;
+
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.areaService.updateArea(id, this.areaForm.value)
+      .subscribe({
+        error: (err:any) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.router.navigateByUrl(`/dashboard/ubicacion/${this.idLocation}`);
+        }
+      })
 
   }
 }
