@@ -198,7 +198,7 @@
 
 <form [formGroup]="locationForm" autocomplete="off" (ngSubmit)="createLocation()">
   <div class="modal fade" id="modal-create-location">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Nueva ubicacion</h4>
@@ -210,10 +210,16 @@
           
                   
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
                 <label>Nombre de la ubicacion</label>
                 <input type="text" class="form-control" placeholder="Nombre de la ubicacion" formControlName="nombre">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Cantidad de personas</label>
+                <input type="number" class="form-control" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
               </div>
             </div>
             <div class="col-md-12">
@@ -222,15 +228,18 @@
                 <input type="text" class="form-control" placeholder="Direccion de la ubicacion" formControlName="direccion">
               </div>
             </div>
+
             <div class="col-md-12">
               <div class="form-group">
-                <label>Cantidad de personas</label>
-                <input type="number" class="form-control" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                <label>Seleccione el punto en el mapa</label>
+                <app-google-map (eventEmitterSelectedCreateMarker)="changeLatLng($event)"></app-google-map>
               </div>
             </div>
+
+
           </div>
           
-  
+          
   
         </div>
         <div class="modal-footer justify-content-between">

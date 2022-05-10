@@ -43,6 +43,8 @@ export class LocationsComponent implements OnInit {
 
   private loading: boolean[] = [true];
 
+  public initialPosition: any;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -77,6 +79,11 @@ export class LocationsComponent implements OnInit {
           this.locationForm.get('direccion')?.setValue(resp.direccion);
           this.locationForm.get('latitud')?.setValue(resp.latitud);
           this.locationForm.get('longitud')?.setValue(resp.longitud);
+
+          this.initialPosition = {
+            lat: resp.latitud,
+            lng: resp.longitud
+          }
 
           this.loading[0] = false;
         }
@@ -174,6 +181,13 @@ export class LocationsComponent implements OnInit {
         }
       });
 
+  }
+
+  public changeLatLng = (data:any) => {
+    
+    this.locationForm.get('latitud')?.setValue(data.lat);
+    this.locationForm.get('longitud')?.setValue(data.lng);
+    
   }
 
   public updateLocation = () => {

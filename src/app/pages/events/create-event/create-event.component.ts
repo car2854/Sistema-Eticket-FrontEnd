@@ -31,8 +31,8 @@ export class CreateEventComponent implements OnInit {
   public locationForm = this.fb.group({
     nombre                : [,[Validators.required]],
     direccion             : [,[Validators.required]],
-    latitud               : [0.111,[Validators.required]],
-    longitud              : [0.111,[Validators.required]],
+    latitud               : [,[Validators.required]],
+    longitud              : [,[Validators.required]],
     cantidad_de_personas  : [,[Validators.required, Validators.min(1)]],
     idevento              : [,[Validators.required]],
   }); 
@@ -128,6 +128,13 @@ export class CreateEventComponent implements OnInit {
       })
   }
 
+  public changeLatLng = (data:any) => {
+    
+    this.locationForm.get('latitud')?.setValue(data.lat);
+    this.locationForm.get('longitud')?.setValue(data.lng);
+    
+  }
+
   public createLocation = () => {
 
     if (this.locationForm.invalid || this.eventForm.invalid) return;
@@ -142,7 +149,6 @@ export class CreateEventComponent implements OnInit {
         complete: () => {}
       });
 
-    
     this.locationService.createLocation(this.locationForm.value)
       .subscribe({
         error: (err:any) => {
