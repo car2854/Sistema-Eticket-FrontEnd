@@ -151,7 +151,15 @@ export class LocationsComponent implements OnInit {
     this.locationService.addDate(this.dateForm.value)
       .subscribe({
         error: (err:any) => {
-          console.log(err);
+          if (err.status === 403){
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.errors[0].msg,
+            });
+          }else{
+            console.log(err);
+          }
         },
         next: (resp:any) => {
           console.log(resp);
