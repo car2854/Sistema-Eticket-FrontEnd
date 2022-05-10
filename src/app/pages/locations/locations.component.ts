@@ -14,7 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class LocationsComponent implements OnInit {
 
-  @ViewChild('refDateModal') refDateModal!: ElementRef;
+  public selectedMoment:any ;
+
   @ViewChild('refSectorModal') refSectorModal!: ElementRef;
 
   private idEvent: number = 0;
@@ -143,6 +144,7 @@ export class LocationsComponent implements OnInit {
   }
   
   public addDate = () => {
+
     const date:any = document.getElementById('refDate');
     this.dateForm.get('fecha_hora')?.setValue(date.value);
     if (this.dateForm.invalid) return;
@@ -154,7 +156,6 @@ export class LocationsComponent implements OnInit {
         next: (resp:any) => {
           console.log(resp);
           this.dates.push(resp);
-          this.refDateModal.nativeElement.click();
         }
       });
   

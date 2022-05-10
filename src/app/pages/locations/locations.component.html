@@ -93,12 +93,28 @@
               <div class="card-header">
                 <div class="title">
                   <h3 class="card-title mr-3">Fechas asignadas para esta ubicacion</h3>
-                  <div>
+                  <!-- <div>
                     <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-fecha">Nueva fecha</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="card-body">
+
+                <div class="row">
+
+                  <div class="col-md-12">
+                    <label>Fecha del evento</label>
+
+                    <div class="form-group date">
+                      <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" id="refDate">
+                      <owl-date-time #dt1></owl-date-time>
+                      <button type="button" class="btn btn-primary" (click)="addDate()">Agregar Fecha</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <hr>
   
                 <ng-container *ngIf="dates.length > 0; else emptyDate">
                   
@@ -213,56 +229,6 @@
 </ng-template>
 
 
-
-
-
-
-
-
-<form [formGroup]="dateForm" (submit)="addDate()" autocomplete="off">
-
-  <div class="modal fade" id="modal-fecha">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Fecha</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refDateModal>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-          <div class="row">
-                  
-            <div class="col-12 col-sm-12">
-              <div class="form-group">
-                <label>Fecha del evento</label>
-                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" formControlName="fecha_hora" id="refDate">
-                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-  
-          </div>
-  
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Agregar</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
-</form>
-
-
-
 <form [formGroup]="sectorForm" (submit)="createSector()" autocomplete="off">
 
   <div class="modal fade" id="modal-sector">
@@ -305,9 +271,7 @@
           <button type="submit" class="btn btn-primary">Agregar</button>
         </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
   </div>
 
 </form>

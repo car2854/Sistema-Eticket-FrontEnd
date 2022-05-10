@@ -10,6 +10,8 @@ import { LocationsComponent } from './locations/locations.component';
 import { AreasComponent } from './areas/areas.component';
 import { ComponentsModule } from '../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -25,7 +27,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     PagesRoutingModule,
     SharedModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
+    BrowserAnimationsModule
   ]
 })
 export class PagesModule { }

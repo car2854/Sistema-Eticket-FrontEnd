@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Loader } from '@googlemaps/js-api-loader';
+import { environment } from 'src/environments/environment.prod';
+
+const apiKey = environment.apiKey;
 
 @Component({
   selector: 'app-google-map',
@@ -23,7 +26,7 @@ export class GoogleMapComponent implements OnInit {
   ngOnInit(): void {
 
     const loader = new Loader({
-      apiKey: "",
+      apiKey: apiKey,
       version: "weekly",
       libraries: ["places"]
     });
