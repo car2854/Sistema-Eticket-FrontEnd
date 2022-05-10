@@ -33,4 +33,8 @@ export class EventService {
     return this.http.put(`${base_url}/v1.0.0/eventos/${id}`, data);
   }
 
+  public changeStatus = (id:number, data: any) => {
+    return this.http.put(`${base_url}/v1.0.0/eventos/estado/${id}`, data);
+  }
+
 }

@@ -5,6 +5,7 @@ import { CategoryModel } from 'src/app/models/category';
 import { EventModel } from 'src/app/models/event';
 import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/event.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-event-list',
@@ -86,6 +87,63 @@ export class EventListComponent implements OnInit {
         }
       });
     
+  }
+
+  public changeStatus = (event: EventModel) => {
+    
+    Swal.fire({
+      title: 'Seleccione el estado',
+      input: 'select',
+      inputOptions: {
+        'Activo': 'Activo',
+        'Finalizado': 'Finalizado',
+        'Cancelado': 'Cancelado',
+        'Inactivo': 'Inactivo',
+      },
+      inputPlaceholder: 'Seleccione un estado',
+      showCancelButton: true,
+      inputValidator: (value) => {
+
+        return new Promise ( (resolve, reject) => {
+          if (value !== '') {
+            
+            const data = {
+              estado: value
+            }
+
+            this.eventService.changeStatus(event.idevento, data)
+              .subscribe({
+                error: (err:any) => {
+
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error interno',
+                    text: 'No se puedo cambiar el estado',
+                  });
+
+                },
+                next: (resp:any) => {
+                  event.estado = value;
+                  console.log(resp);
+                  
+                  Swal.fire(resp.message);
+                }
+              });
+
+          } else {
+            resolve('Tienes que seleccionar un estado');
+          }
+        });
+      }
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          html: 'You selected: ' + result.value
+        });
+      }
+    });
+
   }
 
 }
