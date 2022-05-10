@@ -59,16 +59,39 @@ export class EventListComponent implements OnInit {
       })
   }
 
-  public deleteLocation = (event : EventModel) => {
-    this.eventService.deleteEvent(event.idevento)
-    .subscribe({
-      error: (err:any) => {
-        console.log(err);
-      },
-        complete: () => {
-          this.events.splice(this.events.indexOf(event), 1);
-        }
-      });
+  public deleteEvent = (event : EventModel) => {
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `El evento ${event.nombre} se eliminara de forma permanente`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.eventService.deleteEvent(event.idevento)
+        .subscribe({
+          error: (err:any) => {
+            console.log(err);
+          },
+            complete: () => {
+              this.events.splice(this.events.indexOf(event), 1);
+              Swal.fire(
+                'Eliminado!',
+                `El evento ${event.nombre} a sido eliminado correctamente.`,
+                'success'
+              );
+            }
+          });
+
+      }
+    });
+
+    
   }
 
   public create = () => {

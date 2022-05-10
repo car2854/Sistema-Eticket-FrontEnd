@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SpaceModel } from 'src/app/models/space';
 import { AreaService } from 'src/app/services/area.service';
 import { SpaceService } from 'src/app/services/space.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-areas',
@@ -73,15 +74,37 @@ export class AreasComponent implements OnInit {
   }
 
   public deleteSpace = (space: SpaceModel) => {
-    this.spaceService.deleteSpace(space.idespacio)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.spaces.splice(this.spaces.indexOf(space),1);
-        }
-      })
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `El espacio ${space.identificador} se eliminara de forma permanente`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminarlo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.spaceService.deleteSpace(space.idespacio)
+          .subscribe({
+            error: (err:any) => {
+              console.log(err);
+            },
+            complete: () => {
+              this.spaces.splice(this.spaces.indexOf(space),1);
+              Swal.fire(
+                'Eliminado!',
+                `El espacio ${space.identificador} a sido eliminado correctamente.`,
+                'success'
+              );
+            }
+          });
+        
+      }
+    });
+
   }
 
   public updateSpace = (space: SpaceModel) => {

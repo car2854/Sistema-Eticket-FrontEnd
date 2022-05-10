@@ -5,6 +5,7 @@ import { DateModel } from 'src/app/models/date';
 import { SectorModel } from 'src/app/models/sector';
 import { LocationService } from 'src/app/services/location.service';
 import { SectorService } from 'src/app/services/sector.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-locations',
@@ -92,15 +93,37 @@ export class LocationsComponent implements OnInit {
   }
 
   public deleteSector = (sector: SectorModel) => {
-    this.sectorService.deleteSector(sector.idsector)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.sectors.splice(this.sectors.indexOf(sector), 1)
-        }
-      })
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `La area ${sector.nombre} se eliminara de forma permanente`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.sectorService.deleteSector(sector.idsector)
+          .subscribe({
+            error: (err:any) => {
+              console.log(err);
+            },
+            complete: () => {
+              this.sectors.splice(this.sectors.indexOf(sector), 1);
+              Swal.fire(
+                'Eliminado!',
+                `La area ${sector.nombre} a sido eliminado correctamente.`,
+                'success'
+              );
+            }
+          });
+        
+      }
+    });
+
   }
 
   public deleteDate = (date: DateModel) => {

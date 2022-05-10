@@ -9,6 +9,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/event.service';
 import { ImageService } from 'src/app/services/image.service';
 import { LocationService } from 'src/app/services/location.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-event',
@@ -117,15 +118,37 @@ export class CreateEventComponent implements OnInit {
   }
 
   public deleteLocation = (location: LocationModel) => {
-    this.locationService.deleteLocation(location.idubicacion)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.locations.splice(this.locations.indexOf(location), 1);
-        }
-      })
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `La ubicacion ${location.nombre} se eliminara de forma permanente`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.locationService.deleteLocation(location.idubicacion)
+          .subscribe({
+            error: (err:any) => {
+              console.log(err);
+            },
+            complete: () => {
+              this.locations.splice(this.locations.indexOf(location), 1);
+              Swal.fire(
+                'Eliminado!',
+                `La ubicacion ${location.nombre} a sido eliminado correctamente.`,
+                'success'
+              );
+            }
+          });
+        
+      }
+    });
+
   }
 
   public changeLatLng = (data:any) => {
