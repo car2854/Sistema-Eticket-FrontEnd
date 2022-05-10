@@ -34,14 +34,16 @@
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label >Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                        <input type="text" class="form-control" [ngClass]="{'invalid': isErrorLocation('nombre')}" placeholder="Nombre" formControlName="nombre">
+                        <p p *ngIf="isErrorLocation('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
                       </div>
                     </div>
     
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label >Capacidad</label>
-                        <input type="number" class="form-control" placeholder="Capacidad" formControlName="cantidad_de_personas">
+                        <input type="number" class="form-control" [ngClass]="{'invalid': isErrorLocation('cantidad_de_personas')}" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                        <p *ngIf="isErrorLocation('cantidad_de_personas')" class="text-danger text-right">La cantidad de personas debe ser mayor a 0</p>
                       </div>
                     </div>
     
@@ -52,7 +54,8 @@
                     <div class="col-12 col-sm-12">
                       <div class="form-group">
                         <label >Direccion</label>
-                        <input type="text" class="form-control" placeholder="Direccion" formControlName="direccion">
+                        <input type="text" class="form-control" [ngClass]="{'invalid': isErrorLocation('direccion')}" placeholder="Direccion de la ubicacion" formControlName="direccion">
+                        <p *ngIf="isErrorLocation('direccion')" class="text-danger text-right">La direccion es obligatorio</p>
                       </div>
                     </div>
     
@@ -93,9 +96,6 @@
               <div class="card-header">
                 <div class="title">
                   <h3 class="card-title mr-3">Fechas asignadas para esta ubicacion</h3>
-                  <!-- <div>
-                    <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-fecha">Nueva fecha</button>
-                  </div> -->
                 </div>
               </div>
               <div class="card-body">
@@ -106,7 +106,7 @@
                     <label>Fecha del evento</label>
 
                     <div class="form-group date">
-                      <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time" id="refDate">
+                      <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Fecha del evento" id="refDate">
                       <owl-date-time #dt1></owl-date-time>
                       <button type="button" class="btn btn-primary" (click)="addDate()">Agregar Fecha</button>
                     </div>
@@ -247,13 +247,15 @@
             <div class="col-12 col-sm-12">
               <div class="form-group">
                 <label>Nombre</label>
-                <input type="text" class="form-control" formControlName="nombre">
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorSector('nombre')}" formControlName="nombre">
+                <p *ngIf="isErrorSector('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
               </div>
             </div>
             <div class="col-12 col-sm-12">
               <div class="form-group">
                 <label>Capacidad</label>
-                <input type="number" class="form-control" formControlName="capacidad">
+                <input type="number" class="form-control" [ngClass]="{'invalid': isErrorSector('capacidad')}" formControlName="capacidad">
+                <p *ngIf="isErrorSector('capacidad')" class="text-danger text-right">La capacidad debe ser mayor a 0</p>
               </div>
             </div>
             <div class="col-12 col-sm-12">

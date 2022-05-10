@@ -58,17 +58,6 @@
                 </tbody>
               </table>
             </div>
-            
-            <!-- /.card-body -->
-            <!-- <div class="card-footer clearfix">
-              <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-              </ul>
-            </div> -->
 
           </div>
         </div>
@@ -99,16 +88,18 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Nombre del evento</label>
-                <input type="text" class="form-control" placeholder="Nombre del evento" formControlName="nombre">
+                <input type="text" [ngClass]="{'invalid': isError('nombre')}" class="form-control" placeholder="Nombre del evento" formControlName="nombre">
+                <p *ngIf="isError('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Categoria</label>
-                <select class="form-control" formControlName="idcategoria">
+                <select [ngClass]="{'invalid': isError('idcategoria')}" class="form-control" formControlName="idcategoria">
                   <option selected hidden [value]="0">Seleccione una categoria</option>
                   <option *ngFor="let category of categories" [value]="category.idcategoria">{{category.nombre}}</option>
                 </select>
+                <p *ngIf="isError('idcategoria')" class="text-danger text-right">La categoria es obligatorio</p>
               </div>
   
             </div>

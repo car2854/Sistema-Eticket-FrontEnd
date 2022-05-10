@@ -25,7 +25,6 @@
                 <h3 class="card-title">Datos de la area</h3>
               </div>
     
-              <form>
                 <div class="card-body">
     
     
@@ -34,14 +33,16 @@
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label >Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                        <input type="text" class="form-control" [ngClass]="{'invalid': isErrorArea('nombre')}" placeholder="Nombre" formControlName="nombre">
+                        <p *ngIf="isErrorArea('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
                       </div>
                     </div>
-    
+                    
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label >Capacidad</label>
-                        <input type="number" class="form-control" placeholder="Capacidad" formControlName="capacidad">
+                        <input type="number" class="form-control" [ngClass]="{'invalid': isErrorArea('capacidad')}" placeholder="Capacidad" formControlName="capacidad">
+                        <p *ngIf="isErrorArea('capacidad')" class="text-danger text-right">La capacidad debe ser mayor a 0</p>
                       </div>
                     </div>
     
@@ -60,7 +61,6 @@
                   
                 </div>
                 
-              </form>
             </div>
     
             
@@ -84,38 +84,52 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body card-table">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Identificador</th>
-                      <th>Cantidad de personas</th>
-                      <th>Tipo de espacio</th>
-                      <th>Estado</th>
-                      <th style="width: 150px">Opciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let space of spaces">
-                      <td>{{space.identificador}}</td>
-                      <td>{{space.cantidad_de_personas}}</td>
-                      <td>{{space.tipo_de_espacio}}</td>
-                      <td>{{space.estado}}</td>
-                      <td>
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" (click)="updateSpace(space)">Editar</a>
-                            <a class="dropdown-item" (click)="deleteSpace(space)">Eliminar</a>
+
+              <ng-container *ngIf="spaces.length > 0; else elseEmpty">
+                
+                <div class="card-body card-table">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Identificador</th>
+                        <th>Cantidad de personas</th>
+                        <th>Tipo de espacio</th>
+                        <th>Estado</th>
+                        <th style="width: 150px">Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let space of spaces">
+                        <td>{{space.identificador}}</td>
+                        <td>{{space.cantidad_de_personas}}</td>
+                        <td>{{space.tipo_de_espacio}}</td>
+                        <td>{{space.estado}}</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" (click)="updateSpace(space)">Editar</a>
+                              <a class="dropdown-item" (click)="deleteSpace(space)">Eliminar</a>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </ng-container>
+              <ng-template #elseEmpty>
+                
+                <div class="my-5">
+                  <app-empty title="No tiene espacios asignados a esta area"></app-empty>
+                </div>
+
+              </ng-template>
+              
+
     
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -150,21 +164,24 @@
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label >Identificador</label>
-                <input type="text" class="form-control" placeholder="Identificador" formControlName="identificador">
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorSpace('identificador')}" placeholder="Identificador" formControlName="identificador">
+                <p *ngIf="isErrorSpace('identificador')" class="text-danger text-right">El identificador es obligatorio</p>
               </div>
             </div>
   
             <div class="col-12 col-sm-6">
               <div class="form-group">
                 <label >Cantidad de personas</label>
-                <input type="number" class="form-control" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                <input type="number" class="form-control" [ngClass]="{'invalid': isErrorSpace('cantidad_de_personas')}" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                <p *ngIf="isErrorSpace('cantidad_de_personas')" class="text-danger text-right">La cantidad debe se mayor a 0</p>
               </div>
             </div>
   
             <div class="col-12 col-sm-12">
               <div class="form-group">
                 <label >Tipo de espacio</label>
-                <input type="text" class="form-control" placeholder="Tipo de espacio" formControlName="tipo_de_espacio">
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorSpace('tipo_de_espacio')}" placeholder="Tipo de espacio" formControlName="tipo_de_espacio">
+                <p *ngIf="isErrorSpace('tipo_de_espacio')" class="text-danger text-right">El tipo de espacio es obligatorio</p>
               </div>
             </div>
   

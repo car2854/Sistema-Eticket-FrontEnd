@@ -34,16 +34,18 @@
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label >Nombre del evento</label>
-                        <input type="text" class="form-control" placeholder="Nombre del evento" formControlName="nombre">
+                        <input type="text" class="form-control" [ngClass]="{'invalid': isErrorEvent('nombre')}" placeholder="Nombre del evento" formControlName="nombre">
+                        <p *ngIf="isErrorEvent('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
                       </div>
                     </div>
-    
+                    
                     <div class="col-12 col-sm-6">
                       <div class="form-group">
                         <label>Categoria</label>
-                        <select class="form-control">
+                        <select class="form-control" [ngClass]="{'invalid': isErrorEvent('nombre')}" formControlName="idcategoria">
                           <option *ngFor="let category of categories" [value]="category.idcategoria">{{category.nombre}}</option>
                         </select>
+                        <p *ngIf="isErrorEvent('idcategoria')" class="text-danger text-right">El nombre es obligatorio</p>
                       </div>
                     </div>
                   </div>
@@ -213,29 +215,34 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Nombre de la ubicacion</label>
-                <input type="text" class="form-control" placeholder="Nombre de la ubicacion" formControlName="nombre">
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorLocation('nombre')}" placeholder="Nombre de la ubicacion" formControlName="nombre">
+                <p *ngIf="isErrorLocation('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Cantidad de personas</label>
-                <input type="number" class="form-control" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                <input type="number" class="form-control" [ngClass]="{'invalid': isErrorLocation('cantidad_de_personas')}" placeholder="Cantidad de personas" formControlName="cantidad_de_personas">
+                <p *ngIf="isErrorLocation('cantidad_de_personas')" class="text-danger text-right">La cantidad de personas debe ser mayor a 0</p>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Direccion de la ubicacion</label>
-                <input type="text" class="form-control" placeholder="Direccion de la ubicacion" formControlName="direccion">
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorLocation('direccion')}" placeholder="Direccion de la ubicacion" formControlName="direccion">
+                <p *ngIf="isErrorLocation('direccion')" class="text-danger text-right">La direccion es obligatorio</p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
                 <label>Seleccione el punto en el mapa</label>
-                <app-google-map (eventEmitterSelectedCreateMarker)="changeLatLng($event)"></app-google-map>
+                <div [ngClass]="{'invalid': isErrorLocation('latitud') || isErrorLocation('longitud')}" >
+                  <app-google-map (eventEmitterSelectedCreateMarker)="changeLatLng($event)"></app-google-map>
+                </div>
+                <p *ngIf="isErrorLocation('latitud') || isErrorLocation('longitud')" class="text-danger text-right">Debe selecciona un punto en el mapa</p>
               </div>
             </div>
-
 
           </div>
           

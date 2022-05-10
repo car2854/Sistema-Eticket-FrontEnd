@@ -9,3 +9,7 @@
 a{
   cursor: pointer;
 }
+
+.invalid{
+  border: 1px solid red;
+}

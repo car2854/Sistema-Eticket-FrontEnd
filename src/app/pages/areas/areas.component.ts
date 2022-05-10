@@ -20,8 +20,8 @@ export class AreasComponent implements OnInit {
   private idUpdate: number = 0;
 
   public areaForm = this.fb.group({
-    nombre: [[Validators.required]],
-    capacidad: [[Validators.required, Validators.min(1)]],
+    nombre: [,[Validators.required]],
+    capacidad: [,[Validators.required, Validators.min(1)]],
     referencia: [],
     idubicacion: [,[Validators.required]],
   });
@@ -177,5 +177,13 @@ export class AreasComponent implements OnInit {
         }
       })
 
+  }
+
+  public isErrorArea = (name:string) => {
+    return this.areaForm.get(name)?.invalid;
+  }
+
+  public isErrorSpace = (name:string) => {
+    return this.spaceForm.get(name)?.invalid;
   }
 }

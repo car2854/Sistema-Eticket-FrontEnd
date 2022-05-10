@@ -22,7 +22,7 @@ export class LocationsComponent implements OnInit {
 
   public locationForm = this.fb.group({
     nombre: [,[Validators.required]],
-    cantidad_de_personas: [,[Validators.required]],
+    cantidad_de_personas: [,[Validators.required, Validators.min(1)]],
     direccion: [,[Validators.required]], 
     latitud: [0,[Validators.required]], 
     longitud: [0,[Validators.required]], 
@@ -229,4 +229,13 @@ export class LocationsComponent implements OnInit {
         }
       });
   }
+
+  public isErrorLocation = (name:string) => {
+    return this.locationForm.get(name)?.invalid;
+  }
+  
+  public isErrorSector = (name:string) => {
+    return this.sectorForm.get(name)?.invalid;
+  }
+  
 }

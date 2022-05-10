@@ -244,4 +244,15 @@ export class CreateEventComponent implements OnInit {
 
   }
 
+  public isErrorEvent = (name: string) => {
+
+    if (name === 'idcategoria') return this.eventForm.get(name)?.value === 0;
+    
+    return this.eventForm.get(name)?.invalid;
+  }
+  
+  public isErrorLocation = (name: string) => {
+    return this.locationForm.get(name)?.invalid;
+  }
+
 }
