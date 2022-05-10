@@ -115,18 +115,24 @@ export class EventListComponent implements OnInit {
               .subscribe({
                 error: (err:any) => {
 
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Error interno',
-                    text: 'No se puedo cambiar el estado',
-                  });
+                  if (err.status === 400){
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: err.error.message,
+                    });
+                  }else{
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error interno',
+                      text: 'No se puedo cambiar el estado',
+                    });
+                  }
 
                 },
                 next: (resp:any) => {
                   event.estado = value;
-                  console.log(resp);
-                  
-                  Swal.fire(resp.message);
+                  Swal.fire('Listo!', resp.message, 'success')
                 }
               });
 

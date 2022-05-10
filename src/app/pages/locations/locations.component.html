@@ -112,8 +112,8 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let date of dates">
-                        <td>{{date.fecha_hora | date:'yyyy/MM/dd'}}</td>
-                        <td>{{date.fecha_hora | date:'hh:mm'}}</td>
+                        <td>{{date.fecha_hora | date:'yyyy/MM/dd':'UTC-0'}}</td>
+                        <td>{{date.fecha_hora | date:'shortTime':'UTC-0'}}</td>
                         <td>
                           <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
