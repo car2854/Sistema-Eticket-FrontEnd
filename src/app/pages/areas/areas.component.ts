@@ -120,35 +120,74 @@ export class AreasComponent implements OnInit {
     if (this.spaceForm.invalid) return;
 
     if (this.idUpdate === 0){
-      this.spaceService.createSpace(this.spaceForm.value)
+
+      if (this.areaForm.invalid) return;
+
+      const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+      this.areaService.updateArea(id, this.areaForm.value)
         .subscribe({
           error: (err:any) => {
             console.log(err);
           },
-          next: (resp:any) => {
-            this.spaces.push(resp);
-            this.refCreateSpaceModal.nativeElement.click();
+          complete: () => {
+            
+            this.spaceService.createSpace(this.spaceForm.value)
+              .subscribe({
+                error: (err:any) => {
+                  console.log(err);
+                },
+                next: (resp:any) => {
+                  this.spaces.push(resp);
+                  this.refCreateSpaceModal.nativeElement.click();
+                }
+              });
+
           }
         });
+
+
+      
     }else{
-      this.spaceService.updateSpace(this.spaceForm.value, this.idUpdate)
+
+
+      if (this.areaForm.invalid) return;
+
+      const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+      this.areaService.updateArea(id, this.areaForm.value)
         .subscribe({
           error: (err:any) => {
             console.log(err);
-            this.idUpdate = 0;
           },
-          next: (resp:any) => {
-            this.spaces.forEach((space: SpaceModel) => {
-              if (space.idespacio === this.idUpdate){
-                space.identificador = this.spaceForm.get('identificador')?.value;
-                space.tipo_de_espacio = this.spaceForm.get('tipo_de_espacio')?.value;
-                space.cantidad_de_personas = this.spaceForm.get('cantidad_de_personas')?.value;
-                this.refCreateSpaceModal.nativeElement.click();
+          complete: () => {
+
+            this.spaceService.updateSpace(this.spaceForm.value, this.idUpdate)
+            .subscribe({
+              error: (err:any) => {
+                console.log(err);
+                this.idUpdate = 0;
+              },
+              next: (resp:any) => {
+                
+                this.spaces.forEach((space: SpaceModel) => {
+                  if (space.idespacio === this.idUpdate){
+                    space.identificador = this.spaceForm.get('identificador')?.value;
+                    space.tipo_de_espacio = this.spaceForm.get('tipo_de_espacio')?.value;
+                    space.cantidad_de_personas = this.spaceForm.get('cantidad_de_personas')?.value;
+                    this.refCreateSpaceModal.nativeElement.click();
+                  }
+                });
+                this.idUpdate = 0;
               }
             });
-            this.idUpdate = 0;
+
           }
         });
+
+
+
+      
     }
 
     
@@ -175,7 +214,7 @@ export class AreasComponent implements OnInit {
         complete: () => {
           this.router.navigateByUrl(`/dashboard/ubicacion/${this.idLocation}`);
         }
-      })
+      });
 
   }
 

@@ -180,21 +180,23 @@ export class LocationsComponent implements OnInit {
           console.log(err);
         },
         complete: () => {
-          this.router.navigateByUrl(`/dashboard/evento/${this.idEvent}`);
+          
+          this.sectorService.createSector(this.sectorForm.value)
+          .subscribe({
+            error: (err:any) => {
+              console.log(err);
+            },
+            next: (resp:any) => {
+              this.sectors.push(resp);
+              this.refSectorModal.nativeElement.click();
+              this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
+            }
+          });
+          
         }
       });
 
-    this.sectorService.createSector(this.sectorForm.value)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        next: (resp:any) => {
-          this.sectors.push(resp);
-          this.refSectorModal.nativeElement.click();
-          this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
-        }
-      });
+    
   }
 
   public updateSector = (sector: SectorModel) => {
