@@ -72,6 +72,11 @@ export class LocationsComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.loading[0] = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
 
@@ -115,6 +120,11 @@ export class LocationsComponent implements OnInit {
           .subscribe({
             error: (err:any) => {
               console.log(err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.error.message,
+              });
             },
             complete: () => {
               this.sectors.splice(this.sectors.indexOf(sector), 1);
@@ -136,6 +146,11 @@ export class LocationsComponent implements OnInit {
     .subscribe({
       error: (err:any) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.error.message,
+        });
       },
       complete: () => {
         this.dates.splice(this.dates.indexOf(date), 1);
@@ -163,6 +178,11 @@ export class LocationsComponent implements OnInit {
             });
           }else{
             console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.message,
+            });
           }
         },
         next: (resp:any) => {
@@ -184,6 +204,11 @@ export class LocationsComponent implements OnInit {
     .subscribe({
       error: (err:any) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.error.message,
+        });
         this.isCreatingArea = false;
       },
       complete: () => {
@@ -226,6 +251,11 @@ export class LocationsComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.isUpdatingArea = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
           this.isUpdatingArea = false;
@@ -254,6 +284,11 @@ export class LocationsComponent implements OnInit {
       error: (err:any) => {
           this.isUpdatingLocation = false;
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
           this.isUpdatingLocation = false;

@@ -13,8 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class AreasComponent implements OnInit {
 
+  public isFileAmount: boolean = false;
+
   public isUpdatingArea: boolean = false;
   public isCreatingSpace: boolean = false;
+  public isDeletingSpace: boolean = false;
 
   @ViewChild('refCreateSpaceModal') refCreateSpaceModal!: ElementRef;
 
@@ -33,7 +36,8 @@ export class AreasComponent implements OnInit {
     identificador: [,[Validators.required]],
     tipo_de_espacio: [,[Validators.required]],
     cantidad_de_personas: [,[Validators.required, Validators.min(1)]],
-    idsector: [,[Validators.required]]
+    idsector: [,[Validators.required]],
+    cantidad: [],
   });
 
   public spaces: SpaceModel[] = [];
@@ -60,6 +64,11 @@ export class AreasComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.isLoading = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
 
@@ -90,12 +99,21 @@ export class AreasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
+        this.isDeletingSpace = true;
+
         this.spaceService.deleteSpace(space.idespacio)
           .subscribe({
             error: (err:any) => {
               console.log(err);
+              this.isDeletingSpace = false;
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.error.message,
+              });
             },
             complete: () => {
+              this.isDeletingSpace = false;
               this.spaces.splice(this.spaces.indexOf(space),1);
               Swal.fire(
                 'Eliminado!',
@@ -111,10 +129,19 @@ export class AreasComponent implements OnInit {
   }
 
   public updateSpace = (space: SpaceModel) => {
+    this.isFileAmount = false;
     this.spaceForm.get('identificador')?.setValue(space.identificador);
     this.spaceForm.get('tipo_de_espacio')?.setValue(space.tipo_de_espacio);
     this.spaceForm.get('cantidad_de_personas')?.setValue(space.cantidad_de_personas);
     this.idUpdate = space.idespacio;
+    document.getElementById('refNewSpace')?.click();
+  }
+
+  public clickCreateSpace = () => {
+    this.isFileAmount = true;
+    this.spaceForm.reset();
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+    this.spaceForm.get('idsector')?.setValue(id);
     document.getElementById('refNewSpace')?.click();
   }
 
@@ -135,18 +162,33 @@ export class AreasComponent implements OnInit {
           error: (err:any) => {
             console.log(err);
             this.isCreatingSpace = false;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.message,
+            });
           },
           complete: () => {
             
-            this.spaceService.createSpace(this.spaceForm.value)
+            this.spaceService.createSpace(this.spaceForm.value, this.spaceForm.get('cantidad')?.value)
               .subscribe({
                 error: (err:any) => {
                   console.log(err);
                   this.isCreatingSpace = false;
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.error.message,
+                  });
                 },
                 next: (resp:any) => {
+                  console.log(resp);
+                  
+                  resp.forEach((space: any) => {
+                    this.spaces.push(space);
+                  });
+
                   this.isCreatingSpace = false;
-                  this.spaces.push(resp);
                   this.refCreateSpaceModal.nativeElement.click();
                 }
               });
@@ -170,6 +212,11 @@ export class AreasComponent implements OnInit {
           error: (err:any) => {
             console.log(err);
             this.isCreatingSpace = false;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.message,
+            });
           },
           complete: () => {
 
@@ -179,6 +226,11 @@ export class AreasComponent implements OnInit {
                 console.log(err);
                 this.isCreatingSpace = false;
                 this.idUpdate = 0;
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.error.message,
+                });
               },
               next: (resp:any) => {
                 
@@ -206,13 +258,6 @@ export class AreasComponent implements OnInit {
     
   }
 
-  public clickCreateSpace = () => {
-    this.spaceForm.reset();
-    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
-    this.spaceForm.get('idsector')?.setValue(id);
-    document.getElementById('refNewSpace')?.click();
-  }
-
   public updateArea = () => {
 
     if (this.areaForm.invalid) return;
@@ -226,6 +271,11 @@ export class AreasComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.isUpdatingArea = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
           this.router.navigateByUrl(`/dashboard/ubicacion/${this.idLocation}`);

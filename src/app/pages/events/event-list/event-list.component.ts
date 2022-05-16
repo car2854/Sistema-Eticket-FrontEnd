@@ -42,6 +42,11 @@ export class EventListComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.isLoading = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
           this.isLoading = false;
@@ -54,6 +59,11 @@ export class EventListComponent implements OnInit {
       .subscribe({
         error: (err:any) => {
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
           this.categories = resp;
@@ -79,6 +89,11 @@ export class EventListComponent implements OnInit {
         .subscribe({
           error: (err:any) => {
             console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.message,
+            });
           },
             complete: () => {
               this.events.splice(this.events.indexOf(event), 1);
@@ -107,6 +122,11 @@ export class EventListComponent implements OnInit {
       error: (err:any) => {
         console.log(err);
         this.isCreatingEvent = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.error.message,
+        });
       },
       next: (resp:any) => {
         this.isCreatingEvent = false;

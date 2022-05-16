@@ -17,8 +17,8 @@ export class SpaceService {
     return this.httpClient.delete(`${base_url}/v1.0.0/espacios/${id}`);
   }
   
-  public createSpace = (data:any) => {
-    return this.httpClient.post(`${base_url}/v1.0.0/espacios`, data);
+  public createSpace = (data:any, cantidad: number = 1) => {
+    return this.httpClient.post(`${base_url}/v1.0.0/espacios/${cantidad}`, data);
   }
 
   public updateSpace = (data:any, id:number) => {

@@ -106,7 +106,7 @@
                         <td>{{space.estado}}</td>
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" [disabled]="isDeletingSpace">
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
@@ -184,6 +184,13 @@
                 <p *ngIf="isErrorSpace('tipo_de_espacio')" class="text-danger text-right">El tipo de espacio es obligatorio</p>
               </div>
             </div>
+
+            <div class="col-12 col-sm-12" *ngIf="isFileAmount">
+              <div class="form-group">
+                <label >Cantidad</label>
+                <input type="text" class="form-control" [ngClass]="{'invalid': isErrorSpace('cantidad')}" placeholder="cantidad" formControlName="cantidad">
+              </div>
+            </div>
   
           </div>
   
@@ -196,3 +203,4 @@
     </div>
   </div>
 </form>
+

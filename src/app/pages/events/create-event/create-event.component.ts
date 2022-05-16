@@ -67,6 +67,11 @@ export class CreateEventComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.loading[0] = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
 
@@ -93,6 +98,11 @@ export class CreateEventComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.loading[1] = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         next: (resp:any) => {
           this.categories = resp;
@@ -119,6 +129,11 @@ export class CreateEventComponent implements OnInit {
         error: (err:any) => {
           console.log(err);
           this.isUpdatingEvent = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
           this.isUpdatingEvent = false;
@@ -146,6 +161,11 @@ export class CreateEventComponent implements OnInit {
           .subscribe({
             error: (err:any) => {
               console.log(err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.error.message,
+              });
             },
             complete: () => {
               this.locations.splice(this.locations.indexOf(location), 1);
@@ -182,6 +202,11 @@ export class CreateEventComponent implements OnInit {
         error: (err:any) => {
           this.isCreatingLocation = false;
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
 
@@ -190,6 +215,11 @@ export class CreateEventComponent implements OnInit {
             error: (err:any) => {
               this.isCreatingLocation = false;
               console.log(err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.error.message,
+              });
             },
             next: (resp:any) => {
               
@@ -215,6 +245,11 @@ export class CreateEventComponent implements OnInit {
       .subscribe({
         error: (err:any) => {
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
         },
         complete: () => {
           this.imageEvent.splice(this.imageEvent.indexOf(image), 1);
@@ -258,6 +293,11 @@ export class CreateEventComponent implements OnInit {
       error: (err:any) => {
         this.isUpdatingLocation = false;
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err.error.message,
+        });
       },
       complete: () => {
         this.isUpdatingLocation = false;
