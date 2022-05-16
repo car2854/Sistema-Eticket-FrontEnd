@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 })
 export class AreasComponent implements OnInit {
 
+  public isUpdatingArea: boolean = false;
+  public isCreatingSpace: boolean = false;
+
   @ViewChild('refCreateSpaceModal') refCreateSpaceModal!: ElementRef;
 
   private idLocation: number = 0;
@@ -125,10 +128,13 @@ export class AreasComponent implements OnInit {
 
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
+      this.isCreatingSpace = true;
+
       this.areaService.updateArea(id, this.areaForm.value)
         .subscribe({
           error: (err:any) => {
             console.log(err);
+            this.isCreatingSpace = false;
           },
           complete: () => {
             
@@ -136,8 +142,10 @@ export class AreasComponent implements OnInit {
               .subscribe({
                 error: (err:any) => {
                   console.log(err);
+                  this.isCreatingSpace = false;
                 },
                 next: (resp:any) => {
+                  this.isCreatingSpace = false;
                   this.spaces.push(resp);
                   this.refCreateSpaceModal.nativeElement.click();
                 }
@@ -155,10 +163,13 @@ export class AreasComponent implements OnInit {
 
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
+      this.isCreatingSpace = true;
+
       this.areaService.updateArea(id, this.areaForm.value)
         .subscribe({
           error: (err:any) => {
             console.log(err);
+            this.isCreatingSpace = false;
           },
           complete: () => {
 
@@ -166,10 +177,12 @@ export class AreasComponent implements OnInit {
             .subscribe({
               error: (err:any) => {
                 console.log(err);
+                this.isCreatingSpace = false;
                 this.idUpdate = 0;
               },
               next: (resp:any) => {
                 
+                this.isCreatingSpace = false;
                 this.spaces.forEach((space: SpaceModel) => {
                   if (space.idespacio === this.idUpdate){
                     space.identificador = this.spaceForm.get('identificador')?.value;
@@ -204,15 +217,19 @@ export class AreasComponent implements OnInit {
 
     if (this.areaForm.invalid) return;
 
+    this.isUpdatingArea = true;
+
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
     this.areaService.updateArea(id, this.areaForm.value)
       .subscribe({
         error: (err:any) => {
           console.log(err);
+          this.isUpdatingArea = false;
         },
         complete: () => {
           this.router.navigateByUrl(`/dashboard/ubicacion/${this.idLocation}`);
+          this.isUpdatingArea = false;
         }
       });
 

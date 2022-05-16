@@ -14,10 +14,14 @@ import Swal from 'sweetalert2';
 })
 export class LocationsComponent implements OnInit {
 
+  public isUpdatingLocation: boolean = false;
+  public isCreatingArea: boolean = false;
+  public isUpdatingArea: boolean = false;
+
   public selectedMoment:any ;
 
   @ViewChild('refSectorModal') refSectorModal!: ElementRef;
-
+  
   private idEvent: number = 0;
 
   public locationForm = this.fb.group({
@@ -172,29 +176,39 @@ export class LocationsComponent implements OnInit {
   public createSector = () => {
     if (this.sectorForm.invalid || this.locationForm.invalid) return;
 
+    this.isCreatingArea = true;
+    
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
-
+    
     this.locationService.updateLocation(id, this.locationForm.value)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          
-          this.sectorService.createSector(this.sectorForm.value)
-          .subscribe({
-            error: (err:any) => {
-              console.log(err);
-            },
-            next: (resp:any) => {
-              this.sectors.push(resp);
-              this.refSectorModal.nativeElement.click();
-              this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
-            }
-          });
-          
-        }
-      });
+    .subscribe({
+      error: (err:any) => {
+        console.log(err);
+        this.isCreatingArea = false;
+      },
+      complete: () => {
+        
+        this.sectorService.createSector(this.sectorForm.value)
+        .subscribe({
+          error: (err:any) => {
+            this.isCreatingArea = false;
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.error.message,
+            });
+          },
+          next: (resp:any) => {
+            this.isCreatingArea = false;
+            this.sectors.push(resp);
+            this.refSectorModal.nativeElement.click();
+            this.router.navigateByUrl(`/dashboard/area/${resp.idsector}`);
+          }
+        });
+        
+      }
+    });
 
     
   }
@@ -203,14 +217,18 @@ export class LocationsComponent implements OnInit {
 
     if (this.locationForm.invalid) return;
 
+    this.isUpdatingArea = true;
+
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
     this.locationService.updateLocation(id, this.locationForm.value)
       .subscribe({
         error: (err:any) => {
           console.log(err);
+          this.isUpdatingArea = false;
         },
         complete: () => {
+          this.isUpdatingArea = false;
           this.router.navigateByUrl(`/dashboard/area/${sector.idsector}`);
         }
       });
@@ -227,14 +245,18 @@ export class LocationsComponent implements OnInit {
   public updateLocation = () => {
     if (this.locationForm.invalid) return;
 
+    this.isUpdatingLocation = true;
+    
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
-
+    
     this.locationService.updateLocation(id, this.locationForm.value)
-      .subscribe({
-        error: (err:any) => {
+    .subscribe({
+      error: (err:any) => {
+          this.isUpdatingLocation = false;
           console.log(err);
         },
         complete: () => {
+          this.isUpdatingLocation = false;
           this.router.navigateByUrl(`/dashboard/evento/${this.idEvent}`);
         }
       });

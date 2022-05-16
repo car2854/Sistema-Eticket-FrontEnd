@@ -18,6 +18,10 @@ import Swal from 'sweetalert2';
 })
 export class CreateEventComponent implements OnInit {
 
+  public isUpdatingEvent: boolean = false;
+  public isCreatingLocation: boolean = false;
+  public isUpdatingLocation: boolean = false;
+
   @ViewChild('refClose') refClose!: ElementRef;
 
   public eventForm = this.fb.group({
@@ -103,14 +107,21 @@ export class CreateEventComponent implements OnInit {
   }
 
   public updateEvent = () => {
+    
+    if (this.eventForm.invalid) return;
+    
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+
+    this.isUpdatingEvent = true;
 
     this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
           console.log(err);
+          this.isUpdatingEvent = false;
         },
         complete: () => {
+          this.isUpdatingEvent = false;
           this.router.navigateByUrl('/dashboard/lista-eventos');
         }
       })
@@ -162,27 +173,36 @@ export class CreateEventComponent implements OnInit {
 
     if (this.locationForm.invalid || this.eventForm.invalid) return;
     
+    this.isCreatingLocation = true;
+
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
     this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
+          this.isCreatingLocation = false;
           console.log(err);
         },
-        complete: () => {}
+        complete: () => {
+
+          this.locationService.createLocation(this.locationForm.value)
+          .subscribe({
+            error: (err:any) => {
+              this.isCreatingLocation = false;
+              console.log(err);
+            },
+            next: (resp:any) => {
+              
+              this.isCreatingLocation = false;
+              this.refClose.nativeElement.click();
+              this.router.navigateByUrl(`/dashboard/ubicacion/${resp.idubicacion}`);
+            }
+          });
+
+        }
       });
 
-    this.locationService.createLocation(this.locationForm.value)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        next: (resp:any) => {
-          
-          this.refClose.nativeElement.click();
-          this.router.navigateByUrl(`/dashboard/ubicacion/${resp.idubicacion}`);
-        }
-      })
+
   }
 
   public newImagen = () => {
@@ -229,16 +249,20 @@ export class CreateEventComponent implements OnInit {
     
     if (this.eventForm.invalid) return;
 
-    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+    this.isUpdatingLocation = true;
 
+    const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
+    
     this.eventService.updateEvent(id, this.eventForm.value)
-      .subscribe({
-        error: (err:any) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.router.navigateByUrl(`/dashboard/ubicacion/${location.idubicacion}`);
-        }
+    .subscribe({
+      error: (err:any) => {
+        this.isUpdatingLocation = false;
+        console.log(err);
+      },
+      complete: () => {
+        this.isUpdatingLocation = false;
+        this.router.navigateByUrl(`/dashboard/ubicacion/${location.idubicacion}`);
+      }
       });
 
 

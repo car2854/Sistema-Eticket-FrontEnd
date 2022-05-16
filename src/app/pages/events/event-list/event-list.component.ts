@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class EventListComponent implements OnInit {
   
+  public isCreatingEvent: boolean = false;
+
   @ViewChild('refClose') refClose!: ElementRef;
 
   public eventForm = this.fb.group({
@@ -98,13 +100,16 @@ export class EventListComponent implements OnInit {
     
     if (this.eventForm.invalid || this.eventForm.get('idcategoria')?.value === 0) return;
 
+    this.isCreatingEvent = true;
     
     this.eventService.createEvent(this.eventForm.value)
     .subscribe({
       error: (err:any) => {
         console.log(err);
+        this.isCreatingEvent = false;
       },
       next: (resp:any) => {
+        this.isCreatingEvent = false;
         this.refClose.nativeElement.click();
         this.router.navigateByUrl(`/dashboard/evento/${resp.idevento}`);
         }

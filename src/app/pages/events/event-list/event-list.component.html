@@ -109,7 +109,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isCreatingEvent">Crear</button>
         </div>
       </div>
     </div>

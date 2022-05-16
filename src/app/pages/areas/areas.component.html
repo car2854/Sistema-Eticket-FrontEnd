@@ -132,7 +132,7 @@
 
     
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="isUpdatingArea">Guardar</button>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Listo</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isCreatingSpace">Listo</button>
         </div>
       </div>
     </div>

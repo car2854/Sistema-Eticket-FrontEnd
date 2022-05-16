@@ -191,7 +191,7 @@
                         <td>{{sector.capacidad}}</td>
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" [disabled]="isUpdatingArea">
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
@@ -213,7 +213,7 @@
               </div>
     
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="isUpdatingLocation">Guardar</button>
               </div>
             </div>
           </div>
@@ -235,7 +235,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Nuevo sector</h4>
+          <h4 class="modal-title">Nueva area</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refSectorModal>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -270,7 +270,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Agregar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isCreatingArea">Agregar</button>
         </div>
       </div>
     </div>

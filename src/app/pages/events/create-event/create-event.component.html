@@ -110,7 +110,7 @@
                         <td>{{location.cantidad_de_personas}}</td>
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" [disabled]="isUpdatingLocation">
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu" role="menu">
@@ -179,7 +179,7 @@
                 </div>
     
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Guardar</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="isUpdatingEvent">Guardar</button>
                 </div>
             </div>
     
@@ -251,7 +251,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isCreatingLocation">Crear</button>
         </div>
       </div>
     </div>
