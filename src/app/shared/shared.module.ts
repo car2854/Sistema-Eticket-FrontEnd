@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { NavbarPublicComponent } from './navbar-public/navbar-public.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavbarPublicComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   exports: [
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavbarPublicComponent
   ]
 })
 export class SharedModule { }

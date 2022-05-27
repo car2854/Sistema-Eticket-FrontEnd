@@ -1,0 +1,33 @@
+
+.content{
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+}
+
+.carousel{
+  height: 850px;
+  overflow: hidden;
+}
+
+/* .carousel img{
+  height: 100%;
+} */
+
+
+.events-list{
+  background-color: white;
+  margin: 30px;
+  padding-block: 45px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.event{
+  border: 1px solid black;
+  width: 300px;
+  height: 400px;
+  margin: 15px;
+  cursor: pointer;
+}
