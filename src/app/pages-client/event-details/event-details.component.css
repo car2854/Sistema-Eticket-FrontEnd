@@ -1,0 +1,35 @@
+.image1{
+  height: 750px;
+  overflow: hidden;
+  background-color: black;
+}
+
+.image1 img{
+  width: 100%;
+  opacity: 0.4;
+}
+
+.event-content{
+  background-color: white;
+  margin: 30px;
+  padding: 45px;
+}
+
+.event-details{
+  position: relative;
+}
+
+.event-details .event-descripcion{
+  position: absolute;
+  left: 550px;
+}
+
+.event-details .image2{
+  position: absolute;
+  top: -300px;
+  height: 690px;
+}
+
+.event-content .event-information{
+  padding-top: 435px;
+}
