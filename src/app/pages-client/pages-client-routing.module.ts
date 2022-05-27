@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'public',
     component: PagesClientComponent,
     children: [
-      { path: 'main', component: MainComponent }
+      { path: 'eventos', component: MainComponent }
     ]
   }
 ];

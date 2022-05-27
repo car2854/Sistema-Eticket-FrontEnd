@@ -6,13 +6,14 @@
 }
 
 .carousel{
-  height: 850px;
+  height: 750px;
   overflow: hidden;
 }
 
-/* .carousel img{
-  height: 100%;
-} */
+/* !Error, corregir el tamaño de la imagen */
+.carousel img{
+  
+}
 
 
 .events-list{

@@ -6,8 +6,8 @@ import { PagesRoutingModule } from './pages/pages-routing.module';
 const routes: Routes = [
   // { path: '**', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full' },
   // { path: '', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full', }
-  { path: '**', redirectTo: '/public/main', pathMatch: 'full' },
-  { path: '', redirectTo: '/public/main', pathMatch: 'full', }
+  { path: '**', redirectTo: '/public/eventos', pathMatch: 'full' },
+  { path: '', redirectTo: '/public/eventos', pathMatch: 'full', }
 ];
 
 @NgModule({

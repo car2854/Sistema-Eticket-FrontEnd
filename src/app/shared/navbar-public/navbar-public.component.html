@@ -2,17 +2,22 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Tu Ticket</a>
+    
+
+    <div class="category" (click)="showCategories = !showCategories">
+      <i class="fa fa-align-justify"></i>
+      <a class="noselect">Categoria</a>
+    </div>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarText">
       
       <ul class="navbar-nav mr-auto">
         
-        <div class="category" (click)="showCategories = !showCategories">
-          <i class="fa fa-align-justify"></i>
-          <a class="noselect">Categoria</a>
-        </div>
+        
   
       </ul>
   
@@ -21,9 +26,9 @@
           Carlos Alberto
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Configuracion</a>
+          <a class="dropdown-item" href="#">Historial de compras</a>
+          <a class="dropdown-item" href="#">Cerrar Sesion</a>
         </div>
       </div>
   
