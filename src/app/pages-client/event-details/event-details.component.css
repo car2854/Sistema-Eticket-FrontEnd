@@ -22,14 +22,35 @@
 .event-details .event-descripcion{
   position: absolute;
   left: 550px;
+  width: 1150px;
 }
 
 .event-details .image2{
   position: absolute;
-  top: -300px;
-  height: 690px;
+  top: -370px;
+  height: 680px;
+  overflow: hidden;
 }
 
 .event-content .event-information{
-  padding-top: 435px;
+  padding-top: 370px;
+}
+
+.section-form{
+  margin-top: 30px;
+}
+
+form{
+  display: grid;
+  grid-template-columns: 10fr 10fr 10fr;
+  align-items: center;
+}
+
+form .form-group{
+  margin-inline: 10px;
+}
+
+form button{
+  margin-top: 15px;
+  margin-inline: 50px;
 }

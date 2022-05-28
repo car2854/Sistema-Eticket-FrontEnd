@@ -1,7 +1,9 @@
 <div class="nav">
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" [routerLink]="'/public/eventos'">Tu Ticket</a>
+    <a class="navbar-brand" [routerLink]="'/public/eventos'">
+      <img src="../../../assets/dist/img/logo-ticket.png" alt="Tu Ticket">
+    </a>
     
 
     <div class="category" (click)="showCategories = !showCategories">
@@ -9,14 +11,21 @@
       <a class="noselect">Categoria</a>
     </div>
 
+    
+    <div class="form-group">
+      <label for=""></label>
+      <input type="text" class="form-control" placeholder="Buscar">
+    </div>
+
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
+    
     <div class="collapse navbar-collapse" id="navbarText">
       
       <ul class="navbar-nav mr-auto">
-        
         
   
       </ul>

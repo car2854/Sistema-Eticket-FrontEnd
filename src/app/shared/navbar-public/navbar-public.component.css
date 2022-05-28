@@ -8,7 +8,6 @@
 
 .navbar{
   width: 100%;
-  padding-block: 15px;
   padding-inline: 20px;
 }
 
@@ -46,4 +45,8 @@
 .section-categories h5{
   cursor: pointer;
   margin-inline: 30px;
+}
+
+.form-group{
+  width: 73%;
 }

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { PagesClientModule } from './pages-client/pages-client.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PagesClientModule } from './pages-client/pages-client.module';
     AppRoutingModule,
     PagesModule,
     HttpClientModule,
-    PagesClientModule
+    PagesClientModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
