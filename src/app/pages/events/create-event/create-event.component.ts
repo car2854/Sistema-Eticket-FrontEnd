@@ -31,6 +31,7 @@ export class CreateEventComponent implements OnInit {
     idcategoria   : [,[Validators.required]],
     idevento      : [,[Validators.required]],
     nombre        : [,[Validators.required]],
+    precio        : [0,[Validators.min(0)]]
   }); 
 
   public locationForm = this.fb.group({
@@ -124,6 +125,12 @@ export class CreateEventComponent implements OnInit {
 
     this.isUpdatingEvent = true;
 
+    const {precio, ...data} = this.eventForm.value;
+
+    if (this.locations.length === 0){
+      data.precio = precio;
+    }
+    
     this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
@@ -197,7 +204,9 @@ export class CreateEventComponent implements OnInit {
 
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
-    this.eventService.updateEvent(id, this.eventForm.value)
+    const {precio, ...data} = this.eventForm.value;
+
+    this.eventService.updateEvent(id, data)
       .subscribe({
         error: (err:any) => {
           this.isCreatingLocation = false;
@@ -288,22 +297,24 @@ export class CreateEventComponent implements OnInit {
 
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
     
-    this.eventService.updateEvent(id, this.eventForm.value)
-    .subscribe({
-      error: (err:any) => {
-        this.isUpdatingLocation = false;
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err.error.message,
+    const {precio, ...data} = this.eventForm.value;
+
+    this.eventService.updateEvent(id, data)
+      .subscribe({
+        error: (err:any) => {
+          this.isUpdatingLocation = false;
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
+        },
+        complete: () => {
+          this.isUpdatingLocation = false;
+          this.router.navigateByUrl(`/dashboard/ubicacion/${location.idubicacion}`);
+        }
         });
-      },
-      complete: () => {
-        this.isUpdatingLocation = false;
-        this.router.navigateByUrl(`/dashboard/ubicacion/${location.idubicacion}`);
-      }
-      });
 
 
   }

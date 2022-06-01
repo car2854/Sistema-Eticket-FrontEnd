@@ -11,10 +11,10 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterClientComponent },
+      { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
+      { path: '', redirectTo: '/auth/login', pathMatch: 'full', }
     ]
   },
-  { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full', }
 ];
 
 @NgModule({

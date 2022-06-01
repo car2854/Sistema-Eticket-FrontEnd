@@ -68,6 +68,15 @@
                     </div>
                   </div>
                   
+                  <div class="row" *ngIf="locations.length == 0">
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Precio</label>
+                        <input type="number" class="form-control" min="0" placeholder="Precio" formControlName="precio">
+                      </div>
+                    </div>
+                  </div>
+                  
                 </div>
                 
               </form>

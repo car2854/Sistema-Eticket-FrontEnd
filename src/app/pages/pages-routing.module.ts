@@ -15,6 +15,8 @@ const routes: Routes = [
       { path: 'evento/:id', component: CreateEventComponent },
       { path: 'ubicacion/:id', component: LocationsComponent },
       { path: 'area/:id', component: AreasComponent },
+      { path: '**', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full' },
+      { path: '', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full', }
     ]
   }
 ];

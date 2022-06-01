@@ -61,6 +61,17 @@
     
                   </div>
                   
+                  <div class="row" *ngIf="sectors.length === 0">
+                    
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group">
+                        <label >Precio</label>
+                        <input type="number" min="0" class="form-control" placeholder="Precio" formControlName="precio">
+                      </div>
+                    </div>
+    
+                  </div>
+                  
                   <div class="row">
                     
                     <div class="col-12 col-sm-12">

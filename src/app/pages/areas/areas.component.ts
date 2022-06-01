@@ -30,6 +30,7 @@ export class AreasComponent implements OnInit {
     capacidad: [,[Validators.required, Validators.min(1)]],
     referencia: [],
     idubicacion: [,[Validators.required]],
+    precio: [0,[Validators.min(0)]]
   });
 
   public spaceForm = this.fb.group({
@@ -157,7 +158,9 @@ export class AreasComponent implements OnInit {
 
       this.isCreatingSpace = true;
 
-      this.areaService.updateArea(id, this.areaForm.value)
+      const {precio, ...data} = this.areaForm.value;
+
+      this.areaService.updateArea(id, data)
         .subscribe({
           error: (err:any) => {
             console.log(err);
@@ -207,7 +210,9 @@ export class AreasComponent implements OnInit {
 
       this.isCreatingSpace = true;
 
-      this.areaService.updateArea(id, this.areaForm.value)
+      const {precio, ...data} = this.areaForm.value;
+
+      this.areaService.updateArea(id, data)
         .subscribe({
           error: (err:any) => {
             console.log(err);
@@ -260,13 +265,19 @@ export class AreasComponent implements OnInit {
 
   public updateArea = () => {
 
+    
     if (this.areaForm.invalid) return;
 
     this.isUpdatingArea = true;
 
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
-    this.areaService.updateArea(id, this.areaForm.value)
+    const {precio, ...data} = this.areaForm.value;
+    if (this.spaces.length === 0){
+      data.precio = precio;
+    }
+
+    this.areaService.updateArea(id, data)
       .subscribe({
         error: (err:any) => {
           console.log(err);
