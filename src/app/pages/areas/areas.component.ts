@@ -39,6 +39,7 @@ export class AreasComponent implements OnInit {
     cantidad_de_personas: [,[Validators.required, Validators.min(1)]],
     idsector: [,[Validators.required]],
     cantidad: [],
+    precio: [0, [Validators.required, Validators.min(0)]]
   });
 
   public spaces: SpaceModel[] = [];
