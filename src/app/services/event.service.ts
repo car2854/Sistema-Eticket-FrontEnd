@@ -37,4 +37,9 @@ export class EventService {
     return this.http.put(`${base_url}/v1.0.0/eventos/estado/${id}`, data);
   }
 
+  public getEventPublic = () => {
+    
+    return this.http.get(`${base_url}/v1.0.0/public/eventos`);
+  }
+
 }

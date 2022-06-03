@@ -6,6 +6,8 @@ import { PagesClientComponent } from './pages-client.component';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from '../shared/shared.module';
 import { EventDetailsComponent } from './event-details/event-details.component';
+import { CategoryLengthPipe } from '../pipes/category-length.pipe';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -13,11 +15,13 @@ import { EventDetailsComponent } from './event-details/event-details.component';
     PagesClientComponent,
     MainComponent,
     EventDetailsComponent,
+    CategoryLengthPipe
   ],
   imports: [
     CommonModule,
     PagesClientRoutingModule,
-    SharedModule
+    SharedModule,
+    ComponentsModule
   ]
 })
 export class PagesClientModule { }

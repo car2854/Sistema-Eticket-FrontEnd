@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { PagesClientModule } from './pages-client/pages-client.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoryLengthPipe } from './pipes/category-length.pipe';
 
 @NgModule({
   declarations: [

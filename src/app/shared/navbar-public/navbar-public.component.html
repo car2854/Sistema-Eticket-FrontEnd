@@ -46,11 +46,7 @@
   </nav>
 
   <div class="section-categories" [hidden]="!showCategories">
-    <h5 class="noselect">Categoria 1</h5>
-    <h5 class="noselect">Categoria 2</h5>
-    <h5 class="noselect">Categoria 3</h5>
-    <h5 class="noselect">Categoria 4</h5>
-    <h5 class="noselect">Categoria 5</h5>
+    <h5 class="noselect" *ngFor="let category of categories">{{category.nombre}}</h5>
   </div>
 </div>
 
