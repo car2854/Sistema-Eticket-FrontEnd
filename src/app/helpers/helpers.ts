@@ -5,7 +5,7 @@ const errorHelpers = (err:any) => {
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
-    text: err.message,
+    text: err.error.message,
   });
 }
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { errorHelpers } from 'src/app/helpers/helpers';
+import { ErrorDataService } from 'src/app/services/dataServices/error-data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register-client',
@@ -8,17 +11,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterClientComponent implements OnInit {
 
-  public errors: string[] = [];
+  public sendingData: boolean = false;
 
   public registerForm = this.fb.group({
     nombre_usuario    : ['carlos',[Validators.required]],
     email             : ['carlos@gmail.com',[Validators.required,Validators.email]],
-    contrasena        : ['123456789',[Validators.required, Validators.minLength(8)]],
-    confirContraseña  : ['12345678',[Validators.required, Validators.minLength(8)]]
+    contrasena        : ['123456789',[Validators.required, Validators.minLength(5)]],
+    confirContraseña  : ['12345678',[Validators.required, Validators.minLength(5)]]
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService,
+    public errorDataService: ErrorDataService
   ) { }
   
   ngOnInit(): void {
@@ -40,23 +45,38 @@ export class RegisterClientComponent implements OnInit {
   }
 
   public register = async() => {
-    if (this.registerForm.invalid || this.contrasenias()){
-      
-      if (this.errors.length === 0){
-        if (this.registerForm.get('nombre_usuario')?.invalid) this.errors.push('El nombre el obligatorio');
-        if (this.registerForm.get('email')?.invalid) this.errors.push('El email es invalido');
-        if (this.registerForm.get('contrasena')?.invalid) this.errors.push('La contraseña debe ser mayor a 8 caracteres');
-        if (this.contrasenias()) this.errors.push('No coinciden las contraseñas');
-      }
 
-      setTimeout(() => {
-        this.errors = [];
-      }, 5000);
+    this.errorDataService.errors = [];
+    
+    if (this.registerForm.invalid || this.contrasenias()){
+
+      if (this.registerForm.get('nombre_usuario')?.invalid) this.errorDataService.errors.push('El nombre el obligatorio');
+      if (this.registerForm.get('email')?.invalid) this.errorDataService.errors.push('El email es invalido');
+      if (this.registerForm.get('contrasena')?.invalid) this.errorDataService.errors.push('La contraseña debe ser mayor a 5 caracteres');
+      if (this.contrasenias()) this.errorDataService.errors.push('No coinciden las contraseñas');
 
       return
     };
 
-    console.log('send data');
+    const data = {
+      ...this.registerForm.value,
+      rol: 'cliente'
+    }
+
+    this.sendingData = true;
+    
+    this.userService.registerClient(data)
+      .subscribe({
+        error: (err:any) => {
+          errorHelpers(err);
+          this.sendingData = false;
+        },
+        next: (resp:any) => {
+          console.log(resp);
+          this.sendingData = false;
+        }
+      });
+    
     
     
   }

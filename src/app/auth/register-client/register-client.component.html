@@ -37,14 +37,10 @@
           </div>
         </div>
       </div>
-
-      <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
-        <p *ngFor="let error of errors">{{error}}</p>
-      </div>
-
+      
       <div class="row">
         <div class="col-12">
-          <button type="submit" class="btn btn-primary btn-block">Registro</button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="sendingData">Registro</button>
         </div>
       </div>
     </form>
@@ -64,6 +60,9 @@
     <hr>
 
     <a routerLink="/auth/login" class="text-center">Ya tienes una cuenta?? Inicia sesión aqui</a>
+
   </div>
-  <!-- /.form-box -->
+  
+
+
 </div><!-- /.card -->

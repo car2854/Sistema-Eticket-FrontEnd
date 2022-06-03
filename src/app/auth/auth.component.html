@@ -1,9 +1,6 @@
-<div class="expanded">
+<div class="expanded" *ngIf="errorDataService.errors.length > 0">
   <div class="alert alert-danger" role="alert">
-    <p>Hola a todos</p>
-    <p>Hola a todos</p>
-    <p>Hola a todos</p>
-    <p>Hola a todos</p>
+    <p *ngFor="let error of errorDataService.errors">{{error}}</p>
   </div>
 </div>
 
