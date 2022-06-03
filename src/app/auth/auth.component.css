@@ -1,0 +1,16 @@
+.alert-danger{
+  margin: auto;
+  width: 800px;
+  border-radius: 0px;
+}
+
+.expanded{
+  margin-top: 25px;
+  position: absolute;
+  width: 100%;
+}
+
+.alert-danger p{
+  margin: 0px;
+  font-size: 15px;
+}

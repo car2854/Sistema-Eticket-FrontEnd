@@ -14,7 +14,7 @@
     
     <div class="form-group">
       <label for=""></label>
-      <input type="text" class="form-control" placeholder="Buscar">
+      <input type="text" class="form-control" placeholder="Buscar" (input)="search()" #refSearchInput>
     </div>
 
 
@@ -46,7 +46,7 @@
   </nav>
 
   <div class="section-categories" [hidden]="!showCategories">
-    <h5 class="noselect" *ngFor="let category of categories">{{category.nombre}}</h5>
+    <h5 [ngClass]="{'select': category.nombre === selectedCategory}" *ngFor="let category of categories" (click)="selectCategory(category.nombre)">{{category.nombre}}</h5>
   </div>
 </div>
 

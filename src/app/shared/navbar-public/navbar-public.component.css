@@ -50,3 +50,7 @@
 .form-group{
   width: 73%;
 }
+
+.select{
+  border-bottom: 1px solid white;
+}

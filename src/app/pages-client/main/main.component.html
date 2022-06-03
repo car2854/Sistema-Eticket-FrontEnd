@@ -37,7 +37,7 @@
     
     <div class="events-list">
   
-      <div class="event" [routerLink]="[ '/public/evento', 1 ]" *ngFor="let event of events">
+      <div class="event" [routerLink]="[ '/public/evento', 1 ]" *ngFor="let event of eventDataService.events">
   
   
         <div class="event-description">

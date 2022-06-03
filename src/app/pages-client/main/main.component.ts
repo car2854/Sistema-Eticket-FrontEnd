@@ -13,11 +13,10 @@ import { errorHelpers } from '../../helpers/helpers';
 export class MainComponent implements OnInit {
 
   public isLoading = true;
-  public events: EventModel[] = [];
 
   constructor(
     private eventService: EventService,
-    private eventDataService: EventsDataService
+    public eventDataService: EventsDataService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +30,6 @@ export class MainComponent implements OnInit {
         next: (resp:any) => {
           this.isLoading = false;
           this.eventDataService.events = resp;
-          this.events = this.eventDataService.events;
         }
       })
 
