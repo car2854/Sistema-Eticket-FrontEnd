@@ -4,6 +4,11 @@
   background-color: black;
 }
 
+
+.content-public{
+  width: 100%;
+}
+
 .image1 img{
   width: 100%;
   opacity: 0.4;
@@ -20,9 +25,9 @@
 }
 
 .event-details .event-descripcion{
-  position: absolute;
-  left: 550px;
-  width: 1150px;
+  position: relative;
+  flex-direction: column;
+  margin-left: 550px;
   top: 0px;
 }
 
@@ -39,7 +44,7 @@
 }
 
 .event{
-  padding-top: 370px;
+  padding-top: 160px;
 }
 
 .section-form{

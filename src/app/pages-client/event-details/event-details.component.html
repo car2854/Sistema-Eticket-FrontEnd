@@ -18,51 +18,51 @@
         </div>
         
 
-          <div class="event-descripcion">
-            <h1>{{event.nombre}}</h1>
-            <h3>{{event.categoria}}</h3>
-    
-            <div class="section-form">
-              <form [formGroup]="dataForm" autocomplete="off" (submit)="selectData()">
-                  
-                <div class="form-group">
-                  <label for="">Ubicacion</label>
-                  <select name="" id="" class="form-control" (change)="changeLocation()" formControlName="idLocation">
-                    <option value="0" hidden>Seleccione una ubicacion</option>
-                    <ng-container *ngFor="let location of event.ubicaciones">
-                      <option [value]="location.idubicacion">{{location.nombre}}</option>
-                    </ng-container>
-                    
-                  </select>
-                </div>
-
-                <ng-container *ngIf="dataForm.get('idLocation')?.value != ''">
-
-                  <ng-container *ngIf="isLoadingDate; else elseLoadingDate">
-                    <app-loading></app-loading>
-                  </ng-container>
-                  <ng-template #elseLoadingDate>
-                    
-                    <div class="form-group">
-                      <label for="">Horario</label>
-                      <select name="" id="" class="form-control" formControlName="idDate">
-                        <option value="0" hidden>Seleccione el horario</option>
-                        <ng-container *ngFor="let dt of date">
-                          <option value="dt.idhorario">{{dt.fecha_hora | date:'mediumDate'}} - {{dt.fecha_hora | date:'shortTime'}}</option>
-                        </ng-container>
-                      </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-danger" *ngIf="dataForm.get('idDate')?.value != ''">Comprar Ticket</button>
-
-                  </ng-template>
-        
-                </ng-container>
+        <div class="event-descripcion">
+          <h1>{{event.nombre}}</h1>
+          <h3>{{event.categoria}}</h3>
+  
+          <div class="section-form">
+            <form [formGroup]="dataForm" autocomplete="off" (submit)="selectData()">
                 
-              </form>
-            </div>
-    
+              <div class="form-group">
+                <label for="">Ubicacion</label>
+                <select name="" id="" class="form-control" (change)="changeLocation()" formControlName="idLocation">
+                  <option value="0" hidden>Seleccione una ubicacion</option>
+                  <ng-container *ngFor="let location of event.ubicaciones">
+                    <option [value]="location.idubicacion">{{location.nombre}}</option>
+                  </ng-container>
+                  
+                </select>
+              </div>
+
+              <ng-container *ngIf="dataForm.get('idLocation')?.value != ''">
+
+                <ng-container *ngIf="isLoadingDate; else elseLoadingDate">
+                  <app-loading></app-loading>
+                </ng-container>
+                <ng-template #elseLoadingDate>
+                  
+                  <div class="form-group">
+                    <label for="">Horario</label>
+                    <select name="" id="" class="form-control" formControlName="idDate">
+                      <option value="0" hidden>Seleccione el horario</option>
+                      <ng-container *ngFor="let dt of date">
+                        <option value="dt.idhorario">{{dt.fecha_hora | date:'mediumDate'}} - {{dt.fecha_hora | date:'shortTime'}}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-danger" *ngIf="dataForm.get('idDate')?.value != ''">Comprar Ticket</button>
+
+                </ng-template>
+      
+              </ng-container>
+              
+            </form>
           </div>
+  
+        </div>
       
 
      
