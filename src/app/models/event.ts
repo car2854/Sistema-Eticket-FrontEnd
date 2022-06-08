@@ -15,7 +15,8 @@ export class EventModel{
     public nombre: string,
     public ubicacions: LocationModel[],
     public categoria: string,
-    public imagenes: string[]
+    public imagenes: string[],
+    public ubicaciones: LocationModel[]
   ){}
 
 }

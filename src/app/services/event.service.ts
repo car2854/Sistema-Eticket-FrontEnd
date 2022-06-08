@@ -37,9 +37,17 @@ export class EventService {
     return this.http.put(`${base_url}/v1.0.0/eventos/estado/${id}`, data);
   }
 
-  public getEventPublic = (nombre:string='', categoria:string='') => {
-    
+  public getEventsPublic = (nombre:string='', categoria:string='') => {
     return this.http.get(`${base_url}/v1.0.0/public/eventos?nombre=${nombre}&categoria=${categoria}`);
   }
+
+  public getEventPublic = (id:number) => {
+    return this.http.get(`${base_url}/v1.0.0/public/eventos/${id}`);
+  }
+  
+  public getTimeEventPublic = (id:number) => {
+    return this.http.get(`${base_url}/v1.0.0/public/horarios/${id}`);
+  }
+
 
 }

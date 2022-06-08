@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { CategoryLengthPipe } from '../pipes/category-length.pipe';
 import { ComponentsModule } from '../components/components.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     PagesClientRoutingModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesClientModule { }

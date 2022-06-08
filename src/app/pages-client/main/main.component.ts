@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.eventService.getEventPublic()
+    this.eventService.getEventsPublic()
       .subscribe({
         error: (err:any) => {
           errorHelpers(err);

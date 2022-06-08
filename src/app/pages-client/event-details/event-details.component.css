@@ -23,16 +23,22 @@
   position: absolute;
   left: 550px;
   width: 1150px;
+  top: 0px;
 }
 
 .event-details .image2{
   position: absolute;
   top: -370px;
   height: 680px;
+  width: 500px;
   overflow: hidden;
 }
 
-.event-content .event-information{
+.event-details .image2 img{
+  width: 100%;
+}
+
+.event{
   padding-top: 370px;
 }
 

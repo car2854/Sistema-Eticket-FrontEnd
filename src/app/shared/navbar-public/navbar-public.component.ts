@@ -43,7 +43,7 @@ export class NavbarPublicComponent implements OnInit {
     if (this.selectedCategory === name) name = '';
 
     this.selectedCategory = name;
-    this.eventService.getEventPublic('', this.selectedCategory)
+    this.eventService.getEventsPublic('', this.selectedCategory)
       .subscribe({
         error: (err:any) => {
           errorHelpers(err);
@@ -57,7 +57,7 @@ export class NavbarPublicComponent implements OnInit {
   public search = () => {
     const value = this.refSearchInput.nativeElement.value;
 
-    this.eventService.getEventPublic(value, this.selectedCategory)
+    this.eventService.getEventsPublic(value, this.selectedCategory)
     .subscribe({
       error: (err:any) => {
         errorHelpers(err);

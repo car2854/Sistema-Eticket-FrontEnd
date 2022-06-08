@@ -20,6 +20,8 @@ export class GoogleMapComponent implements OnInit {
 
   @Input() initPositionUpdate: any = {};
   @Input() isUpdate: boolean = false;
+  @Input() isCreate: boolean = true;
+  @Input() initPosition: any = {};
 
   constructor() { }
   
@@ -38,6 +40,13 @@ export class GoogleMapComponent implements OnInit {
         center: {lat: parseFloat(this.initPositionUpdate.lat), lng: parseFloat(this.initPositionUpdate.lng)},
         zoom: 14
       };
+    
+    }else if(!this.isCreate){
+
+      mapOptions = {
+        center: {lat: parseFloat(this.initPosition.lat), lng: parseFloat(this.initPosition.lng)},
+        zoom: 14
+      };
 
     }else{
       mapOptions = {
@@ -52,6 +61,7 @@ export class GoogleMapComponent implements OnInit {
       .then((google) => {
         this.map = new google.maps.Map(document.getElementById("map")!, mapOptions);
 
+        // Cuando el mapa tiene que actualizar su ubicacion
         if(this.isUpdate){
           const markets = new google.maps.Marker({
             position: {lat: parseFloat(this.initPositionUpdate.lat), lng: parseFloat(this.initPositionUpdate.lng)},
@@ -61,27 +71,42 @@ export class GoogleMapComponent implements OnInit {
           this.markers.push(markets);
         }
 
-        google.maps.event.addListener(this.map, 'click', ( event:any ) => {
-
-          if (this.markers){
-            for (const marker in this.markers) {
-              this.markers[marker].setMap(null);
-            }
-            this.markers = [];
-          }
-
-          const myLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-          
-          this.eventEmitterSelectedCreateMarker.emit(myLatLng);
-
+        // Cuando el mapa se visualiza sin asignar ubicacion
+        if (!this.isCreate){
           const markets = new google.maps.Marker({
-            position: myLatLng,
+            position: {lat: parseFloat(this.initPosition.lat), lng: parseFloat(this.initPosition.lng)},
             map: this.map,
           });
-
+    
           this.markers.push(markets);
+        }
 
-        });
+        // Cuando el mapa tiene que asignar una ubicacion
+        if (this.isCreate){
+
+          google.maps.event.addListener(this.map, 'click', ( event:any ) => {
+
+            if (this.markers){
+              for (const marker in this.markers) {
+                this.markers[marker].setMap(null);
+              }
+              this.markers = [];
+            }
+  
+            const myLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+            
+            this.eventEmitterSelectedCreateMarker.emit(myLatLng);
+  
+            const markets = new google.maps.Marker({
+              position: myLatLng,
+              map: this.map,
+            });
+  
+            this.markers.push(markets);
+  
+          });
+
+        }
 
         
       })

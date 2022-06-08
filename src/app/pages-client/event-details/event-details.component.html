@@ -1,62 +1,101 @@
-<div class="content-public">
-
-  <div class="image1">
-    <img src="https://rockthebestmusic.com/wp-content/uploads/2007/11/concierto-portada.jpg" alt="">
-  </div>
-
-  <div class="event-content">
-    
-    <div class="event-details">
+<ng-container *ngIf="isLoading; else elseLoading">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #elseLoading>
+  
+  <div class="content-public">
+  
+    <div class="image1">
+      <img [src]="event.imagenes[0]" alt="">
+    </div>
+  
+    <div class="event-content">
       
-      <div class="image2">
-        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-concert-flyer-template-design-a277e46bcbd2b01f442b7afc6b052944_screen.jpg?ts=1637012298" alt="image2">
-      </div>
-  
-      <div class="event-descripcion">
-        <h1>Nombre del evento</h1>
-        <h3>Categoria del evento</h3>
-
-        <div class="section-form">
-          <form action="">
-              
-            <div class="form-group">
-              <label for="">Ubicacion</label>
-              <select name="" id="" class="form-control">
-                <option value="">Seleccione una ubicacion</option>
-                <option value="">Ubicacion 1</option>
-                <option value="">Ubicacion 2</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="">Concierto</label>
-              <select name="" id="" class="form-control">
-                <option value="">Seleccione el concierto</option>
-                <option value="">Concierto 1</option>
-                <option value="">Concierto 2</option>
-              </select>
-            </div>
-            <button class="btn btn-danger">Comprar Ticket</button>
-  
-          </form>
+      <div class="event-details">
+        
+        <div class="image2">
+          <img [src]="event.imagenes[0]" alt="image2">
         </div>
+        
+
+          <div class="event-descripcion">
+            <h1>{{event.nombre}}</h1>
+            <h3>{{event.categoria}}</h3>
+    
+            <div class="section-form">
+              <form [formGroup]="dataForm" autocomplete="off" (submit)="selectData()">
+                  
+                <div class="form-group">
+                  <label for="">Ubicacion</label>
+                  <select name="" id="" class="form-control" (change)="changeLocation()" formControlName="idLocation">
+                    <option value="0" hidden>Seleccione una ubicacion</option>
+                    <ng-container *ngFor="let location of event.ubicaciones">
+                      <option [value]="location.idubicacion">{{location.nombre}}</option>
+                    </ng-container>
+                    
+                  </select>
+                </div>
+
+                <ng-container *ngIf="dataForm.get('idLocation')?.value != ''">
+
+                  <ng-container *ngIf="isLoadingDate; else elseLoadingDate">
+                    <app-loading></app-loading>
+                  </ng-container>
+                  <ng-template #elseLoadingDate>
+                    
+                    <div class="form-group">
+                      <label for="">Horario</label>
+                      <select name="" id="" class="form-control" formControlName="idDate">
+                        <option value="0" hidden>Seleccione el horario</option>
+                        <ng-container *ngFor="let dt of date">
+                          <option value="dt.idhorario">{{dt.fecha_hora | date:'mediumDate'}} - {{dt.fecha_hora | date:'shortTime'}}</option>
+                        </ng-container>
+                      </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger" *ngIf="dataForm.get('idDate')?.value != ''">Comprar Ticket</button>
+
+                  </ng-template>
+        
+                </ng-container>
+                
+              </form>
+            </div>
+    
+          </div>
+      
+
+      </div>
+
+
+      <div class="event">
+        
+        <div class="event-information" *ngIf="event.descripcion.length>0">
+          
+            <h4>Descripcion</h4>
+            <p>{{event.descripcion}}</p>
+  
+        </div>
+    
+    
+        <div class="event-map mt-5" *ngIf="initPosition">
+          <h4>Como llegar</h4>
+
+          <app-google-map [isCreate]="false" [initPosition]="initPosition"></app-google-map>
+        
+        </div>
+    
 
       </div>
   
     </div>
-
-    <div class="event-information">
-      <h4>Descripcion</h4>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ad corporis, laboriosam, aspernatur veniam excepturi quo minima laborum nam, accusantium nostrum esse laudantium asperiores. Quibusdam unde, ratione ducimus voluptatum necessitatibus cum iste accusamus placeat architecto, voluptas quisquam quasi commodi, itaque qui? Ab amet asperiores illum, libero voluptates quod laborum a eligendi sequi rerum? Maiores cupiditate harum nemo quibusdam odit temporibus ad nostrum iste. Nobis, molestiae voluptate fuga quo laudantium nam saepe dicta vero, enim cum, id unde nisi distinctio? Soluta sapiente voluptates quia sint facere, dolore impedit reiciendis sequi, veniam deserunt commodi enim ab dolorem, quas animi obcaecati a autem?</p>
-    </div>
-
-
-    <div class="event-map mt-5">
-      <h4>Como llegar</h4>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ad corporis, laboriosam, aspernatur veniam excepturi quo minima laborum nam, accusantium nostrum esse laudantium asperiores. Quibusdam unde, ratione ducimus voluptatum necessitatibus cum iste accusamus placeat architecto, voluptas quisquam quasi commodi, itaque qui? Ab amet asperiores illum, libero voluptates quod laborum a eligendi sequi rerum? Maiores cupiditate harum nemo quibusdam odit temporibus ad nostrum iste. Nobis, molestiae voluptate fuga quo laudantium nam saepe dicta vero, enim cum, id unde nisi distinctio? Soluta sapiente voluptates quia sint facere, dolore impedit reiciendis sequi, veniam deserunt commodi enim ab dolorem, quas animi obcaecati a autem?</p>
-    </div>
-
+  
+  
+  
   </div>
+  
+</ng-template>
 
+<button hidden data-toggle="modal" data-target="#modal-details-event" #refModal></button>
 
-
-</div>
+<app-details-modal></app-details-modal>
