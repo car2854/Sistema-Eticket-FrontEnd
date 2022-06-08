@@ -71,15 +71,14 @@
 
       <div class="event">
         
-        <div class="event-information" *ngIf="event.descripcion.length>0">
+        <div class="event-information mb-5" *ngIf="event.descripcion.length>0">
           
             <h4>Descripcion</h4>
             <p>{{event.descripcion}}</p>
   
         </div>
     
-    
-        <div class="event-map mt-5" *ngIf="initPosition">
+        <div class="event-map" *ngIf="initPosition">
           <h4>Como llegar</h4>
 
           <app-google-map [isCreate]="false" [initPosition]="initPosition"></app-google-map>
