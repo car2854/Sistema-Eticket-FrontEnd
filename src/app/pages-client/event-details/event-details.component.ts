@@ -5,7 +5,9 @@ import { errorHelpers } from 'src/app/helpers/helpers';
 import { DateModel } from 'src/app/models/date';
 import { EventModel } from 'src/app/models/event';
 import { LocationModel } from 'src/app/models/location';
+import { TicketDataService } from 'src/app/services/dataServices/ticket-data.service';
 import { EventService } from 'src/app/services/event.service';
+import { SectorService } from 'src/app/services/sector.service';
 
 @Component({
   selector: 'app-event-details',
@@ -32,7 +34,9 @@ export class EventDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private eventService: EventService,
-    private route: ActivatedRoute
+    private sectorService: SectorService,
+    private ticketDataService: TicketDataService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -47,8 +51,6 @@ export class EventDetailsComponent implements OnInit {
         },
         next: (resp:any) => {
           this.event = resp;
-          console.log(this.event);
-          
           this.isLoading = false;
         }
       });
@@ -65,9 +67,15 @@ export class EventDetailsComponent implements OnInit {
 
       const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
 
+      
+
       this.event.ubicaciones.forEach((location: LocationModel) => {
 
-        if (location.idubicacion === idLocation) this.initPosition = {lat: location.latitud,lng: location.longitud};
+        
+        if (location.idubicacion === idLocation) {
+          this.initPosition = {lat: location.latitud,lng: location.longitud}
+        };
+          
 
       });
 
@@ -79,7 +87,6 @@ export class EventDetailsComponent implements OnInit {
           },
           next: (resp:any) => {
             this.date = resp;
-            console.log(this.date);
             this.isLoadingDate = false;
             
           }
@@ -93,7 +100,19 @@ export class EventDetailsComponent implements OnInit {
 
     if (this.dataForm.invalid) return;
 
-    this.refModal.nativeElement.click();
+    // this.eventService
+    const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
+
+    this.sectorService.getSectorPublic(idLocation)
+      .subscribe({
+        error: (err:any) => {
+          errorHelpers(err);
+        },
+        next: (resp:any) => {
+          console.log(resp);
+          this.refModal.nativeElement.click();
+        }
+      });
     
   }
 

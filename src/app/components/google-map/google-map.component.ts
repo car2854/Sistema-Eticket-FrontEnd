@@ -23,6 +23,33 @@ export class GoogleMapComponent implements OnInit {
   @Input() isCreate: boolean = true;
   @Input() initPosition: any = {};
 
+  @Input() set changeLocation(location: any){
+    
+    this.initPosition = location;
+    
+    // Si el map existe, hacer esto, si no existe, no hacer nada
+    if (this.map){
+      if (this.markers){
+        for (const marker in this.markers) {
+          this.markers[marker].setMap(null);
+        }
+        this.markers = [];
+      }
+  
+      const markets = new google.maps.Marker({
+        position: {lat: parseFloat(this.initPosition.lat), lng: parseFloat(this.initPosition.lng)},
+        map: this.map,
+      });
+  
+      this.markers.push(markets);
+  
+      const initialLocation = new google.maps.LatLng(this.initPosition.lat, this.initPosition.lng);
+      this.map.panTo(initialLocation);
+    }
+
+   
+  }
+
   constructor() { }
   
   ngOnInit(): void {

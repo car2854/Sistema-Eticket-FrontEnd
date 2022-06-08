@@ -49,5 +49,4 @@ export class EventService {
     return this.http.get(`${base_url}/v1.0.0/public/horarios/${id}`);
   }
 
-
 }

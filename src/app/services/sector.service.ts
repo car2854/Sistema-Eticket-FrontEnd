@@ -20,4 +20,8 @@ export class SectorService {
   public deleteSector = (id:number) => {
     return this.httpClient.delete(`${base_url}/v1.0.0/sectores/${id}`);
   }
+
+  public getSectorPublic = (id:number) => {
+    return this.httpClient.get(`${base_url}/v1.0.0/public/sectores/${id}`);
+  }
 }

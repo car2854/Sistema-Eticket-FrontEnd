@@ -81,7 +81,7 @@
         <div class="event-map" *ngIf="initPosition">
           <h4>Como llegar</h4>
 
-          <app-google-map [isCreate]="false" [initPosition]="initPosition"></app-google-map>
+          <app-google-map [isCreate]="false" [initPosition]="initPosition" [changeLocation]="initPosition"></app-google-map>
         
         </div>
     
