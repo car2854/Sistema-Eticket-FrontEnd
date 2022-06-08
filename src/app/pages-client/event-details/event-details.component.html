@@ -65,6 +65,7 @@
           </div>
       
 
+     
       </div>
 
 
@@ -94,8 +95,13 @@
   
   </div>
   
+  <div id="show-map" *ngIf="initPosition" (click)="showMap()">
+    <i class="fa fa-map-marked-alt"></i>
+  </div>
+
 </ng-template>
 
 <button hidden data-toggle="modal" data-target="#modal-details-event" #refModal></button>
 
 <app-details-modal></app-details-modal>
+

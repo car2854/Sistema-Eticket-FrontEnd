@@ -95,6 +95,12 @@ export class EventDetailsComponent implements OnInit {
 
     this.refModal.nativeElement.click();
     
+  }
+
+  public showMap = () => {
+
+    const content = document.getElementsByTagName('html')[0];
+    content.scrollTop = 10000000;
 
   }
 }
