@@ -102,6 +102,15 @@ export class EventDetailsComponent implements OnInit {
 
     // this.eventService
     const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
+    const idDate = parseInt(this.dataForm.get('idDate')?.value || '0');
+
+    this.event.ubicaciones.forEach((location:LocationModel) => {
+      if (location.idubicacion === idLocation) this.ticketDataService.location = location;
+    });
+
+    this.date.forEach((date: DateModel) => {
+      if (date.idhorario === idDate) this.ticketDataService.date = date;
+    });
 
     this.sectorService.getSectorPublic(idLocation)
       .subscribe({
@@ -109,7 +118,7 @@ export class EventDetailsComponent implements OnInit {
           errorHelpers(err);
         },
         next: (resp:any) => {
-          console.log(resp);
+          this.ticketDataService.sectors = resp;
           this.refModal.nativeElement.click();
         }
       });

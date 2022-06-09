@@ -9,6 +9,7 @@ import { EventDetailsComponent } from './event-details/event-details.component';
 import { CategoryLengthPipe } from '../pipes/category-length.pipe';
 import { ComponentsModule } from '../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompletePaymentComponent } from './complete-payment/complete-payment.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PagesClientComponent,
     MainComponent,
     EventDetailsComponent,
-    CategoryLengthPipe
+    CategoryLengthPipe,
+    CompletePaymentComponent
   ],
   imports: [
     CommonModule,

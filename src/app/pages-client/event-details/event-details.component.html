@@ -39,16 +39,17 @@
               <ng-container *ngIf="dataForm.get('idLocation')?.value != ''">
 
                 <ng-container *ngIf="isLoadingDate; else elseLoadingDate">
-                  <app-loading></app-loading>
+                  <div class="text-center">
+                    <app-loading-data></app-loading-data>
+                  </div>
                 </ng-container>
                 <ng-template #elseLoadingDate>
-                  
                   <div class="form-group">
                     <label for="">Horario</label>
                     <select name="" id="" class="form-control" formControlName="idDate">
                       <option value="0" hidden>Seleccione el horario</option>
                       <ng-container *ngFor="let dt of date">
-                        <option value="dt.idhorario">{{dt.fecha_hora | date:'mediumDate'}} - {{dt.fecha_hora | date:'shortTime'}}</option>
+                        <option [value]="dt.idhorario">{{dt.fecha_hora | date:'mediumDate'}} - {{dt.fecha_hora | date:'shortTime'}}</option>
                       </ng-container>
                     </select>
                   </div>

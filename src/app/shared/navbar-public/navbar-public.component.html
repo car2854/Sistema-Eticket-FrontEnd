@@ -29,15 +29,15 @@
         
   
       </ul>
-  
-      <div class="nav-item dropdown">
+      
+      <div class="nav-item dropdown mr-5 pr-5" *ngIf="userService.user.token != 'no-token'">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Carlos Alberto
+          {{userService.user.nombre_usuario}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Configuracion</a>
           <a class="dropdown-item" href="#">Historial de compras</a>
-          <a class="dropdown-item" href="#">Cerrar Sesion</a>
+          <a class="dropdown-item" (click)="logout()">Cerrar Sesion</a>
         </div>
       </div>
   

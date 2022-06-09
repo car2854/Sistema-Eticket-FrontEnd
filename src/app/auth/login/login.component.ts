@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { errorHelpers } from 'src/app/helpers/helpers';
 import { ErrorDataService } from 'src/app/services/dataServices/error-data.service';
+import { TicketDataService } from 'src/app/services/dataServices/ticket-data.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -21,6 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private router: Router,
+    private ticketDataService: TicketDataService,
     public errorDataService: ErrorDataService
   ) { }
 
@@ -52,7 +56,13 @@ export class LoginComponent implements OnInit {
         complete: () => {
           // TODO: Login
           this.sendingData = false;
-          console.log('Login');
+
+          if (this.ticketDataService.goPay){
+            this.router.navigateByUrl('/public/completar-pago');
+          }else{
+            this.router.navigateByUrl('/public/eventos');
+          }
+
         }
       });
 

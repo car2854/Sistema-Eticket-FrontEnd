@@ -4,6 +4,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { EmptyComponent } from './empty/empty.component';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { DetailsModalComponent } from './details-modal/details-modal.component';
+import { LoadingDataComponent } from './loading-data/loading-data.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,16 +14,19 @@ import { DetailsModalComponent } from './details-modal/details-modal.component';
     LoadingComponent,
     EmptyComponent,
     GoogleMapComponent,
-    DetailsModalComponent
+    DetailsModalComponent,
+    LoadingDataComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     LoadingComponent,
     EmptyComponent,
     GoogleMapComponent,
-    DetailsModalComponent
+    DetailsModalComponent,
+    LoadingDataComponent
   ]
 })
 export class ComponentsModule { }

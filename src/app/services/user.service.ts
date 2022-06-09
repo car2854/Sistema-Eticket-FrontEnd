@@ -11,7 +11,7 @@ const base_url = environment.base_url;
 })
 export class UserService {
 
-  public user?: UserModel;
+  public user: UserModel = new UserModel('','','','','no-token');
 
   constructor(
     private httpClient: HttpClient
@@ -23,7 +23,7 @@ export class UserService {
       .pipe(
         tap((resp:any) => {
           localStorage.setItem('token', resp.token);
-          this.login = resp;
+          this.user = resp;
         })
       );
 
@@ -34,8 +34,15 @@ export class UserService {
         .pipe(
           tap((resp:any) => {
             localStorage.setItem('token', resp.token);
-            console.log(resp);
           })
         );
+  }
+
+  public logout = () => {
+
+    localStorage.removeItem('token');
+    this.user = new UserModel('','','','','no-token');
+    
+    
   }
 }
