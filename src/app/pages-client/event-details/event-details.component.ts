@@ -17,11 +17,13 @@ import { SectorService } from 'src/app/services/sector.service';
 export class EventDetailsComponent implements OnInit {
 
   @ViewChild('refModal') refModal!: ElementRef;
+  @ViewChild('refModalSector') refModalSector!: ElementRef;
 
   public initPosition!: any;
 
   public isLoading: boolean = true;
   public isLoadingDate: boolean = false;
+  public isSendingData: boolean = false;
 
   public event!: EventModel;
   public date: DateModel[] = [];
@@ -62,12 +64,10 @@ export class EventDetailsComponent implements OnInit {
     
 
     if (this.dataForm.get('idLocation')?.value != ''){
-
+      
       this.isLoadingDate = true;
 
       const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
-
-      
 
       this.event.ubicaciones.forEach((location: LocationModel) => {
 
@@ -86,9 +86,9 @@ export class EventDetailsComponent implements OnInit {
             this.isLoadingDate = false;
           },
           next: (resp:any) => {
+            this.dataForm.get('idDate')?.setValue(0);
             this.date = resp;
             this.isLoadingDate = false;
-            
           }
         });
     }
@@ -99,6 +99,8 @@ export class EventDetailsComponent implements OnInit {
   public selectData = () => {
 
     if (this.dataForm.invalid) return;
+
+    this.isSendingData = true;
 
     // this.eventService
     const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
@@ -116,10 +118,18 @@ export class EventDetailsComponent implements OnInit {
       .subscribe({
         error: (err:any) => {
           errorHelpers(err);
+          this.isSendingData = false;
         },
         next: (resp:any) => {
+          
+          this.isSendingData = false;
+          
           this.ticketDataService.sectors = resp;
-          this.refModal.nativeElement.click();
+          if (this.ticketDataService.sectors.length === 0){
+            this.refModal.nativeElement.click();
+          }else{
+            this.refModalSector.nativeElement.click();
+          }
         }
       });
     

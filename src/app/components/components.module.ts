@@ -6,6 +6,7 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { DetailsModalComponent } from './details-modal/details-modal.component';
 import { LoadingDataComponent } from './loading-data/loading-data.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DetailsModalSectorComponent } from './details-modal-sector/details-modal-sector.component';
 
 
 
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     GoogleMapComponent,
     DetailsModalComponent,
     LoadingDataComponent,
+    DetailsModalSectorComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EmptyComponent,
     GoogleMapComponent,
     DetailsModalComponent,
-    LoadingDataComponent
+    LoadingDataComponent,
+    DetailsModalSectorComponent
   ]
 })
 export class ComponentsModule { }

@@ -30,8 +30,6 @@ export class DetailsModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // para ticket sin sectores
-
   public getPrice = () => {
     return this.withoutSectorForm.get('cantidad')?.value * 12.0;
   }

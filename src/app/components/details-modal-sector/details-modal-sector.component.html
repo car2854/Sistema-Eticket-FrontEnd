@@ -1,0 +1,96 @@
+<div class="modal fade" id="modal-details-event-sector">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Comprar Ticket</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refClose>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+        <form [formGroup]="withSectorForm" autocomplete="off" (submit)="goPayS()">
+
+          <div class="modal-body">
+
+            <div class="mb-3">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Sectores</label>
+                    <select class="form-control" formControlName="idSector">
+                      <option [value]="0" hidden>Seleccione un sector</option>
+                      <option [value]="sector.idsector" *ngFor="let sector of ticketDataService.sectors">{{sector.nombre}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Cantidad de entradas</label>
+                    <input type="number" class="form-control" placeholder="Cantidad de entradas" formControlName="cantidad">
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <button type="button" class="btn btn-primary" (click)="addSector()">Agregar</button>
+              </div>
+
+            </div>
+
+            <ng-container *ngIf="ticketDataService.aggregateSectors.length > 0; else elseEmptyAggregateSector">
+              
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col" class="price-1">Precio individual</th>
+                    <th scope="col" class="price-2">Precio total</th>
+                    <th scope="col" class="options">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sector of ticketDataService.aggregateSectors">
+                    <td>{{sector.nombre}}</td>
+                    <td>{{sector.cantidad}}</td>
+                    <td>12 Bs.</td>
+                    <td>12 Bs.</td>
+                    <td>
+                      <div class="text-center">
+                        <button class="btn btn-danger" (click)="deleteSector(sector.id_sector)">X</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </ng-container>
+            <ng-template #elseEmptyAggregateSector>
+              
+              <div class="text-center">
+                <h5>No tiene sectores agregados</h5>
+              </div>
+
+            </ng-template>
+            
+
+              <hr>
+              <div class="row">
+                <div class="col-md-12 text-right">
+                  <p>Precio total: 12 Bs.</p>
+                </div>
+              </div>
+
+            
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Ir a comprar</button>
+          </div>
+        </form>
+
+
+    </div>
+  </div>
+</div>

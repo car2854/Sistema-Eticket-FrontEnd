@@ -102,6 +102,13 @@
 </ng-template>
 
 <button hidden data-toggle="modal" data-target="#modal-details-event" #refModal></button>
+<button hidden data-toggle="modal" data-target="#modal-details-event-sector" #refModalSector></button>
 
 <app-details-modal></app-details-modal>
+<app-details-modal-sector></app-details-modal-sector>
 
+<div class="loading" *ngIf="isSendingData">
+  <div class="text-center">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
