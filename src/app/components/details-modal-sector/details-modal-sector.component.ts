@@ -32,14 +32,22 @@ export class DetailsModalSectorComponent implements OnInit {
 
     if (this.withSectorForm.invalid) return;
 
+
     const idSector = parseInt(this.withSectorForm.get('idSector')?.value);
     const amount = parseInt(this.withSectorForm.get('cantidad')?.value);
-
-    this.ticketDataService.addAggregateSector(idSector, amount, 5.0);
+    
+    if (!this.ticketDataService.existSector(idSector)){
+      this.ticketDataService.addAggregateSector(idSector, amount, 5.0);
+  
+      this.withSectorForm.get('idSector')?.setValue(0);
+      this.withSectorForm.get('cantidad')?.setValue(0);
+    }
 
   }
 
   public deleteSector = (idSector: number) => {
+    console.log('hola');
+    
     this.ticketDataService.deleteSector(idSector);
   }
 

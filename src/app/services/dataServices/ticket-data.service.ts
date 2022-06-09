@@ -13,7 +13,12 @@ export class TicketDataService {
   public location!: LocationModel;
   public date!: DateModel;
   public sectors: SectorModel[] = [];
-  
+
+
+  // sin sectores
+  public cantidad: number = 0;
+
+
   // con sectores
   public aggregateSectors: any[] = [];
 
@@ -21,8 +26,6 @@ export class TicketDataService {
 
   // con sectores
   public addAggregateSector = (idSector:number, amount:number, price:number) => {
-
-    if (this.existSector(idSector)) return;
 
     let name;
 
