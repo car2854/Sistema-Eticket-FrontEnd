@@ -43,6 +43,13 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Limpiar el servicio de la data
+    this.ticketDataService.aggregateSectors = [];
+    this.ticketDataService.cantidad = 0;
+    this.ticketDataService.goPay = false;
+
+
+
     const id = parseInt(this.route.snapshot.paramMap.get('id') ?? '0');
 
     this.eventService.getEventPublic(id)

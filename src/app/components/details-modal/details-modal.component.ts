@@ -38,6 +38,7 @@ export class DetailsModalComponent implements OnInit {
 
     if (this.withoutSectorForm.get('cantidad')?.invalid) return;
 
+    this.ticketDataService.cantidad = parseInt(this.withoutSectorForm.get('cantidad')?.value);
     this.ticketDataService.goPay = true;
     if (this.userService.user.token != 'no-token'){
       this.router.navigateByUrl('/public/completar-pago');
