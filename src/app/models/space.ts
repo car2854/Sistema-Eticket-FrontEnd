@@ -6,6 +6,6 @@ export class SpaceModel {
     public tipo_de_espacio: string,
     public cantidad_de_personas: number,
     public idsector: number,
-
+    public precio: number
   ){}
 }

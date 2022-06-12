@@ -73,13 +73,14 @@ export class AreasComponent implements OnInit {
           });
         },
         next: (resp:any) => {
-
+          
           this.idLocation = resp.idubicacion;
 
           this.areaForm.get('nombre')?.setValue(resp.nombre);
           this.areaForm.get('capacidad')?.setValue(resp.capacidad);
           this.areaForm.get('referencia')?.setValue(resp.referencia);
           this.areaForm.get('idubicacion')?.setValue(resp.idubicacion);
+          this.areaForm.get('precio')?.setValue(resp.precio);
           
           this.spaces = resp.espacios;
           this.isLoading = false;
@@ -135,6 +136,7 @@ export class AreasComponent implements OnInit {
     this.spaceForm.get('identificador')?.setValue(space.identificador);
     this.spaceForm.get('tipo_de_espacio')?.setValue(space.tipo_de_espacio);
     this.spaceForm.get('cantidad_de_personas')?.setValue(space.cantidad_de_personas);
+    this.spaceForm.get('precio')?.setValue(space.precio);
     this.idUpdate = space.idespacio;
     document.getElementById('refNewSpace')?.click();
   }

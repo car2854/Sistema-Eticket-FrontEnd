@@ -53,15 +53,26 @@ export class LoginComponent implements OnInit {
           errorHelpers(err);
           this.sendingData = false;
         },
-        complete: () => {
+        next: (resp:any) => {
           // TODO: Login
+          console.log(resp);
+          
+
           this.sendingData = false;
 
-          if (this.ticketDataService.goPay){
-            this.router.navigateByUrl('/public/completar-pago');
-          }else{
-            this.router.navigateByUrl('/public/eventos');
+
+          if (resp.rol === "cliente"){
+            
+            if (this.ticketDataService.goPay){
+              this.router.navigateByUrl('/public/completar-pago');
+            }else{
+              this.router.navigateByUrl('/public/eventos');
+            }
+
+          }else if (resp.rol === 'admin'){
+            this.router.navigateByUrl('/dashboard/lista-eventos');
           }
+
 
         }
       });

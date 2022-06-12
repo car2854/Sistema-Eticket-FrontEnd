@@ -31,7 +31,6 @@ export class CreateEventComponent implements OnInit {
     idcategoria   : [,[Validators.required]],
     idevento      : [,[Validators.required]],
     nombre        : [,[Validators.required]],
-    precio        : [0,[Validators.min(0)]]
   }); 
 
   public locationForm = this.fb.group({
@@ -79,7 +78,6 @@ export class CreateEventComponent implements OnInit {
           this.imageEvent = resp.imagenes_eventos;
           
           this.locations = resp.ubicacions;
-          
 
           this.eventForm.get('contacto')?.setValue(resp.contacto);
           this.eventForm.get('descripcion')?.setValue(resp.descripcion);
@@ -125,12 +123,6 @@ export class CreateEventComponent implements OnInit {
 
     this.isUpdatingEvent = true;
 
-    const {precio, ...data} = this.eventForm.value;
-
-    if (this.locations.length === 0){
-      data.precio = precio;
-    }
-    
     this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
@@ -204,9 +196,7 @@ export class CreateEventComponent implements OnInit {
 
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
 
-    const {precio, ...data} = this.eventForm.value;
-
-    this.eventService.updateEvent(id, data)
+    this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
           this.isCreatingLocation = false;
@@ -297,9 +287,7 @@ export class CreateEventComponent implements OnInit {
 
     const id = parseInt(this.route.snapshot.paramMap.get('id') || '0');
     
-    const {precio, ...data} = this.eventForm.value;
-
-    this.eventService.updateEvent(id, data)
+    this.eventService.updateEvent(id, this.eventForm.value)
       .subscribe({
         error: (err:any) => {
           this.isUpdatingLocation = false;

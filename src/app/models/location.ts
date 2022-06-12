@@ -9,6 +9,7 @@ export class LocationModel{
     public latitud: number,
     public longitud: number,
     public nombre: string,
-    public horarios: DateModel[]
+    public horarios: DateModel[],
+    public precio: number
   ){}
 }

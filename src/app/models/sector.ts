@@ -5,5 +5,6 @@ export class SectorModel {
     public idubicacion: number,
     public nombre: string,
     public referencia: string,
+    public precio: number
   ){}
 }

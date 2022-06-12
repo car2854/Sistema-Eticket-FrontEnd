@@ -80,7 +80,7 @@ export class LocationsComponent implements OnInit {
           });
         },
         next: (resp:any) => {
-
+          
           this.idEvent = resp.idevento;
           
           this.dates = resp.horarios;
@@ -91,7 +91,8 @@ export class LocationsComponent implements OnInit {
           this.locationForm.get('direccion')?.setValue(resp.direccion);
           this.locationForm.get('latitud')?.setValue(resp.latitud);
           this.locationForm.get('longitud')?.setValue(resp.longitud);
-
+          this.locationForm.get('precio')?.setValue(resp.precio);
+          
           this.initialPosition = {
             lat: resp.latitud,
             lng: resp.longitud
