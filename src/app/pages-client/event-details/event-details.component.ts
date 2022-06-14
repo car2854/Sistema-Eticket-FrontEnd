@@ -7,6 +7,7 @@ import { EventModel } from 'src/app/models/event';
 import { LocationModel } from 'src/app/models/location';
 import { TicketDataService } from 'src/app/services/dataServices/ticket-data.service';
 import { EventService } from 'src/app/services/event.service';
+import { LocationService } from 'src/app/services/location.service';
 import { SectorService } from 'src/app/services/sector.service';
 
 @Component({
@@ -38,6 +39,7 @@ export class EventDetailsComponent implements OnInit {
     private eventService: EventService,
     private sectorService: SectorService,
     private ticketDataService: TicketDataService,
+    private locationService: LocationService,
     private route: ActivatedRoute,
   ) { }
 
@@ -47,6 +49,8 @@ export class EventDetailsComponent implements OnInit {
     this.ticketDataService.aggregateSectors = [];
     this.ticketDataService.cantidad = 0;
     this.ticketDataService.goPay = false;
+    
+    this.ticketDataService.withoutSector = false;
 
 
 
@@ -60,6 +64,7 @@ export class EventDetailsComponent implements OnInit {
         },
         next: (resp:any) => {
           this.event = resp;
+          this.ticketDataService.event = resp;
           this.isLoading = false;
         }
       });
@@ -112,7 +117,7 @@ export class EventDetailsComponent implements OnInit {
     // this.eventService
     const idLocation = parseInt(this.dataForm.get('idLocation')?.value || '0');
     const idDate = parseInt(this.dataForm.get('idDate')?.value || '0');
-
+    
     this.event.ubicaciones.forEach((location:LocationModel) => {
       if (location.idubicacion === idLocation) this.ticketDataService.location = location;
     });
@@ -129,13 +134,28 @@ export class EventDetailsComponent implements OnInit {
         },
         next: (resp:any) => {
           
-          this.isSendingData = false;
           
           this.ticketDataService.sectors = resp;
           if (this.ticketDataService.sectors.length === 0){
-            this.refModal.nativeElement.click();
+
+            this.locationService.ticketsAvailablePublic(this.ticketDataService.date.idhorario, this.ticketDataService.location.idubicacion)
+              .subscribe({
+                error: (err:any) => {
+                  errorHelpers(err);
+                  this.isSendingData = false;
+                },
+                next: (resp:any) => {
+                  this.isSendingData = false;
+                  this.ticketDataService.ticketsAvailableWS = resp;
+                  this.refModal.nativeElement.click();
+                  this.ticketDataService.withoutSector = true;
+                }
+              });
+
           }else{
             this.refModalSector.nativeElement.click();
+            this.isSendingData = false;
+            this.ticketDataService.withoutSector = false;
           }
         }
       });

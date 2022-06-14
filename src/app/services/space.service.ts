@@ -37,4 +37,8 @@ export class SpaceService {
   public updateSpace = (data:any, id:number) => {
     return this.httpClient.put(`${base_url}/v1.0.0/espacios/${id}`, data, this.header);
   }
+
+  public getSpacePublic = (id_sector: number, id_horario: number) => {
+    return this.httpClient.get(`${base_url}/v1.0.0/public/espacios?idsector=${id_sector}&idhorario=${id_horario}`);
+  }
 }

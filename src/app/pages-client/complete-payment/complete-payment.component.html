@@ -1,1 +1,91 @@
-<p>complete-payment works!</p>
+<ng-container *ngIf="isLoading; else elseLoading">
+  
+  <app-loading></app-loading>
+
+</ng-container>
+<ng-template #elseLoading>
+  
+  <div class="content-public">
+    <form [formGroup]="userDataForm" (submit)="completePayment()" autocomplete="off">
+
+      <h1 class="text-center">Detalle de la compra</h1>
+
+      <h5 class="mt-5">Datos del usuario</h5>
+
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label>Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre" formControlName="nombres">
+          </div>
+      
+          <div class="form-group col-md-12">
+            <label>Apellido</label>
+            <input type="text" class="form-control" placeholder="Apellido" formControlName="apellidos">
+          </div>
+      
+          <div class="form-group col-md-12">
+            <label>Telefono</label>
+            <input type="number" class="form-control" placeholder="Telefono" formControlName="telefono">
+          </div>
+      
+          <div class="form-group col-md-12">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+          </div>
+          
+          <div class="form-group col-md-12">
+            <label>Tipo de pago</label>
+            <select class="form-control" formControlName="tipoPago">
+              <option [value]="0">Seleccione el tipo de pago</option>
+              <ng-container *ngFor="let payM of payModel">
+                <option [value]="payM.idpago">{{payM.nombre}}</option>
+              </ng-container>
+              
+            </select>
+          </div>
+
+        </div>
+
+
+      <h5 class="mt-5">Datos de la compra</h5>
+
+      <div class="row mb-5" *ngIf="ticketDataService.event">
+        <p class="col-md-6">
+          <b>Evento:</b> {{ticketDataService.event.nombre}}
+        </p>
+
+        <p class="col-md-6 text-right">
+          <b>Categoria:</b> {{ticketDataService.event.categoria}}
+        </p>
+      </div>
+
+      <div class="row" *ngIf="ticketDataService.event">
+        <p class="col-md-6">
+          <b>Cantidad de entradas:</b> {{ticketDataService.cantidad}}
+        </p>
+
+        <p class="col-md-6 text-right">
+          <b>Precio individual:</b> {{ticketDataService.location.precio}}
+        </p>
+      </div>
+
+      <hr>
+
+      <p class="text-right" *ngIf="ticketDataService.event">
+        <b>Precio total:</b> {{ticketDataService.location.precio * ticketDataService.cantidad}}
+      </p>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmit">Comprar</button>
+      </div>
+    </form>
+
+  </div>  
+</ng-template>
+
+
+<div class="loading" *ngIf="isSubmit">
+  <div class="text-center">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>

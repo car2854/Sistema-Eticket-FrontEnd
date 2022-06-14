@@ -12,9 +12,22 @@ export class ImageService {
   constructor(
     private httpClient: HttpClient
   ) { }
+  
+  get header(){
+    return {
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      }
+    }
+  }
+
+  get token(){
+    return localStorage.getItem('token') || '';
+  }
 
   public deleteImg = (id:number) => {
-    return this.httpClient.delete(`${base_url}/v1.0.0/imagenesEvento/${id}`);
+    return this.httpClient.delete(`${base_url}/v1.0.0/imagenesEvento/${id}`, this.header);
   }
 
   public saveImage = async(imagen: File, id: number) => {
@@ -28,7 +41,10 @@ export class ImageService {
 
       const resp = await fetch( url, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+          'authorization': `Bearer ${this.token}`
+        }
       });
 
       const data = await resp.json();

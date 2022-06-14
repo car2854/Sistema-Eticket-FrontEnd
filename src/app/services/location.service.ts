@@ -49,4 +49,8 @@ export class LocationService {
   public deleteDate = (id:number) => {
     return this.httpClient.delete(`${base_url}/v1.0.0/horarios/${id}`, this.header);
   }
+
+  public ticketsAvailablePublic = (id_date:number, id_location:number) => {
+    return this.httpClient.get(`${base_url}/v1.0.0/public/ubicaciones/entradas_disponibles?idhorario=${id_date}&idubicacion=${id_location}`);
+  }
 }

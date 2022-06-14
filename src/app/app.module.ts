@@ -19,7 +19,7 @@ import { CategoryLengthPipe } from './pipes/category-length.pipe';
     PagesModule,
     HttpClientModule,
     PagesClientModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

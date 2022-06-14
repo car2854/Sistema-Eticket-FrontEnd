@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { errorHelpers } from 'src/app/helpers/helpers';
 import { CategoryModel } from 'src/app/models/category';
 import { EventModel } from 'src/app/models/event';
 import { ImageModel } from 'src/app/models/image';
@@ -271,7 +272,7 @@ export class CreateEventComponent implements OnInit {
           }
           
         }).catch(err => {
-          console.log(err);
+          errorHelpers(err);
         });
     }
 

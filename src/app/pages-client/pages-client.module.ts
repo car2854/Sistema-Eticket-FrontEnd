@@ -25,7 +25,7 @@ import { CompletePaymentComponent } from './complete-payment/complete-payment.co
     PagesClientRoutingModule,
     SharedModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class PagesClientModule { }

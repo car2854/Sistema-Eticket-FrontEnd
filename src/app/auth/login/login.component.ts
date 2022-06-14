@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   public sendingData: boolean = false;
 
   public loginForm = this.fb.group({
-    email       : ['test@mail.com',[Validators.required, Validators.email]],
+    email       : ['root@mail.com',[Validators.required, Validators.email]],
     contrasena  : ['12345', [Validators.required, Validators.minLength(5)]]
   });
 

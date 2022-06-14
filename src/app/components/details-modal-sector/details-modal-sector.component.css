@@ -6,3 +6,22 @@
 .price-1, .price-2 {
   width: 200px;
 }
+
+.sector{
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 10px;
+}
+
+.sector .title-sector{
+  color: white;
+  background-color: rgba(255, 0, 0, 0.38);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.sector .description-sector{
+  padding: 15px;
+}

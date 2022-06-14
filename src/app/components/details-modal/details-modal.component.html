@@ -10,13 +10,20 @@
 
       <form [formGroup]="withoutSectorForm" autocomplete="off" (submit)="goPaySs()">
 
-        <div class="modal-body">
+        <div class="modal-body" *ngIf="ticketDataService.event && ticketDataService.location">
           
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-8">
                 <div class="form-group">
                   <label>Cantidad de entradas</label>
                   <input type="number" class="form-control" placeholder="Cantidad de entradas" formControlName="cantidad">
+                  <p class="text-danger" *ngIf="error()">No hay suficientes entradas</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Entradas disponibles</label>
+                  <input type="number" class="form-control" [value]="ticketDataService.ticketsAvailableWS" disabled>
                 </div>
               </div>
             </div>
@@ -28,7 +35,7 @@
                 <p>Cantidad de entradas: {{withoutSectorForm.get('cantidad')?.value}}</p>
               </div>
               <div class="col-md-6">
-                <p>Precio individual: 12.0 Bs.</p>
+                <p>Precio individual: {{ticketDataService.location.precio}} Bs.</p>
               </div>
             </div>
             <div class="row">

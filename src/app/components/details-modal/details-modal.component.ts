@@ -31,12 +31,18 @@ export class DetailsModalComponent implements OnInit {
   }
 
   public getPrice = () => {
-    return this.withoutSectorForm.get('cantidad')?.value * 12.0;
+    return this.withoutSectorForm.get('cantidad')?.value * this.ticketDataService.location.precio;
+  }
+
+  public error = () => {
+    return this.withoutSectorForm.get('cantidad')?.value > this.ticketDataService.ticketsAvailableWS;
   }
 
   public goPaySs = () => {
 
     if (this.withoutSectorForm.get('cantidad')?.invalid) return;
+
+    if (this.withoutSectorForm.get('cantidad')?.value > this.ticketDataService.ticketsAvailableWS) return;
 
     this.ticketDataService.cantidad = parseInt(this.withoutSectorForm.get('cantidad')?.value);
     this.ticketDataService.goPay = true;
