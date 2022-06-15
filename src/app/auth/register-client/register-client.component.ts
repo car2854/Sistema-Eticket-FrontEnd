@@ -16,10 +16,10 @@ export class RegisterClientComponent implements OnInit {
   public sendingData: boolean = false;
 
   public registerForm = this.fb.group({
-    nombre_usuario    : ['carlos',[Validators.required]],
-    email             : ['carlos@gmail.com',[Validators.required,Validators.email]],
-    contrasena        : ['123456789',[Validators.required, Validators.minLength(5)]],
-    confirContraseña  : ['12345678',[Validators.required, Validators.minLength(5)]]
+    nombre_usuario    : ['',[Validators.required]],
+    email             : ['',[Validators.required,Validators.email]],
+    contrasena        : ['',[Validators.required, Validators.minLength(5)]],
+    confirContraseña  : ['',[Validators.required, Validators.minLength(5)]]
   });
 
   constructor(
