@@ -85,14 +85,14 @@
               
               <ng-container *ngFor="let aggregateSectors of ticketDataService.aggregateSectors">
 
-                <ng-container *ngIf="aggregateSectors.espacios.length=== 0; else elseNoSpace">
+                <ng-container *ngIf="!aggregateSectors.espacios; else elseNoSpace">
                   
                   <div class="sector">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="title-sector">
                           <h4>{{aggregateSectors.nombre}}</h4>
-                          <button class="btn btn-danger" (click)="deleteSector(aggregateSectors.idsector)">
+                          <button class="btn btn-danger" (click)="deleteSector(aggregateSectors)">
                             X
                           </button>
                         </div>
@@ -121,7 +121,7 @@
                       <div class="col-md-12">
                         <div class="title-sector">
                           <h4>aggregateSectors.nombre</h4>
-                          <button class="btn btn-danger">
+                          <button class="btn btn-danger" (click)="deleteSector(aggregateSectors)">
                             X
                           </button>
                         </div>
@@ -144,14 +144,14 @@
                                 <td> {{space.precio}} Bs.</td>
                                 <td>
                                   <div class="text-center">
-                                    <button type="button" class="btn btn-danger">X</button>
+                                    <button type="button" class="btn btn-danger" (click)="deleteSpace(aggregateSectors, space)">X</button>
                                   </div>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
                           <div class="col-md-12 text-right">
-                            <p><b>Precio Total: </b> PrecioTotal Bs.</p>
+                            <p><b>Precio Total: </b> {{ticketDataService.calculatePriceSpaces()}} Bs.</p>
                           </div>
                         </div>
                       </div>
@@ -179,7 +179,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-12 text-right">
-                  <p>Precio total: 12 Bs.</p>
+                  <p>Precio total: {{ticketDataService.calculatePriceTotal()}} Bs.</p>
                 </div>
               </div>
 

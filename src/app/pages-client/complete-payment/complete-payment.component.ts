@@ -35,7 +35,7 @@ export class CompletePaymentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (!this.ticketDataService.event) this.router.navigateByUrl('/public/eventos');
+    // if (!this.ticketDataService.event) this.router.navigateByUrl('/public/eventos');
 
     this.payService.getPaymentType()
       .subscribe({
@@ -58,6 +58,8 @@ export class CompletePaymentComponent implements OnInit {
       console.log(this.ticketDataService.date);
       
 
+    }else{
+      console.log(this.ticketDataService.aggregateSectors);
     }
 
   }
@@ -68,17 +70,36 @@ export class CompletePaymentComponent implements OnInit {
     if (this.userDataForm.invalid) return;
 
     this.isSubmit = true;
+    
+    let data;
 
-    const data = {
-      DatosUsuario: this.userDataForm.value,
-      DatosCompra: {
-        tipoPago: this.userDataForm.get('tipoPago')?.value,
-        idhorario: this.ticketDataService.date.idhorario,
-        idubicacion: this.ticketDataService.location.idubicacion,
-        idevento: this.ticketDataService.event.idevento,
-        cantidad: this.ticketDataService.cantidad
+    if (this.ticketDataService.withoutSector){
+      data = {
+        DatosUsuario: this.userDataForm.value,
+        DatosCompra: {
+          tipoPago: this.userDataForm.get('tipoPago')?.value,
+          idhorario: this.ticketDataService.date.idhorario,
+          idubicacion: this.ticketDataService.location.idubicacion,
+          idevento: this.ticketDataService.event.idevento,
+          cantidad: this.ticketDataService.cantidad,
+        }
+      }
+    }else{
+      data = {
+        DatosUsuario: this.userDataForm.value,
+        DatosCompra: {
+          tipoPago: this.userDataForm.get('tipoPago')?.value,
+          idhorario: this.ticketDataService.date.idhorario,
+          idubicacion: this.ticketDataService.location.idubicacion,
+          idevento: this.ticketDataService.event.idevento,
+          cantidad: this.ticketDataService.cantidad,
+          sectores: this.ticketDataService.aggregateSectors
+        }
       }
     }
+
+    console.log(data);
+    
 
     this.payService.pay(data)
       .subscribe({

@@ -75,8 +75,13 @@ export class DetailsModalSectorComponent implements OnInit {
 
   }
 
-  public deleteSector = (idSector: number) => {
-    this.ticketDataService.deleteSector(idSector);
+  public deleteSector = (sector: any) => {
+    this.ticketDataService.deleteSector(sector);
+  }
+
+  public deleteSpace = (sector:any, space:any) => {
+    this.ticketDataService.deleteSpace(sector, space);
+    this.withSectorForm.get('idSpace')?.setValue(0);
   }
 
   public changeSector = () => {
@@ -98,9 +103,7 @@ export class DetailsModalSectorComponent implements OnInit {
           
           if (resp.length > 0){
             // Tiene espacios
-            console.log(resp);
-            this.ticketDataService.spaces = resp;
-            this.ticketDataService.spacesAux = resp;
+            this.ticketDataService.addDataSpace(resp, id);
             this.isLoadingData = false;
 
           }else{

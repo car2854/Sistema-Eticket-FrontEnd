@@ -45,35 +45,119 @@
           </div>
 
         </div>
+      
+      <div class="mx-5">
+        <h5 class="mt-5">Datos del evento</h5>
 
+        <div class="row mb-5" *ngIf="ticketDataService.event">
+          <p class="col-md-6">
+            <b>Evento:</b> {{ticketDataService.event.nombre}}
+          </p>
 
-      <h5 class="mt-5">Datos de la compra</h5>
+          <p class="col-md-6 text-right">
+            <b>Categoria:</b> {{ticketDataService.event.categoria}}
+          </p>
+        </div>
+        
+        <hr>
 
-      <div class="row mb-5" *ngIf="ticketDataService.event">
-        <p class="col-md-6">
-          <b>Evento:</b> {{ticketDataService.event.nombre}}
-        </p>
+        <ng-container *ngIf="ticketDataService.withoutSector; else elsePay">
+          <div class="row" *ngIf="ticketDataService.event">
+            <p class="col-md-6">
+              <b>Cantidad de entradas:</b> {{ticketDataService.cantidad}}
+            </p>
 
-        <p class="col-md-6 text-right">
-          <b>Categoria:</b> {{ticketDataService.event.categoria}}
-        </p>
+            <p class="col-md-6 text-right">
+              <b>Precio individual:</b> {{ticketDataService.location.precio}}
+            </p>
+          
+          </div>
+        </ng-container>
+        <ng-template #elsePay>
+          
+          <h5>Detalle de la compra</h5>
+
+          <ng-container *ngFor="let sectors of ticketDataService.aggregateSectors">
+            
+            <ng-container *ngIf="!sectors.espacios; else elseDetailsPay">
+              <div class="row">
+                <p class="col-md-12">
+                  <b>Nombre del sector:</b> {{sectors.nombre}}
+                </p>
+              </div>
+              
+              <div class="row">
+                <p class="col-md-6">
+                  <b>Cantidad de entradas:</b> {{sectors.cantidad}}
+                </p>
+      
+                <p class="col-md-6 text-right">
+                  <b>Precio individual:</b> {{sectors.precio}}
+                </p>
+              
+              </div>
+
+              <div class="row">
+                <p class="col-md-12 text-right">
+                  <b>Precio total:</b> {{sectors.precio * sectors.cantidad}}
+                </p>
+              </div>
+            </ng-container>
+            <ng-template #elseDetailsPay>
+              
+              
+              <div class="row">
+                <p class="col-md-12">
+                  <b>Nombre del sector:</b> {{sectors.nombre}}
+                </p>
+              </div>
+              
+              <table class="table m-5">
+                <thead>
+                  <tr>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">Capacidad</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let espacio of sectors.espacios">
+                    <td>{{espacio.identificador}}</td>
+                    <td>{{espacio.cantidad_de_personas}}</td>
+                    <td>{{espacio.precio}}</td>
+                  </tr>
+                </tbody>
+              </table>
+      
+              
+
+            </ng-template>
+      
+            <hr class="my-2 py-2">
+
+          </ng-container>
+          
+
+          
+
+        </ng-template>
+        
+        <ng-container *ngIf="ticketDataService.withoutSector; else elseTotalPrice">
+          <p class="text-right" *ngIf="ticketDataService.event">
+            <b>Precio total:</b> {{ticketDataService.location.precio * ticketDataService.cantidad}}
+          </p>
+        </ng-container>
+        <ng-template #elseTotalPrice>
+          <div class="row">
+            <p class="col-md-12 text-right">
+              <b>Precio total:</b> {{ticketDataService.calculatePriceTotal()}}
+            </p>
+          </div>
+        </ng-template>       
+        
       </div>
 
-      <div class="row" *ngIf="ticketDataService.event">
-        <p class="col-md-6">
-          <b>Cantidad de entradas:</b> {{ticketDataService.cantidad}}
-        </p>
-
-        <p class="col-md-6 text-right">
-          <b>Precio individual:</b> {{ticketDataService.location.precio}}
-        </p>
-      </div>
-
-      <hr>
-
-      <p class="text-right" *ngIf="ticketDataService.event">
-        <b>Precio total:</b> {{ticketDataService.location.precio * ticketDataService.cantidad}}
-      </p>
+      
 
       <div class="text-center">
         <button type="submit" class="btn btn-primary" [disabled]="isSubmit">Comprar</button>
