@@ -20,7 +20,7 @@
                     <label>Sectores</label>
                     <select class="form-control" formControlName="idSector" (change)="changeSector()">
                       <option [value]="0" hidden>Seleccione un sector</option>
-                      <option [value]="sector.idsector" *ngFor="let sector of ticketDataService.sectors">{{sector.nombre}} - {{sector.precio}} Bs.</option>
+                      <option [value]="sector.idsector" *ngFor="let sector of ticketDataService.sectors">{{sector.nombre}}</option>
                     </select>
                   </div>
                 </div>
@@ -35,7 +35,7 @@
 
                     <ng-container *ngIf="!isClear">
 
-                      <ng-container *ngIf="spaces.length === 0; else elseSpace">
+                      <ng-container *ngIf="this.ticketDataService.spaces.length === 0; else elseSpace">
                         
                         <div class="col-md-4">
                           <div class="form-group">
@@ -54,12 +54,12 @@
                       </ng-container>
                       <ng-template #elseSpace>
                         
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                           <div class="form-group">
-                            <label>Cantidad de entradas</label>
-                            <select class="form-control">
+                            <label>Espacios</label>
+                            <select class="form-control" formControlName="idSpace">
                               <option [value]="0" hidden>Seleccione un espacio</option>
-                              <option *ngFor="let space of spaces" [value]="space.idespacio">{{space.identificador}}) {{space.tipo_de_espacio}} -  Precio: {{space.precio}} Bs.</option>
+                              <option *ngFor="let space of this.ticketDataService.spaces" [value]="space.idespacio">{{space.identificador}}) {{space.tipo_de_espacio}} - Capacidad: {{space.cantidad_de_personas}} -  Precio: {{space.precio}} Bs.</option>
                             </select>
                           </div>
                         </div>
@@ -81,77 +81,90 @@
 
             </div>
 
-            <div class="sector">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="title-sector">
-                    <h4>Nombre</h4>
-                    <button class="btn btn-danger">
-                      X
-                    </button>
-                  </div>
-                  <div class="description-sector">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <p><b>Precio individual: </b> Precio Bs.</p>
-                      </div>
-                      <div class="col-md-6 text-right">
-                        <p><b>Precio cantidad: </b> 5</p>
-                      </div>
-                    </div>
-                    <div class="col-md-12 text-right">
-                      <p><b>Precio Total: </b> PrecioTotal Bs.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="sector">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="title-sector">
-                    <h4>Nombre</h4>
-                    <button class="btn btn-danger">
-                      X
-                    </button>
-                  </div>
-                  <div class="description-sector">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Identificador</th>
-                          <th scope="col">Capacidad</th>
-                          <th scope="col">Tipo</th>
-                          <th scope="col" class="price-1">Precio individual</th>
-                          <th scope="col" class="options">Opciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>123</td>
-                          <td>123</td>
-                          <td>dsadasdsa</td>
-                          <td> Bs.</td>
-                          <td>
-                            <div class="text-center">
-                              <button type="button" class="btn btn-danger">X</button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="col-md-12 text-right">
-                      <p><b>Precio Total: </b> PrecioTotal Bs.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- <ng-container *ngIf="ticketDataService.aggregateSectors.length > 0; else elseEmptyAggregateSector">
+            <ng-container *ngIf="ticketDataService.aggregateSectors.length > 0; else elseEmptyAggregateSector">
               
-             
+              <ng-container *ngFor="let aggregateSectors of ticketDataService.aggregateSectors">
+
+                <ng-container *ngIf="aggregateSectors.espacios.length=== 0; else elseNoSpace">
+                  
+                  <div class="sector">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="title-sector">
+                          <h4>{{aggregateSectors.nombre}}</h4>
+                          <button class="btn btn-danger" (click)="deleteSector(aggregateSectors.idsector)">
+                            X
+                          </button>
+                        </div>
+                        <div class="description-sector">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <p><b>cantidad: </b> {{aggregateSectors.cantidad}}</p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                              <p><b>Precio individual: </b> {{aggregateSectors.price}} Bs.</p>
+                            </div>
+                          </div>
+                          <div class="col-md-12 text-right">
+                            <p><b>Precio Total: </b> {{aggregateSectors.price * aggregateSectors.cantidad}} Bs.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      
+                </ng-container>
+                <ng-template #elseNoSpace>
+                  
+                  <div class="sector">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="title-sector">
+                          <h4>aggregateSectors.nombre</h4>
+                          <button class="btn btn-danger">
+                            X
+                          </button>
+                        </div>
+                        <div class="description-sector">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Identificador</th>
+                                <th scope="col">Capacidad</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col" class="price-1">Precio</th>
+                                <th scope="col" class="options">Opciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let space of aggregateSectors.espacios">
+                                <td>{{space.identificador}}</td>
+                                <td>{{space.cantidad_de_personas}}</td>
+                                <td>{{space.tipo_de_espacio}}</td>
+                                <td> {{space.precio}} Bs.</td>
+                                <td>
+                                  <div class="text-center">
+                                    <button type="button" class="btn btn-danger">X</button>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="col-md-12 text-right">
+                            <p><b>Precio Total: </b> PrecioTotal Bs.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </ng-template>
+                
+
+
+              </ng-container>
+              
+
 
             </ng-container>
             <ng-template #elseEmptyAggregateSector>
@@ -160,7 +173,7 @@
                 <h5>No tiene sectores agregados</h5>
               </div>
 
-            </ng-template> -->
+            </ng-template>
             
 
               <hr>

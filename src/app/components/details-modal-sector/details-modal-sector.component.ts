@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { errorHelpers } from 'src/app/helpers/helpers';
+import { SectorModel } from 'src/app/models/sector';
 import { SpaceModel } from 'src/app/models/space';
 import { TicketDataService } from 'src/app/services/dataServices/ticket-data.service';
 import { SectorService } from 'src/app/services/sector.service';
@@ -21,10 +22,10 @@ export class DetailsModalSectorComponent implements OnInit {
 
   public withSectorForm = this.fb.group({
     cantidad: [0,[]],
-    idSector: [0, [Validators.required, Validators.min(1)]]
+    idSector: [0, [Validators.required, Validators.min(1)]],
+    idSpace: ["0"]
   });
 
-  public spaces!: SpaceModel[];
   public isLoadingData: boolean = false;
   public spaceSector: number = 0;
 
@@ -44,17 +45,33 @@ export class DetailsModalSectorComponent implements OnInit {
 
     if (this.withSectorForm.invalid) return;
 
+    if (this.ticketDataService.spaces.length === 0){
 
-    const idSector = parseInt(this.withSectorForm.get('idSector')?.value);
-    const amount = parseInt(this.withSectorForm.get('cantidad')?.value);
-    
-    if (!this.ticketDataService.existSector(idSector)){
-      this.ticketDataService.addAggregateSector(idSector, amount);
+      // No hay espacios
+      const idSector = parseInt(this.withSectorForm.get('idSector')?.value);
+      const amount = parseInt(this.withSectorForm.get('cantidad')?.value);
+      
+      if (!(amount > 0) || amount > this.spaceSector) return;
   
-      this.withSectorForm.get('idSector')?.setValue(0);
-      this.withSectorForm.get('cantidad')?.setValue(0);
-      this.isClear = true;
-    }
+      if (!this.ticketDataService.existSector(idSector)){
+        this.ticketDataService.addAggregateSector(idSector, amount);
+    
+        this.withSectorForm.get('idSector')?.setValue(0);
+        this.withSectorForm.get('cantidad')?.setValue(0);
+        this.isClear = true;
+      }
+
+    }else{
+      // Hay espacios
+      if (this.withSectorForm.get('idSpace')?.value && this.withSectorForm.get('idSpace')?.value > 0){
+        
+        const idSpace = parseInt(this.withSectorForm.get('idSpace')?.value);
+        const idSector = parseInt(this.withSectorForm.get('idSector')?.value);
+
+        this.ticketDataService.addAgregateSpace(idSector, idSpace);
+
+      }
+    } 
 
   }
 
@@ -67,7 +84,7 @@ export class DetailsModalSectorComponent implements OnInit {
 
     this.isLoadingData = true;
     this.isClear = false;
-
+    this.withSectorForm.get('idSpace')?.setValue(0);
     const id = parseInt(this.withSectorForm.get('idSector')?.value || '0');
 
     this.spaceService.getSpacePublic(id, this.ticketDataService.date.idhorario)
@@ -82,12 +99,13 @@ export class DetailsModalSectorComponent implements OnInit {
           if (resp.length > 0){
             // Tiene espacios
             console.log(resp);
-            this.spaces = resp;
+            this.ticketDataService.spaces = resp;
+            this.ticketDataService.spacesAux = resp;
             this.isLoadingData = false;
 
           }else{
             // No tiene espacios
-            this.spaces = [];
+            this.ticketDataService.spaces = [];
             this.sectorService.ticketsAvailablePublic(id, this.ticketDataService.date.idhorario)
               .subscribe({
                 error: (err:any) => {
@@ -95,7 +113,6 @@ export class DetailsModalSectorComponent implements OnInit {
                   this.isLoadingData = false;
                 },
                 next: (resp:any) => {
-                  console.log(resp);
                   this.spaceSector = resp;
                   this.isLoadingData = false;
                 }

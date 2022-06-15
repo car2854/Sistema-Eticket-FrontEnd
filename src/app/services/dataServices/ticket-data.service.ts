@@ -3,6 +3,7 @@ import { DateModel } from 'src/app/models/date';
 import { EventModel } from 'src/app/models/event';
 import { LocationModel } from 'src/app/models/location';
 import { SectorModel } from 'src/app/models/sector';
+import { SpaceModel } from 'src/app/models/space';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class TicketDataService {
   public location!: LocationModel;
   public date!: DateModel;
   public sectors: SectorModel[] = [];
+  public spaces: SpaceModel[] = [];
+  public spacesAux: SpaceModel[] = [];
 
 
   // sin sectores
@@ -57,38 +60,70 @@ export class TicketDataService {
 
   }
 
-  public addAgregateSpace = (idSector:number, identificador: number) => {
+  public addAgregateSpace = (idSector:number, idespacio: number) => {
+
+
+    let spacioData!: SpaceModel;
+    this.spaces.forEach((spaceD:SpaceModel) => {
+      if (spaceD.idespacio == idespacio) spacioData = spaceD;
+    });
+    if (!spacioData) return;
+
 
     if (this.existSector(idSector)){
 
       this.aggregateSectors.forEach((dataSector:any) => {
         
+        if(!this.existSpace(dataSector.espacios, spacioData)){
+
+          dataSector.espacios.push(spacioData);
+
+        }
         
 
       });
 
     }else{
 
+      let name;
+      let price;
+  
+      this.sectors.forEach((sector: SectorModel) => {
+        if (sector.idsector === idSector) {
+          name = sector.nombre;
+          price = sector.precio
+        };
+      });
 
-
+      const data = {
+        idsector: idSector,
+        cantidad: 0,
+        nombre: name,
+        price: price,
+        espacios: [
+          spacioData
+        ]
+      }
+      this.aggregateSectors.push(data);
+      console.log(this.aggregateSectors);
+      
+      
     }
+    
+    this.removeSpace(spacioData);
 
   }
 
-  public existSpace = (idsector: number, idespacio: number) => {
-    let exist:boolean = false;
+  public removeSpace = (spacioData: SpaceModel) => {
 
-    this.aggregateSectors.forEach((dataSector) => {
-      
-      if (dataSector.idsector === idsector){
-        dataSector.espacios.forEach((dataSpace: any) => {
-          if (dataSpace.idespacio === idespacio) exist = true;
-        });
-      }
+    this.spaces.splice(this.spaces.indexOf(spacioData),1);
+    
+  }
 
-    });
+  private existSpace = (dataEspacio: SpaceModel[], spacioData: SpaceModel) => {
 
-    return exist;
+    return dataEspacio.includes(spacioData);
+
   }
 
   public existSector = (idSector: number) => {
