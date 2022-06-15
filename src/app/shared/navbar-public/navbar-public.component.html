@@ -29,17 +29,29 @@
         
   
       </ul>
-      
-      <div class="nav-item dropdown mr-5 pr-5" *ngIf="userService.user.token != 'no-token'">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{userService.user.nombre_usuario}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Configuracion</a>
-          <a class="dropdown-item" href="#">Historial de compras</a>
-          <a class="dropdown-item" (click)="logout()">Cerrar Sesion</a>
+      <ng-container *ngIf="userService.user.token != 'no-token'; else elseTemplate">
+        
+        <div class="nav-item dropdown mr-5 pr-5">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{userService.user.nombre_usuario}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Configuracion</a>
+            <a class="dropdown-item" href="#">Historial de compras</a>
+            <a class="dropdown-item" (click)="logout()">Cerrar Sesion</a>
+          </div>
         </div>
-      </div>
+
+      </ng-container>
+      <ng-template #elseTemplate>
+
+        <div class="col-md-12 mt-2">
+          <button class="btn btn-primary px-4" routerLink="/auth/login">Login</button>
+        </div>
+
+      </ng-template>
+      
+
   
     </div>
     
