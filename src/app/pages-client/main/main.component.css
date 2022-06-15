@@ -6,15 +6,23 @@
 }
 
 .carousel{
-  height: 750px;
+  height: 800px;
   overflow: hidden;
+}
+
+.carousel-item{
+  background-color: black;
+  cursor: pointer;
+}
+
+.carousel-item img{
+  opacity: 0.5;
 }
 
 /* !Error, corregir el tamaño de la imagen */
 .carousel img{
   
 }
-
 
 .events-list{
   background-color: white;

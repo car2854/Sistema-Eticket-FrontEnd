@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { errorHelpers } from 'src/app/helpers/helpers';
 import { ErrorDataService } from 'src/app/services/dataServices/error-data.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-client',
@@ -23,6 +25,7 @@ export class RegisterClientComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private router: Router,
     public errorDataService: ErrorDataService
   ) { }
   
@@ -73,7 +76,15 @@ export class RegisterClientComponent implements OnInit {
         },
         next: (resp:any) => {
           console.log(resp);
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Completado',
+            text: 'Se le a enviado un mensaje a su correo para verificar la cuenta',
+          });
           this.sendingData = false;
+          this.router.navigateByUrl('/auth/login');
+
         }
       });
     

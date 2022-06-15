@@ -168,4 +168,8 @@ export class EventDetailsComponent implements OnInit {
     content.scrollTop = 10000000;
 
   }
+
+  public getLast = (image: string[]) => {
+    return image[image.length-1]
+  }
 }

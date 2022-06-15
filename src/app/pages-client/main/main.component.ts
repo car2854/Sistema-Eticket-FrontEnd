@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventModel } from 'src/app/models/event';
+import { ImageModel } from 'src/app/models/image';
 import { EventsDataService } from 'src/app/services/dataServices/events-data.service';
 import { EventService } from 'src/app/services/event.service';
 
@@ -33,6 +34,14 @@ export class MainComponent implements OnInit {
         }
       })
 
+  }
+
+  public isFirst = (event: EventModel) => {
+    return this.eventDataService.events[0].idevento === event.idevento;
+  }
+
+  public getImage = (image: string[]) => {
+    return image[image.length-1]
   }
 
 }
