@@ -35,7 +35,7 @@ export class CompletePaymentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // if (!this.ticketDataService.event) this.router.navigateByUrl('/public/eventos');
+    if (!this.ticketDataService.event) this.router.navigateByUrl('/public/eventos');
 
     this.payService.getPaymentType()
       .subscribe({
