@@ -35,7 +35,7 @@
 
                     <ng-container *ngIf="!isClear">
 
-                      <ng-container *ngIf="this.ticketDataService.spaces.length === 0; else elseSpace">
+                      <ng-container *ngIf="this.ticketDataService.spacesAux.length === 0; else elseSpace">
                         
                         <div class="col-md-4">
                           <div class="form-group">
@@ -102,11 +102,11 @@
                               <p><b>cantidad: </b> {{aggregateSectors.cantidad}}</p>
                             </div>
                             <div class="col-md-6 text-right">
-                              <p><b>Precio individual: </b> {{aggregateSectors.price}} Bs.</p>
+                              <p><b>Precio individual: </b> {{aggregateSectors.precio}} Bs.</p>
                             </div>
                           </div>
                           <div class="col-md-12 text-right">
-                            <p><b>Precio Total: </b> {{aggregateSectors.price * aggregateSectors.cantidad}} Bs.</p>
+                            <p><b>Precio Total: </b> {{aggregateSectors.precio * aggregateSectors.cantidad}} Bs.</p>
                           </div>
                         </div>
                       </div>

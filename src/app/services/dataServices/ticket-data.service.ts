@@ -35,21 +35,15 @@ export class TicketDataService {
   // con sectores
   public addAggregateSector = (idSector:number, amount:number) => {
 
-    let name;
-    let price;
+    let sectorData!: SectorModel;
 
-    this.sectors.forEach((sector: SectorModel) => {
-      if (sector.idsector === idSector) {
-        name = sector.nombre;
-        price = sector.precio
-      };
-    });
+    this.sectors.forEach((sector:SectorModel) => {
+      if (sector.idsector === idSector) sectorData = sector
+    });  
 
     const data = {
-      idsector: idSector,
+      ...sectorData,
       cantidad: amount,
-      nombre: name,
-      price: price,
       espacios: []
     }
 
@@ -62,75 +56,63 @@ export class TicketDataService {
 
   public addAgregateSpace = (idSector:number, idespacio: number) => {
 
+    let space: any;
 
-    let spacioData!: SpaceModel;
-    this.spaces.forEach((spaceD:SpaceModel) => {
-      if (spaceD.idespacio == idespacio) spacioData = spaceD;
+    this.spaces.forEach((spaceData: SpaceModel) => {
+      if (spaceData.idespacio === idespacio) space = spaceData;
     });
-    if (!spacioData) return;
-
 
     if (this.existSector(idSector)){
 
-      this.aggregateSectors.forEach((dataSector:any) => {
+      // Existe el sector
+      this.aggregateSectors.forEach((sector:any) => {
+        console.log(sector);
         
-        if(!this.existSpace(dataSector.espacios, spacioData)){
+        // if (this.existSpace(sector, idespacio)){
 
-          dataSector.espacios.push(spacioData);
-
-        }
-        
-
+        // }
       });
 
     }else{
 
-      let name;
-      let price;
-  
-      this.sectors.forEach((sector: SectorModel) => {
-        if (sector.idsector === idSector) {
-          name = sector.nombre;
-          price = sector.precio
-        };
+      let sectorData!: SectorModel;
+
+      this.sectors.forEach((sector:SectorModel) => {
+        if (sector.idsector === idSector) sectorData = sector
       });
 
       const data = {
-        idsector: idSector,
+        ...sectorData,
         cantidad: 0,
-        nombre: name,
-        price: price,
         espacios: [
-          spacioData
+          space
         ]
       }
+
       this.aggregateSectors.push(data);
+
       console.log(this.aggregateSectors);
       
-      
+
     }
-    
-    this.removeSpace(spacioData);
+
 
   }
 
   public removeSpace = (spacioData: SpaceModel) => {
 
-    this.spaces.splice(this.spaces.indexOf(spacioData),1);
-    
   }
 
-  private existSpace = (dataEspacio: SpaceModel[], spacioData: SpaceModel) => {
-
-    return dataEspacio.includes(spacioData);
+  public existSpace = (dataEspacio: any, spacioData: number) => {
 
   }
 
   public existSector = (idSector: number) => {
+
     let exist: boolean = false;
 
     this.aggregateSectors.forEach((sector:any) => {
-      if (sector.idsector === idSector) exist = true;
+      if (sector.idsector === idSector) exist = true
     });
 
     return exist;
@@ -140,15 +122,6 @@ export class TicketDataService {
   
 
   public deleteSector = (idSector:number) => {
-    
-    const newAggregateSectors = this.aggregateSectors.filter((sector:any) => {
-
-      if (sector.idsector === idSector) return false;
-      return true
-
-    }).map((sector:any) => {return sector});
-    
-    this.aggregateSectors = newAggregateSectors;
 
   }
 }

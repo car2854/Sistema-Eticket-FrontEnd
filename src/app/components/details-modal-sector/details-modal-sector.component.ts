@@ -45,7 +45,7 @@ export class DetailsModalSectorComponent implements OnInit {
 
     if (this.withSectorForm.invalid) return;
 
-    if (this.ticketDataService.spaces.length === 0){
+    if (this.ticketDataService.spacesAux.length === 0){
 
       // No hay espacios
       const idSector = parseInt(this.withSectorForm.get('idSector')?.value);
@@ -106,6 +106,7 @@ export class DetailsModalSectorComponent implements OnInit {
           }else{
             // No tiene espacios
             this.ticketDataService.spaces = [];
+            this.ticketDataService.spacesAux = [];
             this.sectorService.ticketsAvailablePublic(id, this.ticketDataService.date.idhorario)
               .subscribe({
                 error: (err:any) => {
