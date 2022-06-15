@@ -24,6 +24,10 @@
   
 }
 
+.empty{
+  margin-top: 250px;
+}
+
 .events-list{
   background-color: white;
   margin: 30px;

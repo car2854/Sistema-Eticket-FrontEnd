@@ -8,51 +8,61 @@
   </ng-container>
   <ng-template #elseLoading>
     
-    <div class="carousel">
+    <ng-container *ngIf="eventDataService.events.length > 0; else elseEmpty">
+      <div class="carousel">
 
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item" *ngFor="let event of eventDataService.events" [ngClass]="{'active': isFirst(event)}" [routerLink]="[ '/public/evento', event.idevento]">
-            <img class="d-block w-100" [src]="getImage(event.imagenes)" alt="First slide">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let event of eventDataService.events" [ngClass]="{'active': isFirst(event)}" [routerLink]="[ '/public/evento', event.idevento]">
+              <img class="d-block w-100" [src]="getImage(event.imagenes)" alt="First slide">
+            </div>
           </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+  
       </div>
-
-    </div>
-
+  
+  
+      
+      <div class="events-list">
+    
+        <div class="event" [routerLink]="[ '/public/evento', event.idevento]" *ngFor="let event of eventDataService.events">
+    
+    
+          <div class="event-description">
+    
+            <div class="event-title">
+              <h4>{{event.nombre}}</h4>
+              <h6>{{event.categoria}}</h6>
+            </div>
+    
+    
+            <p>{{event.descripcion | categoryLength}}</p>
+          </div>
+          
+          <img [src]="event.imagenes[0]" alt="">
+    
+         
+    
+        </div>
+    
+      </div>
+    </ng-container>
+    <ng-template #elseEmpty>
+      <div class="col-md-12 text-center empty">
+        <h1>No hay eventos</h1>
+      </div>
+    </ng-template>
+    
 
     
-    <div class="events-list">
-  
-      <div class="event" [routerLink]="[ '/public/evento', event.idevento]" *ngFor="let event of eventDataService.events">
-  
-  
-        <div class="event-description">
-  
-          <div class="event-title">
-            <h4>{{event.nombre}}</h4>
-            <h6>{{event.categoria}}</h6>
-          </div>
-  
-  
-          <p>{{event.descripcion | categoryLength}}</p>
-        </div>
-        
-        <img [src]="event.imagenes[0]" alt="">
-  
-       
-  
-      </div>
-  
-    </div>
 
   </ng-template>
   
