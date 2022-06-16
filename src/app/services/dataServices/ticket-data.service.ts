@@ -137,7 +137,7 @@ export class TicketDataService {
 
   public deleteSector = (sector:any) => {
 
-    if (sector.espacios.length === 0){
+    if (sector.espacios){
       // No tiene espacios
       this.aggregateSectors = this.aggregateSectors.filter((sectorData:any) => {
         if (sectorData.idsector === sector.idsector) return false;
