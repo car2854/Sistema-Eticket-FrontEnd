@@ -213,17 +213,16 @@ export class TicketDataService {
     
   }
 
-  public calculatePriceSpaces = () => {
+  public calculatePriceSpaces = (data:any) => {
     let price = 0;
 
-    this.aggregateSectors.forEach((sector:any) => {
-      
-      if (sector.espacio){
-        sector.espacios.forEach((space:any) => {
-          price = price + parseFloat(space.precio);
-        });
-      }
-    });
+    if (data.espacios){
+      data.espacios.forEach((space:any) => {
+        price = price + parseFloat(space.precio);
+      });
+
+    }
+
 
     return price;
   }
