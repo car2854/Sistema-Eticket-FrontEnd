@@ -15,33 +15,39 @@
         <div class="row">
           <div class="form-group col-md-12">
             <label>Nombre</label>
-            <input type="text" class="form-control" placeholder="Nombre" formControlName="nombres">
+            <input type="text" class="form-control" [ngClass]="{'invalid': validateField('nombres')}" placeholder="Nombre" formControlName="nombres">
+            <small class="form-text text-muted text-danger" *ngIf="validateField('nombres')"> El nombre el obligatorio </small>
           </div>
       
           <div class="form-group col-md-12">
             <label>Apellido</label>
-            <input type="text" class="form-control" placeholder="Apellido" formControlName="apellidos">
+            <input type="text" class="form-control" [ngClass]="{'invalid': validateField('apellidos')}" placeholder="Apellido" formControlName="apellidos">
+            <small class="form-text text-muted text-danger" *ngIf="validateField('apellidos')"> El apellido el obligatorio </small>
           </div>
       
           <div class="form-group col-md-12">
             <label>Telefono</label>
-            <input type="number" class="form-control" placeholder="Telefono" formControlName="telefono">
+            <input type="number" class="form-control" [ngClass]="{'invalid': validateField('telefono')}" placeholder="Telefono" formControlName="telefono">
+            <small class="form-text text-muted text-danger" *ngIf="validateField('telefono')"> El telefono el obligatorio </small>
           </div>
       
           <div class="form-group col-md-12">
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+            <input type="text" class="form-control" [ngClass]="{'invalid': validateField('email')}" placeholder="Email" formControlName="email">
+            <small class="form-text text-muted text-danger" *ngIf="validateField('email')"> El email es invalido </small>
           </div>
           
           <div class="form-group col-md-12">
             <label>Tipo de pago</label>
-            <select class="form-control" formControlName="tipoPago">
+            <select class="form-control" [ngClass]="{'invalid': validateField('tipoPago')}" formControlName="tipoPago">
               <option [value]="0">Seleccione el tipo de pago</option>
               <ng-container *ngFor="let payM of payModel">
                 <option [value]="payM.idpago">{{payM.nombre}}</option>
               </ng-container>
               
             </select>
+            <small class="form-text text-muted text-danger" *ngIf="validateField('tipoPago')"> Debe seleccionar un tipo de pago </small>
+
           </div>
 
         </div>

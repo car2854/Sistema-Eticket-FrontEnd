@@ -18,7 +18,7 @@ export class CompletePaymentComponent implements OnInit {
     nombres: [,[Validators.required]],
     apellidos: [,[Validators.required]],
     telefono: [,[Validators.required]],
-    email: [,[Validators.required]],
+    email: [,[Validators.required, Validators.email]],
     tipoPago: [0,[Validators.required, Validators.min(1)]]
   });
 
@@ -62,6 +62,10 @@ export class CompletePaymentComponent implements OnInit {
       console.log(this.ticketDataService.aggregateSectors);
     }
 
+  }
+
+  public validateField = (name:string) => {
+    return this.userDataForm.get(name)?.invalid;
   }
 
 
