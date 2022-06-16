@@ -19,11 +19,6 @@
   opacity: 0.5;
 }
 
-/* !Error, corregir el tamaño de la imagen */
-.carousel img{
-  
-}
-
 .empty{
   margin-top: 250px;
 }
@@ -56,7 +51,9 @@
 .event img{
   position: absolute;
   width: 100%;
+  height: 400px;
   transition: 0.3s;
+
 }
 
 .event:hover img{
