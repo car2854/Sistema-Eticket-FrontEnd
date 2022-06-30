@@ -12,6 +12,7 @@ import { ComponentsModule } from '../components/components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     EventListComponent,
     LocationsComponent,
     AreasComponent,
+    UserComponent,
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,7 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="col-sm-6">
-        <h1>Eventos</h1>
+        <h1>Usuarios</h1>
       </div>
     </div>
   </section>
@@ -20,9 +20,9 @@
           <div class="card">
             <div class="card-header">
               <div class="title">
-                <h3 class="card-title mr-3">Eventos creados</h3>
+                <h3 class="card-title mr-3">Usuario creados</h3>
                 <div>
-                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo evento</button>
+                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo usuario</button>
                 </div>
               </div>
             </div>
@@ -31,27 +31,26 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
+                    <th>Fecha de creacion</th>
                     <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Estado</th>
+                    <th>Rol</th>
                     <th style="width: 150px">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let event of events">
-                    <td>{{event.nombre}}</td>
-                    <td>{{event.categoria_evento.nombre}}</td>
-                    <td>{{event.estado}}</td>
+                  <tr>
+                    <td>Fecha creacion</td>
+                    <td>Personal 1</td>
+                    <td>Rol</td>
                     <td>
                       <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu" role="menu">
-                          <a class="dropdown-item" [routerLink]="[ '/dashboard/evento/', event.idevento ]">Editar</a>
-                          <a class="dropdown-item" (click)="changeStatus(event)">Cambiar estado</a>
-                          <a class="dropdown-item">Asignar usuario</a>
-                          <a class="dropdown-item" (click)="deleteEvent(event)">Eliminar</a>
+                          <a class="dropdown-item">Editar</a>
+                          <a class="dropdown-item">Eliminar</a>
+                          <a class="dropdown-item">Eventos asignados</a>
                         </div>
                       </div>
                     </td>
@@ -72,12 +71,12 @@
 
 
 
-<form [formGroup]="eventForm" autocomplete="off" (ngSubmit)="create()">
+<form [formGroup]="userForm" autocomplete="off" (ngSubmit)="create()">
   <div class="modal fade" id="modal-create-event">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Nuevo evento</h4>
+          <h4 class="modal-title">Nuevo usuario</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refClose>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -88,19 +87,33 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label>Nombre del evento</label>
-                <input type="text" [ngClass]="{'invalid': isError('nombre')}" class="form-control" placeholder="Nombre del evento" formControlName="nombre">
-                <p *ngIf="isError('nombre')" class="text-danger text-right">El nombre es obligatorio</p>
+                <label>Nombre del usuario</label>
+                <input type="text" [ngClass]="{'invalid': isError('nombre_usuario')}" class="form-control" placeholder="Nombre del usuario" formControlName="nombre_usuario">
+                <p *ngIf="isError('nombre_usuario')" class="text-danger text-right">El nombre es obligatorio</p>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group">
-                <label>Categoria</label>
-                <select [ngClass]="{'invalid': isError('idcategoria')}" class="form-control" formControlName="idcategoria">
-                  <option selected hidden [value]="0">Seleccione una categoria</option>
-                  <option *ngFor="let category of categories" [value]="category.idcategoria">{{category.nombre}}</option>
+                <label>Email</label>
+                <input type="text" [ngClass]="{'invalid': isError('email')}" class="form-control" placeholder="Email" formControlName="email">
+                <p *ngIf="isError('email')" class="text-danger text-right">El email es obligatorio</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Contraseña</label>
+                <input type="text" [ngClass]="{'invalid': isError('contrasena')}" class="form-control" placeholder="Contraseña" formControlName="contrasena">
+                <p *ngIf="isError('contrasena')" class="text-danger text-right">La contraseña es obligatorio</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Rol</label>
+                <select [ngClass]="{'invalid': isError('rol')}" class="form-control" formControlName="rol">
+                  <option selected hidden value="">Seleccione un rol</option>
+                  <option selected value="controlador">Controlador</option>
                 </select>
-                <p *ngIf="isError('idcategoria')" class="text-danger text-right">La categoria es obligatorio</p>
+                <p *ngIf="isError('rol')" class="text-danger text-right">Debe seleccionar un rol</p>
               </div>
   
             </div>
@@ -110,7 +123,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="isCreatingEvent">Crear</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isCreateUser">Crear</button>
         </div>
       </div>
     </div>
