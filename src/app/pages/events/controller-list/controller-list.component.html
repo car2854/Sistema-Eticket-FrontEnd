@@ -1,14 +1,12 @@
-<ng-container *ngIf="isLoading; else elseLoading">
-  
+<ng-container *ngIf="isLoading(); else elseLoading">
   <app-loading></app-loading>
-
 </ng-container>
 <ng-template #elseLoading>
   
   <section class="content-header">
     <div class="container-fluid">
       <div class="col-sm-6">
-        <h1>Usuarios</h1>
+        <h1>Controladores asignados</h1>
       </div>
     </div>
   </section>
@@ -20,9 +18,9 @@
           <div class="card">
             <div class="card-header">
               <div class="title">
-                <h3 class="card-title mr-3">Usuario creados</h3>
+                <h3 class="card-title mr-3">Controladores asignados</h3>
                 <div>
-                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Crear nuevo usuario</button>
+                  <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-create-event">Agregar nuevo usuario</button>
                 </div>
               </div>
             </div>
@@ -46,9 +44,7 @@
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu" role="menu">
-                          <a class="dropdown-item">Editar</a>
                           <a class="dropdown-item">Eliminar</a>
-                          <a class="dropdown-item">Eventos asignados</a>
                         </div>
                       </div>
                     </td>
@@ -64,17 +60,15 @@
     </div>
   </section>
 
-</ng-template>  
+</ng-template>
 
 
-
-
-<form [formGroup]="userForm" autocomplete="off" (ngSubmit)="create()">
+<form autocomplete="off" [formGroup]="userForm" (ngSubmit)="addController()">
   <div class="modal fade" id="modal-create-event">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Nuevo usuario</h4>
+          <h4 class="modal-title">Agregar nuevo controlador</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" #refClose>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -83,35 +77,59 @@
           
                   
           <div class="row">
+            
             <div class="col-md-12">
               <div class="form-group">
-                <label>Nombre del usuario</label>
-                <input type="text" [ngClass]="{'invalid': isError('nombre_usuario')}" class="form-control" placeholder="Nombre del usuario" formControlName="nombre_usuario">
-                <p *ngIf="isError('nombre_usuario')" class="text-danger text-right">El nombre es obligatorio</p>
+
+                <label for="">Controlador</label>
+                <select name="" id="" class="form-control" formControlName="idcontrolador">
+                  <option value="0" hidden>Seleccione un controlador</option>
+                  <ng-container *ngFor="let userModel of allUserModel">
+                    <option [value]="userModel.id">{{userModel.nombre}}</option>
+                  </ng-container>
+                  
+                </select>
+
               </div>
             </div>
-            <div class="col-md-12">
+            
+            <div class="col-md-12" *ngIf="eventModel">
               <div class="form-group">
-                <label>Email</label>
-                <input type="text" [ngClass]="{'invalid': isError('email')}" class="form-control" placeholder="Email" formControlName="email">
-                <p *ngIf="isError('email')" class="text-danger text-right">El email es obligatorio</p>
+
+                <label for="">Ubicacion</label>
+                <select name="" id="" class="form-control" formControlName="idubicacion" (change)="changeLocation()">
+                  <option value="0" hidden>Seleccione la ubicacion</option>
+                  <ng-container *ngFor="let location of eventModel.ubicaciones">
+                    <option [value]="location.idubicacion">{{location.nombre}}</option>
+                  </ng-container>
+                  
+                </select>
+
               </div>
             </div>
-            <div class="col-md-12">
+
+            <div class="col-md-12" *ngIf="dateModel.length > 0">
               <div class="form-group">
-                <label>Contraseña</label>
-                <input type="text" [ngClass]="{'invalid': isError('contrasena')}" class="form-control" placeholder="Contraseña" formControlName="contrasena">
-                <p *ngIf="isError('contrasena')" class="text-danger text-right">La contraseña es obligatorio</p>
+
+                <label for="">Ubicacion</label>
+                <select name="" id="" class="form-control" formControlName="idhorario">
+                  <option value="0" hidden>Seleccione un horario</option>
+                  <ng-container *ngFor="let date of dateModel">
+                    <option [value]="date.idhorario">{{date.fecha_hora | date:'mediumTime'}}</option>
+                  </ng-container>
+                  
+                </select>
+
               </div>
             </div>
-      
+            
           </div>
   
   
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="isCreateUser">Crear</button>
+          <button type="submit" class="btn btn-primary" [disabled]="isAddUser">Crear</button>
         </div>
       </div>
     </div>

@@ -62,4 +62,13 @@ export class EventService {
     return this.http.get(`${base_url}/v1.0.0/public/horarios/${id}`);
   }
 
+
+  
+  public getControllerEvent = (id:number) => {
+    return this.http.get(`${base_url}/v1.0.0/admin/eventos/controladores/${id}`, this.header);
+  }
+
+  public addControllerEvent = (data:any) => {
+    return this.http.post(`${base_url}/v1.0.0/admin/asignar/controlador`, data, this.header);
+  }
 }

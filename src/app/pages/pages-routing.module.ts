@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AreasComponent } from './areas/areas.component';
+import { ControllerListComponent } from './events/controller-list/controller-list.component';
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { EventListComponent } from './events/event-list/event-list.component';
 import { LocationsComponent } from './locations/locations.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: 'lista-eventos', component: EventListComponent },
+      { path: 'evento/controladores/:id', component: ControllerListComponent },
       { path: 'evento/:id', component: CreateEventComponent },
       { path: 'ubicacion/:id', component: LocationsComponent },
       { path: 'area/:id', component: AreasComponent },

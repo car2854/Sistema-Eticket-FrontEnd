@@ -11,11 +11,25 @@ const base_url = environment.base_url;
 })
 export class UserService {
 
-  public user: UserModel = new UserModel('','','','','no-token');
+  public user: UserModel = new UserModel('','','','','','no-token', '');
 
   constructor(
     private httpClient: HttpClient
   ) { }
+
+
+  get header(){
+    return {
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      }
+    }
+  }
+
+  get token(){
+    return localStorage.getItem('token') || '';
+  }
 
   public login = (data:any) => {
 
@@ -38,11 +52,19 @@ export class UserService {
         );
   }
 
+
+  public registerController = (data:any) => {
+    return this.httpClient.post(`${base_url}/v1.0.0/auth/register`, data);
+  }
+
   public logout = () => {
 
     localStorage.removeItem('token');
-    this.user = new UserModel('','','','','no-token');
-    
-    
+    this.user = new UserModel('','','','','','no-token', '');
+     
+  }
+
+  public getUserController = () => {
+    return this.httpClient.get(`${base_url}/v1.0.0/admin/users/controlador`, this.header);
   }
 }
