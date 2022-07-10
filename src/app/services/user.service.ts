@@ -11,7 +11,7 @@ const base_url = environment.base_url;
 })
 export class UserService {
 
-  public user: UserModel = new UserModel('','','','','','no-token', '');
+  public user: UserModel = new UserModel('','','','','','', 'no-token');
 
   constructor(
     private httpClient: HttpClient
@@ -60,7 +60,7 @@ export class UserService {
   public logout = () => {
 
     localStorage.removeItem('token');
-    this.user = new UserModel('','','','','','no-token', '');
+    this.user = new UserModel('','','','','','', 'no-token');
      
   }
 
