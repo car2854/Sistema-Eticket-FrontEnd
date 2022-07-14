@@ -22,6 +22,14 @@ export class EventService {
     }
   }
 
+  get headerNoParse(){
+    return {
+      headers: {
+        'authorization': `Bearer ${this.token}`
+      }
+    }
+  }
+
   get token(){
     return localStorage.getItem('token') || '';
   }
@@ -70,5 +78,17 @@ export class EventService {
 
   public addControllerEvent = (data:any) => {
     return this.http.post(`${base_url}/v1.0.0/admin/asignar/controlador`, data, this.header);
+  }
+
+  public removeControllerEvent = (idcontrolador: string, idubicacion: number, idhorario: number) => {
+    return this.http.delete(`${base_url}/v1.0.0/admin/eventos/controladores/${idcontrolador}/${idubicacion}/${idhorario}`, this.header);
+  }
+
+  public getInfoDownload = (idubicacion: number) => {
+    return this.http.get(`${base_url}/v1.0.0/admin/reporte/${idubicacion}`, this.header);
+  }
+
+  public download = (data:any) => {
+    return this.http.post(`${base_url}/v1.0.0/admin/reporte/download`, data, this.header);
   }
 }

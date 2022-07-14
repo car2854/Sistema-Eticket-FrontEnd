@@ -14,6 +14,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserComponent } from './user/user.component';
 import { ControllerListComponent } from './events/controller-list/controller-list.component';
+import { ReportComponent } from './report/report.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ControllerListComponent } from './events/controller-list/controller-lis
     AreasComponent,
     UserComponent,
     ControllerListComponent,
+    ReportComponent,
   ],
   imports: [
     CommonModule,

@@ -2,11 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { errorHelpers } from 'src/app/helpers/helpers';
+import { ControllerModel } from 'src/app/models/controller';
 import { DateModel } from 'src/app/models/date';
 import { EventModel } from 'src/app/models/event';
 import { UserModel } from 'src/app/models/user';
 import { EventService } from 'src/app/services/event.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-controller-list',
@@ -27,7 +29,7 @@ export class ControllerListComponent implements OnInit {
   public loading: boolean[] = [true,true,true];
   public isAddUser: boolean = false;
   
-  public userModel: UserModel[] = [];
+  public userModel: ControllerModel[] = [];
   public allUserModel: UserModel[] = [];
   public eventModel!: EventModel;
   public dateModel: DateModel[] = [];
@@ -60,8 +62,8 @@ export class ControllerListComponent implements OnInit {
               this.loading[1] = false;
             },
             next: (resp:any) => {
+              this.allUserModel = resp;
               
-              this.verifyUser(resp);
               this.loading[1] = false;
             }
           });
@@ -77,6 +79,8 @@ export class ControllerListComponent implements OnInit {
           this.loading[2] = false;
         },
         next: (resp:any) => {
+          console.log(resp);
+          
           this.loading[2] = false;
           this.eventModel = resp;
         }
@@ -86,27 +90,10 @@ export class ControllerListComponent implements OnInit {
 
   }
 
-  public verifyUser = (userModelData: UserModel[]) => {
-
-    userModelData.forEach((userModel1: UserModel) => {
-
-      let exist = false;
-      this.userModel.forEach((userModel2: UserModel) => {
-
-        if (userModel1.id === userModel2.id) exist = true;
-
-      });
-
-      if (!exist) this.allUserModel.push(userModel1);
-       
-    });
-
-  }
-
   public changeLocation = () => {
 
     const idLocation = parseInt(this.userForm.get('idubicacion')?.value || '0');
-
+    
     this.eventService.getTimeEventPublic(idLocation)
       .subscribe({
         error: (err:any) => {
@@ -123,17 +110,41 @@ export class ControllerListComponent implements OnInit {
     return this.loading.includes(true);
   }
 
-  public passController = (idcontroller: string) => {
+  public delete = (user: ControllerModel) => {
 
-  
-    this.allUserModel = this.allUserModel.filter((userModel: UserModel) => {
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: `El controlador ${user.nombre} no podra controlar este evento`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-      if (userModel.id === idcontroller) {
-        this.userModel.push(userModel);
-        return false;
+        this.eventService.removeControllerEvent(user.id, user.idubicacion, user.idhorario)
+        .subscribe({
+          error: (err:any) => {
+            errorHelpers(err);
+          },
+          next: (_) => {
+            this.userModel.splice(1, this.userModel.indexOf(user));
+          },
+          complete: () => {
+            Swal.fire(
+              'Eliminado!',
+              'Este controlador ya no podra controlar este evento',
+              'success'
+            );
+          }
+        });
+
       }
-      return true;
-    }).map((userModel: UserModel) => userModel);
+    })
+
+ 
 
   }
 
@@ -148,7 +159,7 @@ export class ControllerListComponent implements OnInit {
       ...this.userForm.value,
       idevento: id
     }
-
+    
     this.eventService.addControllerEvent(data)
       .subscribe({
         error: (err:any) => {
@@ -156,7 +167,29 @@ export class ControllerListComponent implements OnInit {
           this.isAddUser = false;
         },
         next: (resp:any) => {
-          this.passController(resp.idcontrolador);
+
+          let userSelect:any, locationSelect:any, timeSelect:any;
+
+          const idcontroller = this.userForm.get('idcontrolador')?.value;
+          const iddate = parseInt(this.userForm.get('idhorario')?.value);
+          const idlocation = parseInt(this.userForm.get('idubicacion')?.value);
+          
+          this.allUserModel.forEach((user: UserModel) => {
+            if (user.id === idcontroller) userSelect = user;
+          });
+      
+          this.dateModel.forEach((date: DateModel) => {
+            if (date.idhorario === iddate) timeSelect = date;
+          });
+      
+          this.eventModel.ubicaciones.forEach((data:any) => {
+            if (data.idubicacion === idlocation) locationSelect = data;
+          });
+          
+          const newUser = new ControllerModel(resp.idcontrolador, timeSelect.fecha_hora, resp.idhorario, resp.idubicacion, userSelect.nombre, userSelect.rol, locationSelect.nombre)
+
+          this.userModel.push(newUser);
+
           this.isAddUser = false;
 
           this.userForm.get('idcontrolador')?.setValue(0);

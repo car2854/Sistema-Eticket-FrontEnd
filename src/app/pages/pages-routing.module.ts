@@ -6,6 +6,7 @@ import { CreateEventComponent } from './events/create-event/create-event.compone
 import { EventListComponent } from './events/event-list/event-list.component';
 import { LocationsComponent } from './locations/locations.component';
 import { PagesComponent } from './pages.component';
+import { ReportComponent } from './report/report.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'evento/:id', component: CreateEventComponent },
       { path: 'ubicacion/:id', component: LocationsComponent },
       { path: 'area/:id', component: AreasComponent },
+      { path: 'reportes', component: ReportComponent },
       { path: 'usuario', component: UserComponent },
       { path: '**', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full' },
       { path: '', redirectTo: '/dashboard/lista-eventos', pathMatch: 'full', }

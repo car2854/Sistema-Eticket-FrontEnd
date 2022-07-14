@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { errorHelpers } from 'src/app/helpers/helpers';
 import { CategoryModel } from 'src/app/models/category';
 import { EventModel } from 'src/app/models/event';
 import { CategoryService } from 'src/app/services/category.service';
@@ -88,12 +89,7 @@ export class EventListComponent implements OnInit {
         this.eventService.deleteEvent(event.idevento)
         .subscribe({
           error: (err:any) => {
-            console.log(err);
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: err.error.message,
-            });
+            errorHelpers(err);
           },
             complete: () => {
               this.events.splice(this.events.indexOf(event), 1);
