@@ -33,23 +33,13 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Rol</th>
-                    <th style="width: 150px">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let user of userModel">
                     <td>{{user.nombre}}</td>
                     <td>{{user.rol}}</td>
-                    <td>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu" role="menu">
-                          <a class="dropdown-item">Eliminar</a>
-                        </div>
-                      </div>
-                    </td>
+ 
                   </tr>
                 </tbody>
               </table>
