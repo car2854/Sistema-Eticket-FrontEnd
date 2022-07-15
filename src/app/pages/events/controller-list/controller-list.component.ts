@@ -130,7 +130,7 @@ export class ControllerListComponent implements OnInit {
             errorHelpers(err);
           },
           next: (_) => {
-            this.userModel.splice(1, this.userModel.indexOf(user));
+            this.userModel.splice(this.userModel.indexOf(user), 1);
           },
           complete: () => {
             Swal.fire(
@@ -142,7 +142,7 @@ export class ControllerListComponent implements OnInit {
         });
 
       }
-    })
+    });
 
  
 
