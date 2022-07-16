@@ -39,7 +39,7 @@
                   <tr *ngFor="let user of userModel">
                     <td>{{user.nombre}}</td>
                     <td>{{user.ubicacion}}</td>
-                    <td>{{user.horario | date:'short'}}</td>
+                    <td>{{user.horario | date:'M/d/yy, h:mm a':'UTC-0'}}</td>
                     <td>
                       <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
