@@ -248,6 +248,7 @@ export class AreasComponent implements OnInit {
                     space.identificador = this.spaceForm.get('identificador')?.value;
                     space.tipo_de_espacio = this.spaceForm.get('tipo_de_espacio')?.value;
                     space.cantidad_de_personas = this.spaceForm.get('cantidad_de_personas')?.value;
+                    space.precio = this.spaceForm.get('precio')?.value;
                     this.refCreateSpaceModal.nativeElement.click();
                   }
                 });

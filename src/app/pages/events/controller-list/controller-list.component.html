@@ -117,7 +117,7 @@
                 <select name="" id="" class="form-control" formControlName="idhorario">
                   <option value="0" hidden>Seleccione un horario</option>
                   <ng-container *ngFor="let date of dateModel">
-                    <option [value]="date.idhorario">{{date.fecha_hora | date:'mediumTime'}}</option>
+                    <option [value]="date.idhorario">{{date.fecha_hora | date:'yyyy/MM/dd':'UTC-0'}}</option>
                   </ng-container>
                   
                 </select>
